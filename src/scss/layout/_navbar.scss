@@ -1,0 +1,29 @@
+.navbar {
+   background-color: #0000004f;
+    position: absolute;
+    z-index: 50;
+    top: 0;
+    width: 100%;
+    #logo {
+        // position: none !important;
+        width: 200px;
+        height: 50px;
+    }
+    ul{
+        li{
+        
+        }
+    }
+    .my-active {
+    
+        color: red !important;
+        
+      }
+      
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+}
