@@ -26,7 +26,7 @@ export default function Banner() {
         })
     }
     return (
-        <div id="carouselId" className="carousel slide mb-5" data-ride="carousel">
+        <div id="carouselId" className="carousel slide" data-ride="carousel">
             <ol className="carousel-indicators">
                 <li data-target="#carouselId" data-slide-to={0} className="active" />
                 <li data-target="#carouselId" data-slide-to={1} />
