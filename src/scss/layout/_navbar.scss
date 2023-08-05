@@ -1,29 +1,56 @@
 .navbar {
-   background-color: #0000004f;
+    background-color: #0000004f;
     position: absolute;
     z-index: 50;
     top: 0;
     width: 100%;
+
     #logo {
         // position: none !important;
-        width: 200px;
-        height: 50px;
+        width: 10vw;
+        height: 5vh;
     }
-    ul{
-        li{
-        
+
+    .navbar-nav {
+        .nav-item {
+            .nav-link {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
         }
     }
+
     .my-active {
-    
+
         color: red !important;
-        
-      }
-      
+
+    }
+
+    .navbar-custom {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+
+        .navbar-collapse {
+            text-align: center;
+        }
+
+        .navbar-toggler {
+            height: 2.5rem;
+        }
+    }
 }
 
 .navbar-dark .navbar-nav .nav-link {
     color: #fff;
     font-size: 1rem;
     font-weight: 500;
+}
+
+@include Reponsive ($xs){
+    .navbar-custom #logo{
+        width:  15vw;
+      
+    }
 }

@@ -1,0 +1,47 @@
+#carouselId {
+    ol {
+        margin-bottom: 2.5rem;
+
+        li {
+            border-radius: 50%;
+            width: 0.75rem;
+            height: 0.75rem;
+        }
+
+        .active {
+            background-color: #fff;
+        }
+    }
+
+    .carousel-inner {
+        .carousel-item {
+            img {
+                object-fit: fill;
+                height: 700px;
+                width: 100%
+            }
+        }
+    }
+
+
+}
+
+@include Reponsive($xs) {
+    .carousel-item {
+        img {
+
+            height: 300px !important;
+        }
+
+    }
+}
+
+@include Reponsive($md) {
+    .carousel-item {
+        img {
+            height: 400px !important;
+        }
+
+    }
+}
+
