@@ -20,7 +20,7 @@ export default function Banner() {
             return (
 
                 <div className={`carousel-item  ${active}`} key={index} >
-                    <img style={{objectFit:'fill',height:700, width:'100%'}} src={item.hinhAnh} alt={item.maBanner} />
+                    <img  src={item.hinhAnh} alt={item.maBanner} />
                 </div>
             )
         })
