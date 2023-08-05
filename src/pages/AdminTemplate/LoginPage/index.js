@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { actAuth } from './duck/actions'
-import { useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 export default function LoginPage() {
   const dispatch = useDispatch()
@@ -31,14 +31,12 @@ export default function LoginPage() {
     )
   }
   return (
-    <div className='container'>
-      <h3 className='text-center '>Đăng nhập</h3>
+    <div className='container login-page'>
       <div className="row ">
-        <div className="col-md-6 col-lg-6 mx-auto">
-          {renderError()}
+        <div className="col-md-6 col-lg-6 mx-auto mt-5">
+          <h3 className='text-center mb-0 '>Đăng nhập</h3>
           <form onSubmit={handleSubmit}>
-
-            <div className="card  mt-5">
+            <div className="card mx-auto  mt-5">
               <div className="card-body " >
                 <div className="form-group">
                   <label>Tên đăng nhập</label>
@@ -48,9 +46,17 @@ export default function LoginPage() {
                   <label>Mật khẩu</label>
                   <input type="text" name='matKhau' className="form-control" onChange={handleOnchange} />
                 </div>
+                {renderError()}
                 <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: 60 }}>
-                  <button className='btn btn-danger'>Huỷ</button>
-                  <button className='btn btn-success' >Đăng nhập</button>
+                  <button className='btn btn-success' type='submit'>Đăng nhập</button>
+                </div>
+                <div className='btn-register mt-3'>
+                  <div>
+
+                    <NavLink to={'/register'} className=''>
+                      <h3>Bạn chưa có tài khoản? Đăng ký</h3>
+                    </NavLink>
+                  </div>
                 </div>
               </div>
             </div>

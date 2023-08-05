@@ -1,7 +1,21 @@
-import { UserOutlined, UserAddOutlined   } from '@ant-design/icons'
+import { UserOutlined, UserAddOutlined } from '@ant-design/icons'
+import { actLogout } from 'pages/AdminTemplate/LoginPage/duck/actions'
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { NavLink, useNavigate } from 'react-router-dom'
 export default function Navbar() {
+  let dispatch = useDispatch();
+  let navigate = useNavigate();
+  let isValid = true
+  let name = ''
+  if (localStorage.getItem('Customer', 'UserAdmin')) {
+    isValid = false
+    name = localStorage.getItem('Customer', 'UserAdmin') ? JSON.parse(localStorage.getItem('Customer', 'UserAdmin')).hoTen : ''
+
+  }
+  const handleLogout = () => {
+    dispatch(actLogout(navigate))
+  }
   return (
 
 
@@ -9,9 +23,9 @@ export default function Navbar() {
       <div className="container">
         {/* Brand */}
         <div className='navbar-custom'>
-          
-            <img id='logo' src="https://cybersoft.edu.vn/wp-content/uploads/2022/10/cyberlogo-white.png" alt="cybersoft" />
-         
+
+          <img id='logo' src="https://cybersoft.edu.vn/wp-content/uploads/2022/10/cyberlogo-white.png" alt="cybersoft" />
+
           {/* Navbar links */}
           <div className="collapse navbar-collapse" id="collapsibleNavbar">
             <ul className="navbar-nav ml-auto">
@@ -35,27 +49,39 @@ export default function Navbar() {
                   Cụm Rạp
                 </NavLink>
               </li>
-              <li className="nav-item">
+              {isValid && (<li className="nav-item">
                 <NavLink
                   className={({ isActive }) =>
                     isActive ? "my-active nav-link" : "nav-link"
                   }
                   to="/auth"
                 >
-                  
-                  <UserOutlined  className='mr-1'/>Đăng nhập
+
+                  <UserOutlined className='mr-1' />Đăng nhập
                 </NavLink>
-              </li>
-              <li className="nav-item">
+              </li>)}
+              {isValid && (<li className="nav-item">
                 <NavLink
                   className={({ isActive }) =>
                     isActive ? "my-active nav-link" : "nav-link"
                   }
                   to="/register"
                 >
-                  <UserAddOutlined className='mr-1'/>Đăng ký
+                  <UserAddOutlined className='mr-1' />Đăng ký
                 </NavLink>
-              </li>
+              </li>)}
+              {!isValid && (<li className="nav-item customer-name">
+                <NavLink
+                  className="nav-link "
+                  to="/"
+                >
+                  <UserOutlined className='mr-1' />{name}
+                </NavLink>
+                <ul className='name-menu p-3'>
+                  <li><button>Thông tin cá nhân</button></li>
+                  <li><button onClick={handleLogout}>Đăng xuất</button></li>
+                </ul>
+              </li>)}
             </ul>
 
           </div>
