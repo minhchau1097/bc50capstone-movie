@@ -10,7 +10,9 @@ export const actRegister = (user, navigate) => {
         if (result.data.statusCode === 200) {
           const user = result.data.content;
           //luu thong tin tk moi dang ky
-          dispatch(actRegisterSuccess(user))
+          dispatch(actRegisterSuccess(user));
+          //lưu trạng thái register
+          localStorage.setItem("Register", JSON.stringify(user));
           //chuyen huong page
           navigate("/auth", { replace: true });
         }
