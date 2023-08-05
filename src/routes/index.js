@@ -17,6 +17,10 @@ const routes = [
             {
                 path: "detail/:id",
                 element: lazy(() => import("./../pages/HomeTemplate/DetailMoviePage")),
+            },
+            {
+                path: 'booking-ticket',
+                element: lazy(()=> import("./../pages/HomeTemplate/HomePage/bookingTicket")),
             }
         ]
     },
@@ -37,7 +41,11 @@ const routes = [
     },
     {
         path: "auth",
-        element: lazy(() => import("./../pages/AdminTemplate/LoginPage"))
+        element: lazy(() => import("./../pages/AdminTemplate/LoginPage")),
+    },
+    {
+        path: "register",
+        element: lazy(() => import("../pages/AdminTemplate/RegisterPage")),
     }
 ]
 
