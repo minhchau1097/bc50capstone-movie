@@ -1,6 +1,5 @@
 import { BANNER_MOVIE_FAIL,BANNER_MOVIE_REQUEST,BANNER_MOVIE_SUCCESS  } from "./constants";
-import api from "../../../../../utils/api";
-
+import api from "utils/api";
 
 export const fetchBannerMovie =()=>{
     return(dispatch)=>{

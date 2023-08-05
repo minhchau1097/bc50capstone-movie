@@ -4,7 +4,7 @@ import { lazy } from "react";
 const routes = [
     {
         path: '',
-        element: lazy(() => import('./../pages/HomeTemplate')),
+        element: lazy(() => import('pages/HomeTemplate')),
         nested: [
             {
                 path: '',

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchListMovie } from './duck/actions'
 import Banner from './Banner'
 import LichChieu from './LichChieu';
+import MovieTheater from './MovieTheater';
 // import MovieTheater from './MovieTheater'
 
 export default function HomePage() {
@@ -25,9 +26,9 @@ export default function HomePage() {
                 <div className="row">
                     {renderMovie()}
                 </div>
-                <MovieTheater />
             </div> */}
             <LichChieu />
+            {/* <MovieTheater /> */}
 
         </div>
     )
