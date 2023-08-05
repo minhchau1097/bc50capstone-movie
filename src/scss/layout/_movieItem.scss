@@ -49,24 +49,25 @@
     border-radius: 5px;
     box-shadow: 0px 8px 8px gray;
   }
-  .headerTitle{
-    background-image: url(./../../../public/images/ticket.png);
-    background-position: center;
-  }
+ 
   
   .partition{
     border-left: 1px solid #eeeeee;
   }
   
   .btnMuaVe{
-    padding: 15px 30px;
+    padding: 15px 40px;
     margin-top: 13px;
-    margin-left: 50px;
+    margin-left: 45px;
     color: #fff;
     background-color: #fb4226;
     border: none;
     font-weight: 700;
     border-radius: 5px;
+    transition: all .3s;
+  }
+  .btnMuaVe:hover{
+    background-color: #c52911;
   }
   .headerTitle .under-line::after{
     left: 0;
@@ -81,6 +82,50 @@
   .headerTitle .under-line:hover::after{
     transform: scaleX(1);
   }
+
+  .movie-card{
+    border: none;
+  }
+  
+  .header-buy-ticket{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80%;
+    background-color: rgba(32, 31, 31, 0.6);
+    color: white;
+    padding: 100px 40px;
+    opacity: 0;
+    transition: all .2s;
+    cursor: pointer;
+  }
+  .btn-BuyTicket{
+    position: absolute;
+    top: 415px;
+    left: 0;
+    width: 100%;
+    height: 15%;
+    background-color: #fb4226;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    opacity: 1;
+  }
+  .footer-buy-ticket{
+    position: absolute;
+    top: 400px;
+    left: 0;
+    width: 100%;
+    height: 20%;
+    background-color: white;
+    opacity: 1;
+  }
+  
+  .header-buy-ticket:hover{
+    opacity: 1;
+  }
+
   /* FOOTER LỊCH CHIẾU */
   .slick-slide .movie-card::before{
     position: absolute;

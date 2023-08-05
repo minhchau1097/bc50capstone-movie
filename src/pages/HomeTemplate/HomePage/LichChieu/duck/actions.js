@@ -1,5 +1,5 @@
 import { LICHCHIEU_REQUEST, LICHCHIEU_SUCCESS, LICHCHIEU_FAIL } from './constants';
-import api from "../../../../../utils/api";
+import api from "utils/api";
 
 export const actFetchLichChieu = () => {
   return (dispatch) => {
