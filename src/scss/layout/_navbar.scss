@@ -18,6 +18,31 @@
                 align-items: center;
                 justify-content: center;
             }
+
+
+            li {
+                color: #fff;
+            }
+        }
+    }
+
+    .customer-name {
+        position: relative;
+        &:hover .name-menu{
+            // display: block;
+            opacity: 1;
+            visibility: visible;
+        }
+        .name-menu {
+            position: absolute;
+            top: 32px;
+            font-size: 0.75rem;
+            opacity: 0;
+            visibility: hidden;
+            // display: none;
+            background-color: #000;
+            transition: all 0.5s;
+           
         }
     }
 
@@ -48,9 +73,9 @@
     font-weight: 500;
 }
 
-@include Reponsive ($xs){
-    .navbar-custom #logo{
-        width:  15vw;
-      
+@include Reponsive ($xs) {
+    .navbar-custom #logo {
+        width: 15vw;
+
     }
 }
