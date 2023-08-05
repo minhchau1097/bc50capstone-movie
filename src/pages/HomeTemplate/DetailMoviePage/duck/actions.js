@@ -1,5 +1,5 @@
 import { DETAIL_MOVIE_FAIL,DETAIL_MOVIE_REQUEST,DETAIL_MOVIE_SUCCESS  } from "./constants";
-import api from "../../../../utils/api";
+import api from "utils/api";
 
 export const fetchDetailMovie =(id)=>{
     return(dispatch)=>{

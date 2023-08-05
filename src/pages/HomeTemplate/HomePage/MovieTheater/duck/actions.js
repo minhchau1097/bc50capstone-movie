@@ -1,5 +1,5 @@
 import * as ActionType from "./constants";
-import api from "../../../../../utils/api";
+import api from "utils/api";
 
 export const fetchMovieTheater =()=>{
     return(dispatch)=>{
