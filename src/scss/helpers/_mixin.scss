@@ -1,5 +1,9 @@
 @mixin Reponsive ($type) {
-    @if $type ==$xs {
+    @if $type ==$xxs {
+        @media screen and (max-width:$xxs) {
+            @content;
+        }
+    }@else if $type ==$xs {
         @media screen and (max-width:$xs) {
             @content;
         }
