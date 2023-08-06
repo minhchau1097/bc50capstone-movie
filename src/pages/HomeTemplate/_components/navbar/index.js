@@ -19,7 +19,7 @@ export default function Navbar() {
   return (
 
 
-    <nav className="navbar navbar-expand-lg  navbar-dark">
+    <nav className="navbar navbar-expand-md  navbar-dark">
       <div className="container">
         {/* Brand */}
         <div className='navbar-custom'>
@@ -28,12 +28,10 @@ export default function Navbar() {
 
           {/* Navbar links */}
           <div className="collapse navbar-collapse" id="collapsibleNavbar">
-            <ul className="navbar-nav ml-auto">
+            <ul className="navbar-nav">
               <li className="nav-item ">
                 <NavLink
-                  className={({ isActive }) =>
-                    isActive ? "my-active nav-link" : "nav-link"
-                  }
+                  className='nav-link'
                   to="/"
                 >
                   Lịch Chiếu
@@ -41,9 +39,7 @@ export default function Navbar() {
               </li>
               <li className="nav-item">
                 <NavLink
-                  className={({ isActive }) =>
-                    isActive ? "my-active nav-link" : "nav-link"
-                  }
+                  className='nav-link'
                   to="/about"
                 >
                   Cụm Rạp
@@ -51,9 +47,7 @@ export default function Navbar() {
               </li>
               {isValid && (<li className="nav-item">
                 <NavLink
-                  className={({ isActive }) =>
-                    isActive ? "my-active nav-link" : "nav-link"
-                  }
+                  className='nav-link'
                   to="/auth"
                 >
 
@@ -62,9 +56,7 @@ export default function Navbar() {
               </li>)}
               {isValid && (<li className="nav-item">
                 <NavLink
-                  className={({ isActive }) =>
-                    isActive ? "my-active nav-link" : "nav-link"
-                  }
+                  className='nav-link'
                   to="/register"
                 >
                   <UserAddOutlined className='mr-1' />Đăng ký
@@ -77,7 +69,7 @@ export default function Navbar() {
                 >
                   <UserOutlined className='mr-1' />{name}
                 </NavLink>
-                <ul className='name-menu p-3'>
+                <ul className='name-menu'>
                   <li><button>Thông tin cá nhân</button></li>
                   <li><button onClick={handleLogout}>Đăng xuất</button></li>
                 </ul>

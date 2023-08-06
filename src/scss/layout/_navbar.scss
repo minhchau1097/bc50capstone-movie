@@ -12,11 +12,16 @@
     }
 
     .navbar-nav {
+        margin-left: auto;
+
         .nav-item {
             .nav-link {
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                &:hover{
+                    color: #f30808e8;
+                }
             }
 
 
@@ -28,21 +33,33 @@
 
     .customer-name {
         position: relative;
-        &:hover .name-menu{
+
+        &:hover .name-menu {
             // display: block;
             opacity: 1;
             visibility: visible;
+            li{
+                margin-top: 8px;
+                font-weight: bold;
+                &:hover{
+                    color: #f30808e8;
+                }
+            }
         }
+
         .name-menu {
             position: absolute;
             top: 32px;
+            left: 0;
             font-size: 0.75rem;
             opacity: 0;
             visibility: hidden;
             // display: none;
-            background-color: #000;
+            background-color: #000000c7;
             transition: all 0.5s;
-           
+            width: 100%;
+            border-radius: 1rem;
+            padding: 0.5rem
         }
     }
 
@@ -73,9 +90,64 @@
     font-weight: 500;
 }
 
+// @include Reponsive ($lg){
+//     .customer-name{
+//         .name-menu{
+//             left: 39% !important;
+//         }
+//     }
+// }
+@include Reponsive ($sm) {
+    .navbar {
+        .navbar-nav {
+            margin: 0 auto;
+            width: 60%;
+        }
+
+        .customer-name {
+            .name-menu {
+                width: 47%;
+                left: 25%;
+            }
+        }
+    }
+
+}
+
 @include Reponsive ($xs) {
+    .navbar {
+        .navbar-nav {
+            margin: 0 auto;
+            width: 60%;
+        }
+        .customer-name {
+            .name-menu {
+                // left: 25% !important;
+                display: block;
+                width: 100%;
+                left: 0;
+            }
+        }
+    }
+
     .navbar-custom #logo {
         width: 15vw;
 
+    }
+
+   
+}
+
+@include Reponsive ($xxs) {
+    .navbar {
+
+        .customer-name {
+            .name-menu {
+                // left: 20% !important;
+                width: 100%;
+                left: 0;
+
+            }
+        }
     }
 }

@@ -10,28 +10,27 @@ export default function MovieTheater() {
     dispatch(fetchMovieTheater())
   }, [])
   const renderMovieTheater = () => {
-    return data?.map((item) => {
+    return data?.map((item, index) => {
       return (
-        <table className="table">
-          <tbody>
-            <tr>
-              <td>     <img style={{ width: 80, height: 80 }} src={item.logo} alt="" />
-              </td>
-            <td>we2</td>
-          </tr>
-          <tr>
-            <td scope="row" />
-            <td />
-            <td />
-          </tr>
-        </tbody>
-      </table >
-   
+        <tr>
+            <td key={index}>  <img style={{ width: 80, height: 80 }} src={item.logo} alt="" />
+        </td>
+            </tr>
       )
-})
+    })
   }
-return (
-   
-renderMovieTheater()
+  return (
+    <div className="container">
+       <table className="table">
+          <tbody>
+            {renderMovieTheater()}
+            <tr>
+              <td scope="row" />
+              <td />
+              <td />
+            </tr>
+          </tbody>
+        </table >
+    </div>
   )
 }

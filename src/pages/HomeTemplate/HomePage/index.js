@@ -9,7 +9,7 @@ export default function HomePage() {
         <div>
             <Banner />
             <LichChieu />
-            {/* <MovieTheater /> */}
+            <MovieTheater />
 
         </div>
     )
