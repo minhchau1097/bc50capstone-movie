@@ -30,7 +30,7 @@ export default function RegisterPage() {
   }
 
   const renderError = () => {
-    return <div className='alert alert-danger'>{error?.response.data.content}</div>
+    return <div div className='alert alert-danger'>{error.response.data.content}</div>
   }
 
   return (
@@ -63,8 +63,7 @@ export default function RegisterPage() {
                 </div>
                 {error && renderError()}
                 <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: 20 }}>
-                  <button className='btn btn-success' >Đăng Ký</button>
-                  <button className='btn btn-danger'>Huỷ</button>
+                  <button className='btn btn-success w-100' >Đăng Ký</button>
                 </div>
               </div>
             </div>
