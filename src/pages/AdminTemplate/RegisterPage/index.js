@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { actRegister } from './duck/actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
+
 
 
 export default function RegisterPage() {
@@ -34,8 +35,8 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className='container'>
-      <h3 className='text-center '>Đăng Ký</h3>
+    <div className='container register-page'>
+      <h3 className='text-center'>Đăng Ký</h3>
       <div className="row ">
         <div className="col-md-6 col-lg-6 mx-auto">
           <form onSubmit={handleSubmit}>
@@ -64,6 +65,13 @@ export default function RegisterPage() {
                 {error && renderError()}
                 <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: 20 }}>
                   <button className='btn btn-success w-100' >Đăng Ký</button>
+                </div>
+                <div className='btn-redirect-login mt-3'>
+                  <div>
+                    <NavLink to={'/auth'} className=''>
+                      <h3>Bạn đã có tài khoản!!! Hãy đăng nhập tại đây</h3>
+                    </NavLink>
+                  </div>
                 </div>
               </div>
             </div>
