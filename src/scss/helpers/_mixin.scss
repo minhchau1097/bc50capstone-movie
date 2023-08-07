@@ -22,5 +22,29 @@
         @media screen and (max-width:$lg) {
             @content;
         }
-    }
+    } 
+}
+
+@mixin ReponsiveNTN ($type) {
+    @if $type ==$xxs1 {
+        @media screen and (max-width:$xxs1) {
+            @content;
+        }
+    }@else if $type ==$xs1 {
+        @media screen and (max-width:$xs1) {
+            @content;
+        }
+    }@else if $type == $sm1 {
+        @media screen and (max-width:$sm1) {
+            @content;
+        }
+    }@else if $type == $md1 {
+        @media screen and (max-width:$md1) {
+            @content;
+        }
+    }@else if $type == $lg1 {
+        @media screen and (max-width:$lg1) {
+            @content;
+        }
+    } 
 }
