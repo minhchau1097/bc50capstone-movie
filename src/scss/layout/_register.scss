@@ -1,0 +1,17 @@
+.register-page {
+    form {
+        .btn-success {
+            background-color: #fb4226;
+        }
+        :hover .btn-success{
+            background-color: #fb4226d5;
+        }
+        .btn-redirect-login{
+            display: flex;
+            justify-content: flex-end;
+           h3{
+            font-size: 1rem !important;
+           }
+        }
+    }
+}
