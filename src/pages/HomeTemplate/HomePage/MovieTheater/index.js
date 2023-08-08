@@ -21,7 +21,7 @@ export default function MovieTheater() {
           <Tabs tabPosition={state.tabPosition} >
             {item.lstCumRap.map((item1, index) => {
               return (
-                <TabPane  tab={
+                <TabPane tab={
                   <div className='d-flex'>
                     <img src={item1.hinhAnh} alt={item1.tenCumRap} style={{ width: 60 }} />
                     <div className='d-flex flex-col text-left w-50'>
@@ -41,12 +41,12 @@ export default function MovieTheater() {
 
 
                       </div>
-
+                      
                     )
                     // }
-                  })}
-
+                  })}                  
                 </TabPane>
+
               )
             })}
           </Tabs>

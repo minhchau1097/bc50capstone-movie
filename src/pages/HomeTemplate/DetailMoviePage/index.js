@@ -25,8 +25,7 @@ export default function DetailMoviePage() {
                     <p>{data && data.moTa}</p>
                     {/* <iframe width={560} height={315} src={`${data&& data.trailer}`} title="YouTube video player" frameBorder={0} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />
                      */}
-                     <button className='btn btn-primary'>Mua vé</button>
-
+                    <button className='btn btn-primary'>Mua vé</button>
                     
                 </div>
             </div>
