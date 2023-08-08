@@ -4,10 +4,13 @@ import Slider from "react-slick";
 import Swal from 'sweetalert2';
 import { actFetchLichChieu } from './duck/actions';
 import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 function LichChieu() {
   const dispatch = useDispatch();
   const data = useSelector((state)=> state.lichChieuReducer.data);
+  const param = useParams();
+  console.log(param)
   
   const settings = {
     dots: true,

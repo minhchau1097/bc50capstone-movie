@@ -7,8 +7,8 @@
 
     #logo {
         // position: none !important;
-        width: 10vw;
-        height: 5vh;
+        width: 200px;
+        height: 60px;
     }
 
     .navbar-nav {
@@ -110,8 +110,12 @@
                 left: 25%;
             }
         }
+        
     }
+    .navbar-custom #logo {
+        width: 120px;
 
+    }
 }
 
 @include Reponsive ($xs) {
@@ -131,7 +135,7 @@
     }
 
     .navbar-custom #logo {
-        width: 15vw;
+        width: 80px;
 
     }
 
