@@ -1,11 +1,11 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function LichChieuItem(props) {
   return (
     <div className="movie-card card m-2 mb-4">
       <div className="header-buy-ticket">
-        <NavLink to={`/detail/${props.movie.maPhim}`}><button className='btn btn-BuyTicket' style={{ zIndex: '1' }}>Mua Vé</button></NavLink>
+        <Link to={`/detail/${props.movie.maPhim}`} className='btn btn-BuyTicket' style={{ zIndex: '1' }}>Mua Vé</Link>
         <div className='footer-buy-ticket'></div>
       </div>
       <img className="card-img-top" src={props.movie.hinhAnh} alt="" style={{ height: '400px', objectFit: 'cover' }} />

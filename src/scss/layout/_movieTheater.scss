@@ -1,0 +1,12 @@
+.movie-theater {
+    overflow: hidden;
+    height: 720px;
+    max-height: 720px;
+
+    .movie-theater-address {
+        color: #757575;
+        overflow: hidden;
+        font-weight: 400;
+        text-overflow: ellipsis;
+    }
+}
