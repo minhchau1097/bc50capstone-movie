@@ -6,6 +6,7 @@ import listMovieTheaterReducer from "../pages/HomeTemplate/HomePage/MovieTheater
 import loginReducer from "../pages/AdminTemplate/LoginPage/duck/reducer";
 import lichChieuReducer from './../pages/HomeTemplate/HomePage/LichChieu/duck/reducer';
 import registerReducer from './../pages/AdminTemplate/RegisterPage/duck/reducer';
+import bookingTicketReducer from './../pages/HomeTemplate/BookingTicketPage/duck/reducer';
 const rootReducer = combineReducers({
     //child
     // listMovieReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     listMovieTheaterReducer,
     loginReducer,    
     registerReducer,
+    bookingTicketReducer,    
 })
 
 
