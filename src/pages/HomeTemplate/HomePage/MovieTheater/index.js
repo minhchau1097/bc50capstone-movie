@@ -19,26 +19,30 @@ export default function MovieTheater() {
   const renderMovieTheater = () => {
     return data?.map((item, index) => {
       return (
-        <TabPane tab={<img style={{ width: 60, height: 60 }} src={item.logo} alt={item.tenHeThongRap} />} key={index}>
+        <TabPane  tab={
+          <div className='movie-theater-logo'>
+            <img style={{ width: 50, height: 50 }} src={item.logo} alt={item.tenHeThongRap} /> </div>} key={index}
+        >
+
           <Tabs tabPosition={state.tabPosition}  >
             {item.lstCumRap.map((item1, index) => {
               return (
                 <TabPane tab={
-                  <div className='d-flex flex-col text-left ' style={{ width: 280 }}>
-                    <p>{item1.tenCumRap}</p>
+                  <div className='text-left movie-theater-title ' style={{ width: 280,height:50 }}>
+                    <p className='movie-theater-name'>{item1.tenCumRap}</p>
                     <p className='movie-theater-address'>{item1.diaChi}</p>
                   </div>
-                } key={index} >
+                } key={index} style={{ overflowY: 'scroll', flexGrow: 1, height: 720 }} >
                   {item1.danhSachPhim.map((item2, index) => {
                     return (
 
-                      <div className={`d-flex pt-4 ${index >= 1 ? 'mt-4' : ''}`} key={index} style={{ width: 400 }} >
-                        <img src={item2.hinhAnh} alt={item2.tenPhim} style={{ width: 100 ,height:130}} />
-                        <div className='pl-4'>
-                          <p>{item2.tenPhim}</p>
-                          <div className='d-flex'>{item2.lstLichChieuTheoPhim.map((item3, index) => {
-                            if (index < 3) {
-                              return <Link to={`/booking-ticket/${item3.maLichChieu}`} key={index}>{item3.ngayChieuGioChieu}</Link>
+                      <div className={`d-flex  movie-theater-box  ${index >= 1 ? 'mt-4' : ''}`} key={index} >
+                        <img src={item2.hinhAnh} alt={item2.tenPhim} style={{ width: 100, height: 130, borderRadius: 12 }} />
+                        <div className='pl-4' style={{ width: 400 }}>
+                          <p className='movie-theater-movie-name mb-1'><span>C18</span>{item2.tenPhim}</p>
+                          <div className='movie-theater-movie-date '>{item2.lstLichChieuTheoPhim.map((item3, index) => {
+                            if (index < 4) {
+                              return <Link to={`/booking-ticket/${item3.maLichChieu}`} className='movie-date' key={index}>{item3.ngayChieuGioChieu}</Link>
                             } else {
                               return null;
                             }
@@ -58,8 +62,8 @@ export default function MovieTheater() {
   }
 
   return (
-    <div className="container pb-5 movie-theater ">
-      <Tabs className='border' tabPosition={state.tabPosition} style={{ overflowY: 'scroll' }}>
+    <div className="container mb-5  ">
+      <Tabs className='movie-theater' tabPosition={state.tabPosition} >
         {renderMovieTheater()}
       </Tabs>
 
