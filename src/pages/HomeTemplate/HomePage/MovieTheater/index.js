@@ -42,7 +42,7 @@ export default function MovieTheater() {
                           <p className='movie-theater-movie-name mb-1'><span>C18</span>{item2.tenPhim}</p>
                           <div className='movie-theater-movie-date '>{item2.lstLichChieuTheoPhim.map((item3, index) => {
                             if (index < 4) {
-                              return <Link className='movie-date' key={index}>{item3.ngayChieuGioChieu}</Link>
+                              return <Link to={`/booking-ticket/${item3.maLichChieu}`} className='movie-date' key={index}>{item3.ngayChieuGioChieu}</Link>
                             } else {
                               return null;
                             }
@@ -52,6 +52,7 @@ export default function MovieTheater() {
                     )
                   })}
                 </TabPane>
+
               )
             })}
           </Tabs>
