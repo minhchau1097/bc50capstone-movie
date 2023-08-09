@@ -3,25 +3,19 @@ import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchDetailMovie } from './duck/actions'
 import LoadingComponent from 'GlobalSetting/Loading/LoadingComponent'
+import Trailer from '../Trailer'
 export default function DetailMoviePage() {
     const param = useParams()
     const loading = useSelector((state) => state.detailMovieReducer.loading)
     const data = useSelector((state) => state.detailMovieReducer.data)
     const dispatch = useDispatch();
-    let trailer = 'd-none';
+
     useEffect(() => {
         dispatch(fetchDetailMovie(param.id))
         console.log('useEffect')
     }, [])
-    const getSrcYoutube = (url) => {
-        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/
-        const match = url.match(regExp)
-        const ID = (match && match[2].length === 11) ? match[2] : null
-        return 'https://www.youtube.com/embed/' + ID
-    }
-    const handleTrailer = () => {
-        trailer = 'd-block'
-    }
+
+
 
     return (
         <div className="container detail-movie">
@@ -36,13 +30,17 @@ export default function DetailMoviePage() {
                     <p>{data && data.moTa}</p>
 
                     <button className='btn btn-primary'>Mua vé</button>
-                    <button className='btn btn-danger' onClick={handleTrailer}>Trailer</button>
+                    {/* Button trigger modal */}
+                    <button type="button" className="btn btn-danger " data-toggle="modal" data-target="#modelId" onClick={() => {
+                        dispatch({
+                            type: 'OPEN_FORM',
+                            data: <Trailer trailer={data.trailer} />
+                        })
+                    }}>
+                        Trailer
+                    </button>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/103LVliF9pA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-                    {/* <div className={`detail-movie-trailer ${trailer}`} > */}
-                        {data && (
-                            <iframe width={560} height={315} src={getSrcYoutube(data.trailer)} frameborder={0} allowFullScreen></iframe>)}
-
-                    {/* </div> */}
 
 
                 </div>

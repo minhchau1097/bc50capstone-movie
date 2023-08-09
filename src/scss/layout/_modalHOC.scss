@@ -1,0 +1,20 @@
+#modelId{
+    background-color: #000000b6;
+    .modal-content{
+        width: 700px;
+        height: 400px;
+        transform: translate(-50%,50%);
+        left: 50%;
+        right: 50%;
+        background-color: transparent;
+        border: none;
+    }
+    .btn-close-trailer{
+        position: absolute;
+        top: -50px;
+        right: -45px;
+        font-size: 3rem;
+        color: #fff;
+        opacity: 1;
+    }
+}
