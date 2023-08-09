@@ -38,7 +38,7 @@ export default function MovieTheater() {
                           <p>{item2.tenPhim}</p>
                           <div className='d-flex'>{item2.lstLichChieuTheoPhim.map((item3, index) => {
                             if (index < 3) {
-                              return <Link  key={index}>{item3.ngayChieuGioChieu}</Link>
+                              return <Link to={`/booking-ticket/${item3.maLichChieu}`} key={index}>{item3.ngayChieuGioChieu}</Link>
                             } else {
                               return null;
                             }
@@ -48,6 +48,7 @@ export default function MovieTheater() {
                     )
                   })}
                 </TabPane>
+
               )
             })}
           </Tabs>
