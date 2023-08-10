@@ -39,193 +39,221 @@
 //         object-fit: fill;
 //     }
 // }
-.titleLichChieu{
-    position: relative;
-    background-color: white;
-    color: black;
-    width: 100%;
-    height: 100%;
-    bottom: 35px;
-    border-radius: 5px;
-    box-shadow: 0px 8px 8px gray;
-    .form-group{
-      margin-top: 10%;
-    }    
-    .partition{
-      border-left: 1px solid #eeeeee;
-    }
-    .btnMuaVe{
-      font-size: 15px;
-      padding: 1em 1.5em;
-      margin-top: 1em;
-      margin-left: 4.5em;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #fff;
-      background-color: #fb4226;
-      border: none;
-      font-weight: 700;
-      border-radius: 5px;
-      transition: all .3s;
-      &:hover{
-        background-color: #c52911;
-      }
-    }
-    .under-line{
-        &::after{
-          content: "";
-          position: absolute;
-          left: 0;
-          right: 0;
-          bottom: 0;        
-          transform: scaleX(0);
-          border-bottom: 3px solid #fb4226;
-          transition: all .5s;                  
-        }
-    }    
-  }  
-  .titleLichChieu .under-line:hover::after{
-    transform: scaleX(1);
+.titleLichChieu {
+  position: relative;
+  background-color: white;
+  color: black;
+  width: 100%;
+  height: 100%;
+  bottom: 35px;
+  border-radius: 5px;
+  box-shadow: 0px 8px 8px gray;
+
+  .form-group {
+    margin-top: 10%;
   }
-  .nav-search{
-    position: absolute;
-    top: 410px;
-    background-color: white;
-    color: black;
-    border-radius: 5px;
-    box-shadow: 0px 8px 8px gray;
-    opacity: 0;
-    visibility: hidden;
-    .input-search{
-      width: 120% ;
-    }
-    .img-search{
-      object-fit: cover;
-      margin-left: 120%;
-    }
+
+  .partition {
+    border-left: 1px solid #eeeeee;
   }
-  .movie-card{
+
+  .btnMuaVe {
+    font-size: 15px;
+    padding: 1em 1.5em;
+    margin-top: 1em;
+    margin-left: 4.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    background-color: #fb4226;
     border: none;
-    .header-buy-ticket{
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 80%;
-      background-color: rgba(32, 31, 31, 0.6);
-      color: white;
-      padding: 100px 40px;
-      opacity: 0;
-      transition: all .2s;
-      cursor: pointer;
-      &:hover{
-        opacity: 1;
-      }
-    }
-    .btn-BuyTicket{
-      position: absolute;
-      top: 415px;
-      left: 0;
-      width: 100%;
-      height: 15%;
-      background-color: #fb4226;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 22px;
-      font-weight: 700;
-      color: #fff;
-      opacity: 1;
-    }
-    .footer-buy-ticket{
-      position: absolute;
-      top: 400px;
-      left: 0;
-      width: 100%;
-      height: 22%;
-      background-color: white;
-      opacity: 1;
-    }
-  }
-  
-  
-  /* FOOTER LỊCH CHIẾU */
-  .slick-slide .movie-card{
-    &::before{
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
-      opacity: 0;
-      transition: all .5s;
-    }
-    &:hover{
-      opacity: 1;
+    font-weight: 700;
+    border-radius: 5px;
+    transition: all .3s;
+
+    &:hover {
+      background-color: #c52911;
     }
   }
 
-  .slick-dots li.slick-active button:before {
-    opacity: 1 !important;
-    color: #fb4226 !important;
+  .under-line {
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      transform: scaleX(0);
+      border-bottom: 3px solid #fb4226;
+      transition: all .5s;
+    }
   }
-  .slick-dots li button:before {
-    font-family: 'slick';
-    font-size: 15px !important;
-    line-height: 20px;
+}
+
+.titleLichChieu .under-line:hover::after {
+  transform: scaleX(1);
+}
+
+.nav-search {
+  position: absolute;
+  top: 410px;
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+  box-shadow: 0px 8px 8px gray;
+  opacity: 0;
+  visibility: hidden;
+
+  .input-search {
+    width: 120%;
+  }
+
+  .img-search {
+    object-fit: cover;
+    margin-left: 120%;
+  }
+}
+
+.movie-card {
+  border: none;
+
+  .header-buy-ticket {
     position: absolute;
     top: 0;
     left: 0;
-    width: 20px;
-    height: 20px;
-    content: '•';
-    text-align: center;
-    opacity: .5 !important;
-    color: #fb4226 !important;
-  }
+    width: 100%;
+    height: 80%;
+    background-color: rgba(32, 31, 31, 0.6);
+    color: white;
+    padding: 100px 40px;
+    opacity: 0;
+    transition: all .2s;
+    cursor: pointer;
 
+    &:hover {
+      opacity: 1;
 
-  @include ReponsiveNTN($lg1){
-    .titleLichChieu{
-      max-width: 1199px;
-      .btnMuaVe{
-        width: 111%;
-        margin-left: 10px;
-        margin-top: 9px;
-      }
-    }    
-
-  }
-  @include ReponsiveNTN($md1){
-    .titleLichChieu{
-      opacity: 0;
-      max-width: 960px;
-      visibility: hidden;      
-    }
-    .nav-search{
-      opacity: 1 !important;
-      visibility: visible !important;
-      display: block;
-      .img-search{
-       margin-top: 12px;
+      .play-trailer {
+        opacity: 1;
       }
     }
   }
-  @include ReponsiveNTN($sm1){
-    .titleLichChieu{
-      display: none;  
-    }
-    .slick-slider{
-      margin-top: 80px;
+
+  .btn-BuyTicket {
+    position: absolute;
+    top: 415px;
+    left: 0;
+    width: 100%;
+    height: 15%;
+    background-color: #fb4226;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    opacity: 1;
+  }
+
+  .footer-buy-ticket {
+    position: absolute;
+    top: 400px;
+    left: 0;
+    width: 100%;
+    height: 22%;
+    background-color: white;
+    opacity: 1;
+  }
+}
+
+
+/* FOOTER LỊCH CHIẾU */
+.slick-slide .movie-card {
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    transition: all .5s;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.slick-dots li.slick-active button:before {
+  opacity: 1 !important;
+  color: #fb4226 !important;
+}
+
+.slick-dots li button:before {
+  font-family: 'slick';
+  font-size: 15px !important;
+  line-height: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  content: '•';
+  text-align: center;
+  opacity: .5 !important;
+  color: #fb4226 !important;
+}
+
+
+@include ReponsiveNTN($lg1) {
+  .titleLichChieu {
+    max-width: 1199px;
+
+    .btnMuaVe {
+      width: 111%;
+      margin-left: 10px;
+      margin-top: 9px;
     }
   }
-  @include ReponsiveNTN($xs1){
-    .movie-card{
-      border: none;
-      .header-buy-ticket{
-        height: 100%;
-      }
+
+}
+
+@include ReponsiveNTN($md1) {
+  .titleLichChieu {
+    opacity: 0;
+    max-width: 960px;
+    visibility: hidden;
+  }
+
+  .nav-search {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block;
+
+    .img-search {
+      margin-top: 12px;
     }
   }
+}
+
+@include ReponsiveNTN($sm1) {
+  .titleLichChieu {
+    display: none;
+  }
+
+  .slick-slider {
+    margin-top: 80px;
+  }
+}
+
+@include ReponsiveNTN($xs1) {
+  .movie-card {
+    border: none;
+
+    .header-buy-ticket {
+      height: 100%;
+    }
+  }
+}
