@@ -1,0 +1,12 @@
+.play-trailer {
+    position: absolute;
+    font-size: 52px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 70px;
+    width: 70px;
+    color: #fff;
+    transition: all 0.5s;
+    opacity: 0;
+}
