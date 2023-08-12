@@ -1,7 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './src/pages/HomeTemplate/_components/footer/index.js'
+    './src/pages/HomeTemplate/_components/footer/index.js',
+    './src/pages/HomeTemplate/BookingTicketPage/index.js'
   ],
   presets: [],
   darkMode:'class',// or  'media' 
