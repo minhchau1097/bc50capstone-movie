@@ -1,10 +1,16 @@
 .detail-movie {
+    padding: 200px 0;
+    color: #fff;
+
     .detail-movie-left {
         width: 320px;
         position: relative;
+        overflow: hidden;
+        border-radius: 8px;
 
         &::after {
             content: '';
+            display: block;
             position: absolute;
             top: 0;
             width: 100%;
@@ -22,9 +28,103 @@
 
             &::after {
                 opacity: 1;
-                
+
             }
 
+        }
+
+    }
+
+}
+
+.background-detail-movie {
+    background-color: rgb(10, 32, 41);
+    padding-bottom: 200px;
+}
+
+.background-detail-movie-theater {
+    background: linear-gradient(to top, rgb(10, 32, 41), transparent 100%);
+}
+
+#detail-movie-theater {
+
+    border: 1px solid #e0e0e0;
+    background-color: #fff;
+    height: 600px;
+
+    .theater-name {
+        color: rgb(139, 195, 74);
+    }
+
+    .ant-tabs-tab {
+        padding: 20px 20px !important;
+        margin: 0 0 0 0 !important;
+    }
+
+    .ant-tabs-tabpane {
+        padding-left: 0;
+    }
+
+    .theater-logo {
+
+        &::after {
+            content: '';
+            display: block;
+            position: absolute;
+            bottom: 0;
+            width: 80%;
+            transform: translateX(-50%);
+            height: 1px;
+            background-color: #e0e0e0;
+            left: 50%;
+            right: 50%;
+        }
+    }
+
+    .theater-title {
+        // position: relative;
+        padding: 20px 0 0 20px;
+        // &::after {
+        //     content: '';
+        //     display: block;
+        //     position: absolute;
+        //     bottom: 0;
+        //     width: 80%;
+        //     transform: translateX(-50%);
+        //     height: 1px;
+        //     background-color: #e0e0e0;
+        //     left: 50%;
+        //     right: 50%;
+        // }
+    }
+
+    .theater-movie-date {
+        display: flex;
+        justify-content: start;
+        flex-wrap: wrap;
+        gap: 24px;
+    }
+
+    .movie-date {
+        width: 16%;
+    }
+}
+@include Reponsive($md) {
+    #detail-movie-theater {
+       
+        .movie-date {
+            width: 160px;
+        }
+    }
+}
+
+@include Reponsive($xs) {
+    #detail-movie-theater {
+        .theater-movie-date {
+            gap: 16px;
+        }
+        .movie-date {
+            width: 160px;
         }
     }
 }

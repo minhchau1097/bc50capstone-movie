@@ -1,4 +1,4 @@
-.movie-theater {
+#movie-theater {
     overflow: hidden;
     height: 720px;
 
@@ -91,24 +91,16 @@
     .movie-theater-movie-date {
         display: flex;
         flex-wrap: wrap;
+        gap: 24px;
+        text-align: center;
 
-        .movie-date {
-            color: #9e9e9e;
-            width: 45%;
-            border: 1px solid #e4e4e4;
-            cursor: pointer;
-            margin: 0px 16px 16px 0px;
-            padding: 8px;
-            border-radius: 4px;
-            text-decoration: none;
-            background-color: rgba(246, 246, 246, 0.5);
-        }
+       
     }
 }
 
 
 @include Reponsive ($md) {
-    .movie-theater {
+    #movie-theater {
         display: none;
     }
 }

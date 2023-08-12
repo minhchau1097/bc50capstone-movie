@@ -38,12 +38,13 @@ export default function Navbar() {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink
+                <a
                   className='nav-link'
-                  to="/about"
+                  href="#movie-theater"
+                  
                 >
                   Cụm Rạp
-                </NavLink>
+                </a>
               </li>
               {isValid && (<li className="nav-item">
                 <NavLink

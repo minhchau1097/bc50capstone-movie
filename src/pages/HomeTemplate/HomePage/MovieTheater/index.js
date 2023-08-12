@@ -24,7 +24,7 @@ export default function MovieTheater() {
             <img style={{ width: 50, height: 50 }} src={item.logo} alt={item.tenHeThongRap} /> </div>} key={index}
         >
 
-          <Tabs tabPosition={state.tabPosition}  >
+          <Tabs tabPosition={state.tabPosition} style={{height:720}} >
             {item.lstCumRap.map((item1, index) => {
               return (
                 <TabPane tab={
@@ -63,7 +63,7 @@ export default function MovieTheater() {
 
   return (
     <div className="container mb-5  ">
-      <Tabs className='movie-theater' tabPosition={state.tabPosition} >
+      <Tabs id='movie-theater' tabPosition={state.tabPosition} >
         {renderMovieTheater()}
       </Tabs>
 
