@@ -1,37 +1,37 @@
-import { DETAIL_MOVIE_FAIL,DETAIL_MOVIE_REQUEST,DETAIL_MOVIE_SUCCESS  } from "./constants";
+import * as ActionTypes from "./constants";
 import api from "utils/api";
 
-export const fetchDetailMovie =(id)=>{
-    return(dispatch)=>{
+export const fetchDetailMovie = (id) => {
+    return (dispatch) => {
         dispatch(actDetailMovieRequest())
-        api.get(`QuanLyPhim/LayThongTinPhim?MaPhim=${id}`)
-        .then((result)=>{
-            if (result.data.statusCode === 200) {
-                dispatch(actDetailMovieSuccess(result.data.content));
-              }
-        })
-        .catch((error) => {
-            dispatch(actDetailMovieFail(error))
-          })
+        api.get(`QuanLyRap/LayThongTinLichChieuPhim?MaPhim=${id}`)
+            .then((result) => {
+                if (result.data.statusCode === 200) {
+                    dispatch(actDetailMovieSuccess(result.data.content));
+                }
+            })
+            .catch((error) => {
+                dispatch(actDetailMovieFail(error))
+            })
     }
 }
 
-const actDetailMovieRequest =()=>{
-    return{
-        type: DETAIL_MOVIE_REQUEST
+const actDetailMovieRequest = () => {
+    return {
+        type: ActionTypes.DETAIL_MOVIE_REQUEST
 
     }
 }
 
-const actDetailMovieSuccess =(data)=>{
-    return{
-        type: DETAIL_MOVIE_SUCCESS,
+const actDetailMovieSuccess = (data) => {
+    return {
+        type: ActionTypes.DETAIL_MOVIE_SUCCESS,
         payload: data
     }
 }
-const actDetailMovieFail =(error)=>{
-    return{
-        type: DETAIL_MOVIE_FAIL,
+const actDetailMovieFail = (error) => {
+    return {
+        type: ActionTypes.DETAIL_MOVIE_FAIL,
         payload: error
     }
 }

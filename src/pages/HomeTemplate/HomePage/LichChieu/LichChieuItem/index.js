@@ -18,7 +18,7 @@ export default function LichChieuItem(props) {
           data: <Trailer trailer={props.movie.trailer} />
         })
       }}>
-        <PlayCircleOutlined />
+        <PlayCircleOutlined className='d-block'/>
       </button>
       </div>
       <img className="card-img-top" src={props.movie.hinhAnh} alt="" style={{ height: '400px', objectFit: 'cover' }} />

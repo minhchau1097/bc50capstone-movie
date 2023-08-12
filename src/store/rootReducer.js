@@ -18,7 +18,7 @@ const rootReducer = combineReducers({
     loginReducer,    
     registerReducer,
     bookingTicketReducer,    
-    modalReducer
+    modalReducer,
 })
 
 
