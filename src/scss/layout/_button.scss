@@ -15,9 +15,9 @@
     width: 45%;
     border: 1px solid #e4e4e4;
     cursor: pointer;
+    font-weight: bold;
     font-size: 0.9rem;
-    
-    padding: 8px;
+    padding: 6px 0;
     border-radius: 4px;
     text-decoration: none;
     background-color: rgba(246, 246, 246, 0.5);
@@ -25,7 +25,7 @@
     &:hover{
         text-decoration: none;
         color: #00ac4d;
-        font-weight: 600;
+        // font-weight: 600;
         transform: scale(1.1);
     }
 }

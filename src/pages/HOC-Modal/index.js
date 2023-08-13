@@ -15,7 +15,7 @@ export default function Modal() {
                         <button  type="button" className="close btn-close-trailer" data-dismiss="modal" aria-label="Close" onClick={()=>{
                             dispatch({
                                type:'CLOSE_FORM',
-                               data:false
+                               data:''
                             })
                         }}>
                             <span aria-hidden="true">×</span>

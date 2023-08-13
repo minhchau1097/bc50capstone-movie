@@ -1,14 +1,27 @@
 #movie-theater {
     overflow: hidden;
     height: 720px;
-
+    box-shadow: 0 8px 32px 0 rgba(1, 2, 7, 0.37);
+    backdrop-filter: blur(19px);
+    -webkit-backdrop-filter: blur(19px);
+    border-radius: 10px;
     border: 1px solid #e0e0e0;
 
     .ant-tabs-tab {
         padding: 20px 20px !important;
         margin: 0 0 0 0 !important;
+        border-right: 1px solid #e0e0e0;
+        opacity: 0.3;
+        font-weight: 500;
+        transition: all 0.5s;
     }
-
+    .ant-tabs-tab-active {
+        opacity: 1;
+    }
+    .ant-tabs-ink-bar{
+        background: #fb4226;
+        transition: all 0.5s;
+}
     .ant-tabs-tabpane {
         padding-left: 0;
     }

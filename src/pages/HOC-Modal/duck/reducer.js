@@ -11,7 +11,8 @@ const modalReducer = (state = modalState, action) => {
             state.pause = true
             return { ...state }
         case 'CLOSE_FORM':
-            state.pause = action.data
+            state.Component = action.data
+            state.pause = false
             return { ...state }
 
         default:

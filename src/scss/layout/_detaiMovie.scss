@@ -2,6 +2,7 @@
     padding: 200px 0;
     color: #fff;
 
+
     .detail-movie-left {
         width: 320px;
         position: relative;
@@ -37,36 +38,54 @@
 
 }
 
-.background-detail-movie {
-    background-color: rgb(10, 32, 41);
+
+.card-blur {
     padding-bottom: 200px;
+    // background: rgba( 255, 255, 255, 0.05 );
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(19px);
+    -webkit-backdrop-filter: blur(19px);
+    border-radius: 10px;
 }
 
-.background-detail-movie-theater {
-    background: linear-gradient(to top, rgb(10, 32, 41), transparent 100%);
-}
+
 
 #detail-movie-theater {
-
-    border: 1px solid #e0e0e0;
-    background-color: #fff;
+    background-color: #0000003d;
     height: 600px;
-
-    .theater-name {
-        color: rgb(139, 195, 74);
-    }
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(19px);
+    -webkit-backdrop-filter: blur(19px);
+    border-radius: 10px;
 
     .ant-tabs-tab {
         padding: 20px 20px !important;
         margin: 0 0 0 0 !important;
+        border-right: 1px solid #e0e0e0;
+        opacity: 0.3;
+        transition: all 0.5s;
+        font-weight: 500;
     }
-
+    .ant-tabs-tab-active {
+        opacity: 1;
+    }
+    .ant-tabs-ink-bar{
+        background: #fb4226;
+        transition: all 0.5s;
+}
     .ant-tabs-tabpane {
         padding-left: 0;
     }
+    .ant-tabs-content-holder{
+        border: none ;
+    }
+   
 
     .theater-logo {
-
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        color: #fff;
         &::after {
             content: '';
             display: block;
@@ -80,22 +99,16 @@
             right: 50%;
         }
     }
-
     .theater-title {
-        // position: relative;
         padding: 20px 0 0 20px;
-        // &::after {
-        //     content: '';
-        //     display: block;
-        //     position: absolute;
-        //     bottom: 0;
-        //     width: 80%;
-        //     transform: translateX(-50%);
-        //     height: 1px;
-        //     background-color: #e0e0e0;
-        //     left: 50%;
-        //     right: 50%;
-        // }
+
+        p:nth-child(1) {
+            color: rgb(139, 195, 74);
+        }
+
+        p:nth-child(2) {
+            color: #fff;
+        }
     }
 
     .theater-movie-date {
@@ -103,28 +116,61 @@
         justify-content: start;
         flex-wrap: wrap;
         gap: 24px;
+        text-align: center;
+
+        .movie-date {
+            width: 12%;
+        }
     }
 
-    .movie-date {
-        width: 16%;
-    }
+
 }
+
 @include Reponsive($md) {
     #detail-movie-theater {
-       
-        .movie-date {
-            width: 160px;
+        .theater-movie-date {
+
+            .movie-date {
+                width: 20%;
+            }
         }
+
+
+    }
+}
+@include Reponsive($sm) {
+    #detail-movie-theater {
+        .theater-movie-date {
+
+            .movie-date {
+                width: 25%;
+            }
+        }
+
+
     }
 }
 
 @include Reponsive($xs) {
     #detail-movie-theater {
         .theater-movie-date {
-            gap: 16px;
+
+            .movie-date {
+                width: 50%;
+            }
         }
-        .movie-date {
-            width: 160px;
+
+    }
+}
+
+@include Reponsive($xxs) {
+    #detail-movie-theater {
+        .theater-movie-date {
+
+            .movie-date {
+                width: 50%;
+            }
         }
+
     }
 }

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchMovieTheater } from './duck/actions'
 import { Tabs } from 'antd';
 import { Link } from 'react-router-dom';
-
+import moment from 'moment';
 export default function MovieTheater() {
   const { TabPane } = Tabs;
   const [state, setState] = useState({
@@ -40,12 +40,8 @@ export default function MovieTheater() {
                         <img src={item2.hinhAnh} alt={item2.tenPhim} style={{ width: 100, height: 130, borderRadius: 12 }} />
                         <div className='pl-4' style={{ width: 400 }}>
                           <p className='movie-theater-movie-name mb-1'><span>C18</span>{item2.tenPhim}</p>
-                          <div className='movie-theater-movie-date '>{item2.lstLichChieuTheoPhim.map((item3, index) => {
-                            if (index < 4) {
-                              return <Link to={`/booking-ticket/${item3.maLichChieu}`} className='movie-date' key={index}>{item3.ngayChieuGioChieu}</Link>
-                            } else {
-                              return null;
-                            }
+                          <div className='movie-theater-movie-date '>{item2.lstLichChieuTheoPhim.slice(0,4).map((item3, index) => {
+                              return <Link to={`/booking-ticket/${item3.maLichChieu}`} className='movie-date' key={index}>{moment(item3.ngayChieuGioChieu).format('h:mmA')}</Link>
                           })}</div>
                         </div>
                       </div>
