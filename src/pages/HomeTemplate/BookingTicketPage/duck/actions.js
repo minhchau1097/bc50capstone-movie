@@ -17,7 +17,7 @@ export const fetchBookingTicket = (id) => {
   }
 }
 
-export const actBuyTicket = (id, ticket, navigate) => {
+export const actBuyTicket = (ticket) => {
   return (dispatch) => {
     dispatch(actBuyTicketRequest());
     api.post("QuanLyDatVe/DatVe", ticket)
