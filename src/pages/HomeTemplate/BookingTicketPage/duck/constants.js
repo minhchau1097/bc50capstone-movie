@@ -6,4 +6,3 @@ export const BOOKING_SEAT = "BOOKING_SEAT";
 export const BUY_TICKET_REQUEST = "BUY_TICKET_REQUEST";
 export const BUY_TICKET_SUCCESS = "BUY_TICKET_SUCCESS";
 export const BUY_TICKET_FAIL = "BUY_TICKET_FAIL";
-// export const BUY_TICKET = "BUY_TICKET";

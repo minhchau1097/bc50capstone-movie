@@ -8,14 +8,17 @@ import LoadingComponent from 'GlobalSetting/Loading/LoadingComponent';
 export default function BookingTicketPage() {
   const data = useSelector((state) => state.bookingTicketReducer.data);
   const danhSachGheDangDat = useSelector((state) => state.bookingTicketReducer.danhSachGheDangDat);
-  const thongTinDatVe = useSelector((state) => state.bookingTicketReducer.thongTinDatVe);
+  // const thongTinDatVe = useSelector((state) => state.bookingTicketReducer.thongTinDatVe);
   const navigate = useNavigate();
   const loading = useSelector((state) => state.bookingTicketReducer.loading);
   const dispatch = useDispatch();
   const param = useParams();
   const [state, setState] = useState({
-    maGhe: "",
-    giaVe: "",
+    maLichChieu: 0,
+    danhSachVe: [{
+      maGhe: "",
+      giaVe: "",
+    }]
   })
   useEffect(() => {
     dispatch(fetchBookingTicket(param.id));
@@ -45,13 +48,19 @@ export default function BookingTicketPage() {
   }
 
   const handleBookTicket = () => {
-    thongTinDatVe.maLichChieu = param.id;
-    thongTinDatVe.danhSachVe = danhSachGheDangDat;
-    dispatch(actBuyTicket(state, navigate));
+    state.maLichChieu = Number(param.id);
+    state.danhSachVe = danhSachGheDangDat?.map((ticket) => {
+      return {
+        "maGhe": ticket.maGhe,
+        "giaVe": ticket.giaVe
+      }
+    });
+    console.log(state);
+    dispatch(actBuyTicket(state));
   }
 
-  if (localStorage.getItem("Customer")) {
-    return <Navigate replace to="/booking-ticket" />;
+  if (!(localStorage.getItem("Customer"))) {
+    return <Navigate replace to={"/auth"} />;
   }
   return (
     <div style={{ marginTop: "85px" }}>

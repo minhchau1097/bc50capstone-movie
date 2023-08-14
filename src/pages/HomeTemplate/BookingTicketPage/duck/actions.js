@@ -17,34 +17,30 @@ export const fetchBookingTicket = (id) => {
   }
 }
 
-export const actBuyTicket = (ticket, navigate) => {
+export const actBuyTicket = (id, ticket, navigate) => {
   return (dispatch) => {
     dispatch(actBuyTicketRequest());
     api.post("QuanLyDatVe/DatVe", ticket)
       .then((result) => {
-        if (result.data.statusCode === 200) {
-          const ticket = result.data.content;
-          if (!(ticket.maLoaiNguoiDung === "KhachHang")) {
-            //show error, khi reject thì nó tự động hiểu và chạy vào catch
-            const error = {
-              response: {
-                data: {
-                  content: "Bạn không có quyền truy cập",
-                },
-              },
-            };
-            return Promise.reject(error);
-          }
-          dispatch(actBuyTicketSuccess(ticket));
-          localStorage.setItem("Customer", JSON.stringify(ticket));
-          
-          // Swal.fire({
-          //   title: 'Congratulations!',
-          //   text: 'Have fun watching movie',
-          //   icon: 'success',
-          //   confirmButtonText: 'Cool'
-          // })
-        }
+        console.log(result.data.content);
+        // const ticket = result.data.content;
+        // if (result.data.statusCode === 200) {
+        //   const ticket = result.data.content;
+        //   if (!(ticket.maLoaiNguoiDung === "KhachHang")) {
+        //     //show error, khi reject thì nó tự động hiểu và chạy vào catch
+        //     const error = {
+        //       response: {
+        //         data: {
+        //           content: "Bạn không có quyền truy cập",
+        //         },
+        //       },
+        //     };
+        //     return Promise.reject(error);
+        //   }
+        // }
+        // dispatch(actBuyTicketSuccess(ticket));
+        // localStorage.setItem("Customer", JSON.stringify(ticket));
+        // navigate(`/booking-ticket/${id}`, { replace: true });
       })
       .catch((error) => {
         dispatch(actBuyTicketFail(error));

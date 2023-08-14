@@ -16,13 +16,13 @@ const registerReducer = (state = registerState, action) => {
             return { ...state }
         }
         case ActionTypes.REGISTER_SUCCESS: {
-            state.loading = true;
+            state.loading = false;
             state.data = action.payload;
             state.error = null;
             return { ...state }
         }
         case ActionTypes.REGISTER_FAIL: {
-            state.loading = true;
+            state.loading = false;
             state.data = null;
             state.error = action.payload;
             return { ...state }

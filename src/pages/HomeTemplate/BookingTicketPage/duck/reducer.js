@@ -6,7 +6,6 @@ const bookingState = {
     data: null,
     error: null,
     danhSachGheDangDat: [],
-    thongTinDatVe:[],
 }
 
 const bookingTicketReducer = (state = bookingState, action) => {
