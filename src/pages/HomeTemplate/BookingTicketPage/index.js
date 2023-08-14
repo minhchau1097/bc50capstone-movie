@@ -1,25 +1,14 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useEffect, Fragment } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams, useNavigate, Navigate } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import { fetchBookingTicket, actBookingSeat, actBuyTicket } from './duck/actions';
 import _ from 'lodash';
-import LoadingComponent from 'GlobalSetting/Loading/LoadingComponent';
 
 export default function BookingTicketPage() {
   const data = useSelector((state) => state.bookingTicketReducer.data);
   const danhSachGheDangDat = useSelector((state) => state.bookingTicketReducer.danhSachGheDangDat);
-  // const thongTinDatVe = useSelector((state) => state.bookingTicketReducer.thongTinDatVe);
-  const navigate = useNavigate();
-  const loading = useSelector((state) => state.bookingTicketReducer.loading);
   const dispatch = useDispatch();
   const param = useParams();
-  const [state, setState] = useState({
-    maLichChieu: 0,
-    danhSachVe: [{
-      maGhe: "",
-      giaVe: "",
-    }]
-  })
   useEffect(() => {
     dispatch(fetchBookingTicket(param.id));
   }, []);
@@ -31,6 +20,7 @@ export default function BookingTicketPage() {
   const renderSeats = () => {
     return data?.danhSachGhe.map((ghe, index) => {
       const classGheVip = ghe.loaiGhe === "Vip" ? "gheVip" : "";
+      //ghế người khác đã đặt
       const classGheDaDat = ghe.daDat === true ? 'gheDaDat' : "";
       //Xử lý ghế đang được đặt
       let classGheDangDat = "";
@@ -38,8 +28,15 @@ export default function BookingTicketPage() {
       if (indexGheDangDat != -1) {
         classGheDangDat = "gheDangDat";
       }
+      //Xử lý ghế mình tự đặt
+      const valueUserLogin = JSON.parse(localStorage.getItem('UserAdmin')).taiKhoan;
+      let classGheDaDuocDat = "";
+      if (valueUserLogin === ghe.taiKhoanNguoiDat) {
+        classGheDaDuocDat = 'gheDaDuocDat';
+      }
+
       return <Fragment key={index}>
-        <button onClick={() => handleChoseSeat(ghe)} disabled={ghe.daDat} className={`ghe ${classGheVip} ${classGheDaDat} ${classGheDangDat}`} key={index}>
+        <button onClick={() => handleChoseSeat(ghe)} disabled={ghe.daDat} className={`ghe ${classGheVip} ${classGheDaDat} ${classGheDangDat} ${classGheDaDuocDat}`} key={index}>
           {ghe.daDat ? "X" : ghe.stt}
         </button>
         {(index + 1) % 16 === 0 ? <br /> : ""}
@@ -48,15 +45,12 @@ export default function BookingTicketPage() {
   }
 
   const handleBookTicket = () => {
-    state.maLichChieu = Number(param.id);
-    state.danhSachVe = danhSachGheDangDat?.map((ticket) => {
-      return {
-        "maGhe": ticket.maGhe,
-        "giaVe": ticket.giaVe
-      }
-    });
-    console.log(state);
-    dispatch(actBuyTicket(state));
+    const ticket = {
+      maLichChieu: Number(param.id),
+      danhSachVe: danhSachGheDangDat
+    }
+    console.log(ticket);
+    dispatch(actBuyTicket(ticket));
   }
 
   if (!(localStorage.getItem("Customer"))) {
@@ -85,6 +79,10 @@ export default function BookingTicketPage() {
               <div className='d-flex items-center'>
                 <button className='ghe gheVip'></button>
                 <span style={{ fontWeight: "600" }}>Ghế Vip</span>
+              </div>
+              <div className='d-flex items-center'>
+                <button className='ghe gheDaDuocDat'>X</button>
+                <span style={{ fontWeight: "600" }}>Ghế bạn đã đặt</span>
               </div>
             </div>
           </div>

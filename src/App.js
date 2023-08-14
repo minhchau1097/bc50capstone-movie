@@ -7,12 +7,16 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import LoadingComponent from './GlobalSetting/Loading/LoadingComponent'
 import Modal from 'pages/HOC-Modal';
+import { createBrowserHistory } from 'history';
+
+export const history = createBrowserHistory();
+
 function App() {
   return (
     <Suspense fallback={<LoadingComponent />}>
-      <BrowserRouter>
+      <BrowserRouter history={history}>
         <Modal />
-        <Routes>{renderRoutes()}</Routes>
+        <Routes >{renderRoutes()}</Routes>
       </BrowserRouter>
     </Suspense>
   );
