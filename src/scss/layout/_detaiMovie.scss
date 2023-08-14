@@ -1,10 +1,17 @@
 .detail-movie {
+    padding: 200px 0;
+    color: #fff;
+
+
     .detail-movie-left {
         width: 320px;
         position: relative;
+        overflow: hidden;
+        border-radius: 8px;
 
         &::after {
             content: '';
+            display: block;
             position: absolute;
             top: 0;
             width: 100%;
@@ -22,9 +29,148 @@
 
             &::after {
                 opacity: 1;
-                
+
             }
 
         }
+
+    }
+
+}
+
+
+.card-blur {
+    padding-bottom: 200px;
+    // background: rgba( 255, 255, 255, 0.05 );
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(19px);
+    -webkit-backdrop-filter: blur(19px);
+    border-radius: 10px;
+}
+
+
+
+#detail-movie-theater {
+    background-color: #0000003d;
+    height: 600px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(19px);
+    -webkit-backdrop-filter: blur(19px);
+    border-radius: 10px;
+
+    .ant-tabs-tab {
+        padding: 20px 20px !important;
+        margin: 0 0 0 0 !important;
+        border-right: 1px solid #e0e0e0;
+        opacity: 0.3;
+        transition: all 0.5s;
+        font-weight: 500;
+    }
+    .ant-tabs-tab-active {
+        opacity: 1;
+    }
+    .ant-tabs-ink-bar{
+        background: #fb4226;
+        transition: all 0.5s;
+}
+    .ant-tabs-tabpane {
+        padding-left: 0;
+    }
+    .ant-tabs-content-holder{
+        border: none ;
+    }
+   
+
+    .theater-logo {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        color: #fff;
+        &::after {
+            content: '';
+            display: block;
+            position: absolute;
+            bottom: 0;
+            width: 80%;
+            transform: translateX(-50%);
+            height: 1px;
+            background-color: #e0e0e0;
+            left: 50%;
+            right: 50%;
+        }
+    }
+    .theater-title {
+        padding: 20px 0 0 20px;
+
+        p:nth-child(1) {
+            color: rgb(139, 195, 74);
+        }
+
+        p:nth-child(2) {
+            color: #fff;
+        }
+    }
+
+    .theater-movie-date {
+        display: flex;
+        justify-content: start;
+        flex-wrap: wrap;
+        gap: 24px;
+        text-align: center;
+
+        .movie-date {
+            width: 12%;
+        }
+    }
+
+
+}
+
+@include Reponsive($md) {
+    #detail-movie-theater {
+        .theater-movie-date {
+
+            .movie-date {
+                width: 20%;
+            }
+        }
+
+
+    }
+}
+@include Reponsive($sm) {
+    #detail-movie-theater {
+        .theater-movie-date {
+
+            .movie-date {
+                width: 25%;
+            }
+        }
+
+
+    }
+}
+
+@include Reponsive($xs) {
+    #detail-movie-theater {
+        .theater-movie-date {
+
+            .movie-date {
+                width: 50%;
+            }
+        }
+
+    }
+}
+
+@include Reponsive($xxs) {
+    #detail-movie-theater {
+        .theater-movie-date {
+
+            .movie-date {
+                width: 50%;
+            }
+        }
+
     }
 }
