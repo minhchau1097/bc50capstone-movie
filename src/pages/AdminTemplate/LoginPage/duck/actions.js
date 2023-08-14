@@ -14,7 +14,7 @@ export const actAuth = (user, navigate) => {
                         // quan tri => luu trang thai login
                         localStorage.setItem('UserAdmin', JSON.stringify(user));
                         // quantri => redirect admin/dashboard
-                        navigate('/admin/dashboard', { replace: true })
+                        navigate('/admin/dashboard' , { replace: true })
                     } else {
                         dispatch(actAuthSuccess(user));
                         // quan tri => luu trang thai login
