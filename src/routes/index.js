@@ -32,10 +32,10 @@ const routes = [
                 path: "dashboard",
                 element: lazy(() => import("./../pages/AdminTemplate/Dashboard")),
             },
-        //     {
-        //         path: "add-user",
-        //         element: lazy(() => import("./../pages/AdminTemplate/AddUser")),
-        //     },
+            {
+                path: "listmovie",
+                element: lazy(() => import("./../pages/AdminTemplate/ListMovie")),
+            },
 
         ],
     },
