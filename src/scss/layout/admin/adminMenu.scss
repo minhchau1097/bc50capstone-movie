@@ -1,0 +1,30 @@
+.admin-menu {
+    width: 256px;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    transition: all 0.3s;
+
+    .btn-menu {
+
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    .ul-menu {
+
+        height: 100%;
+    }
+
+}
+
+.ant-menu-inline-collapsed {
+    .admin-menu {
+        width: 80px !important;
+    }
+}
