@@ -1,5 +1,5 @@
 .navbar {
-    background-color: #0000004f;
+    background-color: #00000079;
     position: absolute;
     z-index: 50;
     top: 0;
@@ -19,7 +19,8 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                &:hover{
+
+                &:hover {
                     color: #f30808e8;
                 }
             }
@@ -38,26 +39,36 @@
             // display: block;
             opacity: 1;
             visibility: visible;
-            li{
+
+            li {
                 margin-top: 8px;
                 font-weight: bold;
-                &:hover{
+
+                &:hover {
                     color: #f30808e8;
                 }
             }
         }
 
         .name-menu {
+            li{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            height: auto;
             position: absolute;
             top: 32px;
-            left: 0;
+            left: 50%;
+            right: 50%;
+            transform: translateX(-50%);
             font-size: 0.75rem;
             opacity: 0;
             visibility: hidden;
             // display: none;
             background-color: #000000c7;
             transition: all 0.5s;
-            width: 100%;
+            width: 160px;
             border-radius: 1rem;
             padding: 0.5rem
         }
@@ -72,7 +83,7 @@
     .navbar-custom {
         display: flex;
         justify-content: space-between;
-        width: 100%;
+
 
         .navbar-collapse {
             text-align: center;
@@ -104,18 +115,23 @@
             width: 60%;
         }
 
-        .customer-name {
-            .name-menu {
-                width: 47%;
-                left: 25%;
-            }
-        }
-        
-    }
-    .navbar-custom #logo {
-        width: 120px;
+        // .customer-name {
+        //     .name-menu {
+        //         width: 47%;
+        //         left: 25%;
+        //     }
+        // }
 
     }
+
+    .navbar .navbar-custom {
+        width: 100%;
+    }
+
+    // .navbar-custom #logo {
+    //     width: 160px;
+
+    // }
 }
 
 @include Reponsive ($xs) {
@@ -124,34 +140,42 @@
             margin: 0 auto;
             width: 60%;
         }
-        .customer-name {
-            .name-menu {
-                // left: 25% !important;
-                display: block;
-                width: 100%;
-                left: 0;
-            }
-        }
+
+        // .customer-name {
+        //     .name-menu {
+        //         // left: 25% !important;
+        //         display: block;
+        //         width: 100%;
+        //         left: 0;
+        //     }
+        // }
+    }
+
+    .navbar .navbar-custom {
+        width: 100%;
     }
 
     .navbar-custom #logo {
-        width: 80px;
+        width: 140px;
 
     }
 
-   
+    .navbar-dark .navbar-nav .nav-link {
+        font-size: 0.9rem;
+    }
+
 }
 
 @include Reponsive ($xxs) {
-    .navbar {
+    // .navbar {
 
-        .customer-name {
-            .name-menu {
-                // left: 20% !important;
-                width: 100%;
-                left: 0;
+    //     .customer-name {
+    //         .name-menu {
+    //             // left: 20% !important;
+    //             width: 100%;
+    //             left: 0;
 
-            }
-        }
-    }
+    //         }
+    //     }
+    // }
 }

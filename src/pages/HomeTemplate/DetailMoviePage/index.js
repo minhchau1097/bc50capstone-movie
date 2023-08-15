@@ -27,8 +27,8 @@ export default function DetailMoviePage() {
                     key: index,
                     label: (
                         <div key={index} className='theater-logo'>
-                            <img width={50} height={50} src={item.logo} alt={item.tenHeThongRap} title={item.tenHeThongRap} />
-                            <p>{item.tenHeThongRap}</p> 
+                            <img  src={item.logo} alt={item.tenHeThongRap} title={item.tenHeThongRap} />
+                            
                         </div>
                     ),
                     children: (
@@ -58,10 +58,12 @@ export default function DetailMoviePage() {
                 }
             })
             return (
-                <div className='background-detail-movie-theater'>
-                    <div id='detail-movie-theater' >
-                        <Tabs tabPosition={tabPosition} defaultActiveKey='1' items={items} >
-                        </Tabs>
+                <div className="row w-100 mx-auto ">
+                    <div className='background-detail-movie-theater col-12'>
+                        <div id='detail-movie-theater' >
+                            <Tabs tabPosition={tabPosition} defaultActiveKey='1' items={items}  className='detail-movie-theater'>
+                            </Tabs> 
+                        </div>
                     </div>
                 </div>
             )
@@ -74,11 +76,11 @@ export default function DetailMoviePage() {
     return (
         <div style={{ backgroundImage: `url(${data && data.hinhAnh})`, backgroundPosition: 'top', backgroundSize: 'cover', minHeight: '100vh' }}>
             <div className='card-blur' >
-                <div className="container ">
+                <div className="container " style={{padding:'100px 0'}}>
                     <div className='detail-movie'>
-                        <div className='row pb-5 h-100 '>
+                        <div className='row h-100 detail-movie-content'>
                             <div className="col-12  col-md-6  ">
-                                <div className="detail-movie-left ">
+                                <div className="detail-movie-left mx-auto mx-md-0">
                                     <img className=' mr-auto' style={{ height: 400, width: '100%' }} src={data && data.hinhAnh} alt="" />
                                     {/* Button trigger modal */}
                                     <button className='play-trailer' type="button" data-toggle="modal" data-target="#modelId" onClick={() => {
@@ -88,7 +90,7 @@ export default function DetailMoviePage() {
                                         })
                                     }}>
                                         <PlayCircleOutlined className='d-block' />
-                                    </button>
+                                    </button> 
                                 </div>
                             </div>
                             <div className="col-12  col-md-6 mt-5  mt-md-0 detail-movie-right">
@@ -97,12 +99,12 @@ export default function DetailMoviePage() {
                                 <p className='mt-3'>{data && data.moTa}</p>
                                 <div className='d-flex justify-content-start  align-items-baseline mt-4'>
                                     <Rate disabled allowHalf value={data && (data.danhGia <= 1 ? data.danhGia : data.danhGia / 2)} /> <span className='ml-2'>{data && data.danhGia}/10</span>
-                                    <a href='#detail-movie-theater' className='btn btn-danger ml-5'>Mua vé</a>
+                                    <a href='#detail-movie-theater' className='btn btn-danger ml-3 ml-sm-5'>Mua vé</a>
                                 </div>
                             </div>
+                            {renderTabs()}
                         </div>
                     </div>
-                    {renderTabs()}
                 </div>
             </div>
 

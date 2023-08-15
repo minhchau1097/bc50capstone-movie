@@ -33,7 +33,7 @@ export default function LoginPage() {
   return (
     <div className='container login-page'>
       <div className="row ">
-        <div className="col-md-6 col-lg-6 mx-auto mt-5">
+        <div className="col-12 col-md-6 col-lg-6 mx-auto mt-5">
           <h3 className='text-center mb-0 '>Đăng nhập</h3>
           <form onSubmit={handleSubmit}>
             <div className="card mx-auto  mt-5">
