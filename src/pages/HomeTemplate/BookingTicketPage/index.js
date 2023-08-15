@@ -1,12 +1,13 @@
 import React, { useEffect, Fragment } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Navigate } from 'react-router-dom';
-import { fetchBookingTicket, actBookingSeat, actBuyTicket } from './duck/actions';
+import { fetchBookingTicket, actBookingSeat, actBuyTicket, actHistoryTicket, actBuyTicketChangeTabPane } from './duck/actions';
 import _ from 'lodash';
-
-export default function BookingTicketPage() {
+import { Tabs } from 'antd';
+import moment from 'moment';
+function BookingTicketPage() {
   const data = useSelector((state) => state.bookingTicketReducer.data);
-  const danhSachGheDangDat = useSelector((state) => state.bookingTicketReducer.danhSachGheDangDat);
+  const { danhSachGheDangDat, danhSachGheKhachDangDat } = useSelector((state) => state.bookingTicketReducer);
   const dispatch = useDispatch();
   const param = useParams();
   useEffect(() => {
@@ -19,6 +20,13 @@ export default function BookingTicketPage() {
 
   const renderSeats = () => {
     return data?.danhSachGhe.map((ghe, index) => {
+      //Kiểm tra từng render xem có phải ghế khách khác đang đặt hay k
+      let classGheKhachDangDat = '';
+      let indexGheKhachDangDat = danhSachGheKhachDangDat.findIndex((gheKD)=> gheKD.maGhe === ghe.maGhe);
+      if(indexGheKhachDangDat !== -1){
+        classGheKhachDangDat = 'gheKhachDangDat';
+      }
+      //Ghế vip
       const classGheVip = ghe.loaiGhe === "Vip" ? "gheVip" : "";
       //ghế người khác đã đặt
       const classGheDaDat = ghe.daDat === true ? 'gheDaDat' : "";
@@ -28,15 +36,15 @@ export default function BookingTicketPage() {
       if (indexGheDangDat != -1) {
         classGheDangDat = "gheDangDat";
       }
-      //Xử lý ghế mình tự đặt
-      const valueUserLogin = JSON.parse(localStorage.getItem('UserAdmin')).taiKhoan;
+      // Xử lý ghế mình tự đặt
+      const user = JSON.parse(localStorage.getItem('Customer'))?.taiKhoan || JSON.parse(localStorage.getItem('UserAdmin'))?.taiKhoan
       let classGheDaDuocDat = "";
-      if (valueUserLogin === ghe.taiKhoanNguoiDat) {
+      if (user === ghe.taiKhoanNguoiDat) {
         classGheDaDuocDat = 'gheDaDuocDat';
       }
 
       return <Fragment key={index}>
-        <button onClick={() => handleChoseSeat(ghe)} disabled={ghe.daDat} className={`ghe ${classGheVip} ${classGheDaDat} ${classGheDangDat} ${classGheDaDuocDat}`} key={index}>
+        <button onClick={() => handleChoseSeat(ghe)} disabled={ghe.daDat || classGheKhachDangDat !== ''} className={`ghe ${classGheVip} ${classGheDaDat} ${classGheDangDat} ${classGheDaDuocDat} ${classGheKhachDangDat}`} key={index}>
           {ghe.daDat ? "X" : ghe.stt}
         </button>
         {(index + 1) % 16 === 0 ? <br /> : ""}
@@ -47,9 +55,13 @@ export default function BookingTicketPage() {
   const handleBookTicket = () => {
     const ticket = {
       maLichChieu: Number(param.id),
-      danhSachVe: danhSachGheDangDat
-    }
-    console.log(ticket);
+      danhSachVe: danhSachGheDangDat?.map((ticket) => {
+        return {
+          maGhe: ticket.maGhe,
+          giaVe: ticket.giaVe
+        }
+      })
+    };
     dispatch(actBuyTicket(ticket));
   }
 
@@ -57,7 +69,7 @@ export default function BookingTicketPage() {
     return <Navigate replace to={"/auth"} />;
   }
   return (
-    <div style={{ marginTop: "85px" }}>
+    <div style={{ marginTop: "10px" }}>
       <div className="grid grid-cols-12" >
         {/* SEAT */}
         <div className="col-span-8">
@@ -83,6 +95,10 @@ export default function BookingTicketPage() {
               <div className='d-flex items-center'>
                 <button className='ghe gheDaDuocDat'>X</button>
                 <span style={{ fontWeight: "600" }}>Ghế bạn đã đặt</span>
+              </div>
+              <div className='d-flex items-center'>
+                <button className='ghe gheKhachDangDat'></button>
+                <span style={{ fontWeight: "600" }}>Ghế khách khác đang chọn</span>
               </div>
             </div>
           </div>
@@ -148,4 +164,66 @@ export default function BookingTicketPage() {
       </div>
     </div>
   )
+}
+
+const items = [
+  {
+    key: '1',
+    label: `01 CHỌN GHẾ & THANH TOÁN`,
+    children: <BookingTicketPage />,
+  },
+  {
+    key: '2',
+    label: `02 KẾT QUẢ ĐẶT VÉ`,
+    children: <KetQuaDatVePage />,
+  },
+];
+export default function ManageTicket() {
+  const { tabActive } = useSelector((state) => state.bookingTicketReducer);
+  const dispatch = useDispatch();
+  // defaultActiveKey: phải là chuỗi
+  return <Tabs defaultActiveKey='1' activeKey={tabActive} items={items} onChange={(key) => {
+    dispatch(actBuyTicketChangeTabPane(key));
+  }} className='mt-20' />;
+}
+
+
+function KetQuaDatVePage() {
+  const { thongTinNguoiDung } = useSelector((state) => state.bookingTicketReducer);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(actHistoryTicket());
+  }, []);
+
+  const renderTicketItem = () => {
+    return thongTinNguoiDung.thongTinDatVe?.map((item, index) => {
+      return <div className="p-2 lg:w-1/3 md:w-1/2 w-full" key={index}>
+        <div className="h-full flex items-center border-gray-200 border p-4 rounded-lg">
+          <img alt="team" className="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4" src={item.hinhAnh} />
+          <div className="flex-grow">
+            <h2 className="text-red-600 title-font font-medium">{item.tenPhim}</h2>
+            <p className="text-red-400 font-medium">Giờ Chiếu: {moment(item.ngayDat).format("hh:mm A")} <br /> Ngày Chiếu: {moment(item.ngayDat).format("DD-MM-YYYY")} </p>
+            <p className="text-red-400 font-medium">Địa điểm: {_.first(item.danhSachGhe).tenHeThongRap} <br /> Rạp Chiếu: {_.first(item.danhSachGhe).tenCumRap}</p>
+            <p className="text-red-400 font-medium">Ghế: {_.first(item.danhSachGhe).tenGhe}</p>
+          </div>
+        </div>
+      </div>
+    })
+  }
+
+  return <div>
+    <section className="text-gray-600 body-font">
+      <div className="container px-5 py-14 mx-auto">
+        <div className="flex flex-col text-center w-full mb-20">
+          <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-red-600">Lịch Sử Đặt Vé Của Bạn</h1>
+          <p className="lg:w-2/3 mx-auto leading-relaxed text-base">Hãy xem thông tin đặt vé của bạn bên dưới đây. Nếu phát hiện thông tin vé bị sai, bạn vui lòng đến tại quầy vé để đổi. Chúc bạn có một buổi xem phim vui vẻ!!!</p>
+        </div>
+        <div className="flex flex-wrap -m-2">
+          {renderTicketItem()}
+        </div>
+      </div>
+    </section>
+  </div>
 }

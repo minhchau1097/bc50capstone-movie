@@ -11,6 +11,13 @@ import 'wowjs'
 import './scss/index.scss'
 import store from "./store";
 import { Provider } from "react-redux";
+//Cấu hình realtime (websocket với)
+
+// export const connection = new signalR.HubConnectionBuilder().withUrl(`https://movienew.cybersoft.edu.vn/api/chatHub`).configureLogging(signalR.LogLevel.Information).build();
+
+// connection.start().then(() => {
+
+// })
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -18,6 +25,9 @@ root.render(
     <App />
   </Provider>
 );
+// .catch((error)=>{
+//   console.log(error);
+// })
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
