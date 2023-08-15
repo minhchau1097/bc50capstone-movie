@@ -1,4 +1,4 @@
-import { UserOutlined, UserAddOutlined } from '@ant-design/icons'
+import { UserOutlined, UserAddOutlined, LogoutOutlined } from '@ant-design/icons'
 import { actLogout } from 'pages/AdminTemplate/LoginPage/duck/actions'
 import React from 'react'
 import { useDispatch } from 'react-redux'
@@ -8,10 +8,13 @@ export default function Navbar() {
   let navigate = useNavigate();
   let isValid = true
   let name = ''
-  if (localStorage.getItem('Customer', 'UserAdmin')) {
+  if (localStorage.getItem( 'UserAdmin')) {
     isValid = false
-    name = localStorage.getItem('Customer', 'UserAdmin') ? JSON.parse(localStorage.getItem('Customer', 'UserAdmin')).hoTen : ''
+    name = localStorage.getItem( 'UserAdmin') ? JSON.parse(localStorage.getItem( 'UserAdmin')) .hoTen : ''
 
+  }else if(localStorage.getItem( 'Customer')){
+    isValid = false
+    name = localStorage.getItem( 'Customer') ? JSON.parse(localStorage.getItem( 'Customer')) .hoTen : ''
   }
   const handleLogout = () => {
     dispatch(actLogout(navigate))
@@ -26,8 +29,19 @@ export default function Navbar() {
 
           <img id='logo' src="https://cybersoft.edu.vn/wp-content/uploads/2022/10/cyberlogo-white.png" alt="cybersoft" />
 
-          {/* Navbar links */}
-          <div className="collapse navbar-collapse" id="collapsibleNavbar">
+          
+          {/* Toggler/collapsibe Button */}
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#collapsibleNavbar"
+          >
+            <span className="navbar-toggler-icon" />
+          </button>
+        </div>
+        {/* Navbar links */}
+        <div className="collapse navbar-collapse" id="collapsibleNavbar">
             <ul className="navbar-nav">
               <li className="nav-item ">
                 <NavLink
@@ -71,23 +85,13 @@ export default function Navbar() {
                   <UserOutlined className='mr-1' />{name}
                 </NavLink>
                 <ul className='name-menu'>
-                  <li><button>Thông tin cá nhân</button></li>
-                  <li><button onClick={handleLogout}>Đăng xuất</button></li>
+                  <li><UserOutlined className='mr-1'/><button>Thông tin cá nhân</button></li>
+                  <li><LogoutOutlined className='mr-1'/><button onClick={handleLogout}>Đăng xuất</button></li>
                 </ul>
               </li>)}
             </ul>
 
           </div>
-          {/* Toggler/collapsibe Button */}
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#collapsibleNavbar"
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
-        </div>
       </div>
     </nav>
   )

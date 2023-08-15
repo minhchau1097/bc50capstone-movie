@@ -33,8 +33,15 @@ export const actAuth = (user, navigate) => {
     }
 }
 export const actLogout = (navigate) => {
-    localStorage.removeItem('Customer')
-    navigate('/', { replace: true })
+    if(localStorage.getItem( 'UserAdmin')){
+
+        localStorage.removeItem('UserAdmin')
+        navigate('/auth', { replace: true })
+    }else if(localStorage.getItem( 'Customer')){
+
+        localStorage.removeItem('Customer')
+        navigate('/', { replace: true })
+    }
     return {
         type: ActionTypes.AUTH_CLEAR
     }

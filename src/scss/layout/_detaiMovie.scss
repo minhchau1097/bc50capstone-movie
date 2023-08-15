@@ -1,7 +1,20 @@
 .detail-movie {
-    padding: 200px 0;
+    width: 100%;
     color: #fff;
 
+    .detail-movie-content {
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(19px);
+        -webkit-backdrop-filter: blur(19px);
+        border-radius: 10px;
+        padding: 60px 0 0 0;
+        margin: 0 12px;
+        align-items: center;
+    }
+
+    .background-detail-movie-theater {
+        margin: 60px 0;
+    }
 
     .detail-movie-left {
         width: 320px;
@@ -40,12 +53,10 @@
 
 
 .card-blur {
-    padding-bottom: 200px;
-    // background: rgba( 255, 255, 255, 0.05 );
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     backdrop-filter: blur(19px);
     -webkit-backdrop-filter: blur(19px);
-    border-radius: 10px;
+    // border-radius: 10px;
 }
 
 
@@ -66,26 +77,36 @@
         transition: all 0.5s;
         font-weight: 500;
     }
+
     .ant-tabs-tab-active {
         opacity: 1;
     }
-    .ant-tabs-ink-bar{
+
+    .ant-tabs-ink-bar {
         background: #fb4226;
         transition: all 0.5s;
-}
+    }
+
     .ant-tabs-tabpane {
         padding-left: 0;
     }
-    .ant-tabs-content-holder{
-        border: none ;
+
+    .ant-tabs-content-holder {
+        border: none;
     }
-   
+
 
     .theater-logo {
+        img {
+            width: 50px;
+            height: 50px;
+        }
+
         display: flex;
         align-items: center;
         gap: 16px;
         color: #fff;
+
         &::after {
             content: '';
             display: block;
@@ -99,6 +120,7 @@
             right: 50%;
         }
     }
+
     .theater-title {
         padding: 20px 0 0 20px;
 
@@ -138,7 +160,9 @@
 
     }
 }
+
 @include Reponsive($sm) {
+
     #detail-movie-theater {
         .theater-movie-date {
 
@@ -160,10 +184,22 @@
             }
         }
 
+        .theater-logo {
+            img {
+                width: 40px;
+                height: 40px;
+            }
+        }
     }
 }
 
 @include Reponsive($xxs) {
+    .detail-movie {
+        .detail-movie-left {
+            width: 90%;
+        }
+    }
+
     #detail-movie-theater {
         .theater-movie-date {
 
@@ -172,5 +208,13 @@
             }
         }
 
+        .theater-logo {
+
+            // width: 100px;
+            img {
+                width: 30px;
+                height: 30px;
+            }
+        }
     }
 }

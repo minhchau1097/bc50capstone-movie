@@ -3,21 +3,53 @@
         .card {
             width: 444px;
         }
+
         .btn-success {
             background-color: #fb4226;
-            
+
             width: 100%;
-            
+
         }
-        :hover .btn-success{
+
+        :hover .btn-success {
             background-color: #fb4226d5;
         }
-        .btn-register{
+
+        .btn-register {
             display: flex;
             justify-content: flex-end;
-           h3{
-            font-size: 1rem;
-           }
+
+            h3 {
+                font-size: 1rem;
+            }
+        }
+    }
+}
+@include Reponsive ($md) {
+    .login-page {
+        form {
+            .card {
+                width: 100%;
+            }
+        }
+    }
+}
+@include Reponsive ($xs) {
+    .login-page {
+        form {
+            .card {
+                width: 100%;
+            }
+        }
+    }
+}
+
+@include Reponsive ($xxs) {
+    .login-page {
+        form {
+            .card {
+                width: 100%;
+            }
         }
     }
 }
