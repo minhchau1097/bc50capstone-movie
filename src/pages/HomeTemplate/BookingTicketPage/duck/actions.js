@@ -22,28 +22,29 @@ export const actBuyTicket = (ticket) => {
     dispatch(actBuyTicketRequest());
     api.post("QuanLyDatVe/DatVe", ticket)
       .then((result) => {
-        console.log(result.data.content);
-        // const ticket = result.data.content;
-        // if (result.data.statusCode === 200) {
-        //   const ticket = result.data.content;
-        //   if (!(ticket.maLoaiNguoiDung === "KhachHang")) {
-        //     //show error, khi reject thì nó tự động hiểu và chạy vào catch
-        //     const error = {
-        //       response: {
-        //         data: {
-        //           content: "Bạn không có quyền truy cập",
-        //         },
-        //       },
-        //     };
-        //     return Promise.reject(error);
-        //   }
-        // }
-        // dispatch(actBuyTicketSuccess(ticket));
-        // localStorage.setItem("Customer", JSON.stringify(ticket));
-        // navigate(`/booking-ticket/${id}`, { replace: true });
+        dispatch(fetchBookingTicket(ticket.maLichChieu));
+        //đặt vé xong clear thông tin
+        dispatch(actBuyTicketClearData());
+        if (result.data.statusCode === 200) {
+          dispatch(actBuyTicketRedirect());
+        }
+
       })
       .catch((error) => {
         dispatch(actBuyTicketFail(error));
+      })
+  }
+}
+
+export const actHistoryTicket = (key) => {
+  return (dispatch) => {
+    dispatch(actHistoryTicketRequest());
+    api.post("QuanLyNguoiDung/ThongTinTaiKhoan")
+      .then((result) => {
+        dispatch(actHistoryTicketSuccess(result.data.content))
+      })
+      .catch((error) => {
+        dispatch(actHistoryTicketFail(error));
       })
   }
 }
@@ -74,7 +75,7 @@ const actBookingTicketFail = (error) => {
     payload: error
   }
 }
-
+//BUY TICKET
 const actBuyTicketRequest = () => {
   return {
     type: ActionType.BUY_TICKET_REQUEST,
@@ -89,6 +90,40 @@ const actBuyTicketSuccess = (data) => {
 const actBuyTicketFail = (error) => {
   return {
     type: ActionType.BUY_TICKET_FAIL,
+    payload: error
+  }
+}
+const actBuyTicketRedirect = () => {
+  return {
+    type: ActionType.REDIRECT_ANTD,
+  }
+}
+const actBuyTicketClearData = () => {
+  return {
+    type: ActionType.CLEAR_DATA_TICKET,
+  }
+}
+export const actBuyTicketChangeTabPane = (number) => {
+  return {
+    type: ActionType.CHANGE_TABPANE,
+    payload: number,
+  }
+}
+//HISTORY TICKET
+const actHistoryTicketRequest = () => {
+  return {
+    type: ActionType.HISTORY_TICKET_REQUEST,
+  }
+}
+const actHistoryTicketSuccess = (data) => {
+  return {
+    type: ActionType.HISTORY_TICKET_SUCCESS,
+    payload: data
+  }
+}
+const actHistoryTicketFail = (error) => {
+  return {
+    type: ActionType.HISTORY_TICKET_FAIL,
     payload: error
   }
 }
