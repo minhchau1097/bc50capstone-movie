@@ -1,6 +1,5 @@
 import * as ActionType from './constants';
 import api from 'utils/api';
-import Swal from 'sweetalert2';
 
 export const fetchBookingTicket = (id) => {
   return (dispatch) => {
@@ -28,7 +27,6 @@ export const actBuyTicket = (ticket) => {
         if (result.data.statusCode === 200) {
           dispatch(actBuyTicketRedirect());
         }
-
       })
       .catch((error) => {
         dispatch(actBuyTicketFail(error));
@@ -36,7 +34,7 @@ export const actBuyTicket = (ticket) => {
   }
 }
 
-export const actHistoryTicket = (key) => {
+export const actHistoryTicket = () => {
   return (dispatch) => {
     dispatch(actHistoryTicketRequest());
     api.post("QuanLyNguoiDung/ThongTinTaiKhoan")

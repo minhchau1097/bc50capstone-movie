@@ -4,14 +4,16 @@ import Slider from "react-slick";
 import Swal from 'sweetalert2';
 import { actFetchLichChieu } from './duck/actions';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
-
+import { useParams, Link } from 'react-router-dom';
+import moment from 'moment';
 function LichChieu() {
   const dispatch = useDispatch();
-  const data = useSelector((state)=> state.lichChieuReducer.data);
+  const data = useSelector((state) => state.lichChieuReducer.data);
+  const dataMovie = useSelector((state) => state.listMovieTheaterReducer.data);
+  console.log("🚀 ~ file: index.js:13 ~ LichChieu ~ dataMovie:", dataMovie)
+  // const idMaLichChieu = dataMovie?.map((movie) => movie.lstCumRap.map((movie) => movie.danhSachPhim.map((movie) => movie.lstLichChieuTheoPhim.map((movie, index) => movie.maLichChieu[index]))));
   const param = useParams();
-  console.log(param)
-  
+
   const settings = {
     dots: true,
     infinite: true,
@@ -55,24 +57,19 @@ function LichChieu() {
     return data?.map((movie) => <div key={movie.maPhim} ><LichChieuItem movie={movie} /></div>)
   }
 
-  const handlePopUp = () => {
-    Swal.fire({
-      title: 'Error!',
-      text: 'Do you want to continue',
-      icon: 'error',
-      confirmButtonText: 'Cool'
-    })
-  }
-
   return (
     <div className='container'>
       <div className="titleLichChieu">
         <div className='row container'>
           <div className="under-line col-md-3">
             <div className="form-group">
-              <select className="form-control" name="">
+              <select className="form-control" name="" >
                 <option>Phim</option>
-                <option></option>
+                {dataMovie?.map((movie) => movie.lstCumRap.map((movie) => movie.danhSachPhim.map((movie, index) =>
+                  <option key={index}
+                    value={dataMovie?.map((movie) => movie.lstCumRap.map((movie) => movie.danhSachPhim.map((movie) => movie.lstLichChieuTheoPhim.map((movie, index) => movie.maLichChieu[index]))))}>
+                    {movie.tenPhim}
+                  </option>)))}
               </select>
             </div>
           </div>
@@ -80,8 +77,7 @@ function LichChieu() {
             <div className="form-group">
               <select className="form-control" name="">
                 <option>Rạp</option>
-                <option></option>
-                <option></option>
+                {dataMovie?.map((movie, index) => <option key={index}>{movie.maHeThongRap}</option>)}
               </select>
             </div>
           </div>
@@ -89,16 +85,13 @@ function LichChieu() {
             <div className="form-group">
               <select className="form-control" name="">
                 <option>Ngày giờ chiếu</option>
-                <option></option>
-                <option></option>
+                {dataMovie?.map((movie) => movie.lstCumRap.map((movie) => movie.danhSachPhim.map((movie) => movie.lstLichChieuTheoPhim.map((movie, index) => <option key={index}>{moment(movie.ngayChieuGioChieu).format('hh:mm A -') + moment(movie.ngayChieuGioChieu).format(' DD-MM-YYYY')}</option>))))}
               </select>
             </div>
           </div>
           <div className='col-md-3 partition'>
             {/* dùng sweet alert để hiện box */}
-            <button className="btn btnMuaVe" onClick={() => {
-              handlePopUp()
-            }}>MUA VÉ NGAY</button>
+            <Link to={`/booking-ticket/`} className="btn btnMuaVe">MUA VÉ NGAY</Link>
           </div>
         </div>
       </div>
