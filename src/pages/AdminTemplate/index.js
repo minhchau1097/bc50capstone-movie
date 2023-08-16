@@ -1,72 +1,82 @@
-import { Navigate, Outlet, NavLink } from 'react-router-dom'
 import React, { useState } from 'react';
 import {
-    AppstoreOutlined,
-    ContainerOutlined,
-    DesktopOutlined,
-    FileOutlined,
-    MailOutlined,
-    MenuFoldOutlined,
-    MenuUnfoldOutlined,
-    PieChartOutlined,
-    UserOutlined,
+  DesktopOutlined,
+  FileOutlined,
+  PieChartOutlined,
+  TeamOutlined,
+  UserOutlined,
 } from '@ant-design/icons';
-import { Button, Menu } from 'antd';
+import { Breadcrumb, Layout, Menu, theme } from 'antd';
+const { Header, Content, Footer, Sider } = Layout;
 
 export default function AdminTemplate() {
-    const [collapsed, setCollapsed] = useState(false);
-    const toggleCollapsed = () => {
-        setCollapsed(!collapsed);
-    };
-    if (!localStorage.getItem('UserAdmin')) {
-        return <Navigate to={'/auth'} replace />
-    }
-
-    const getItem = (label, key, icon, children, type) => {
+    function getItem(label, key, icon, children) {
         return {
-            key,
-            icon,
-            children,
-            label,
-            type,
+          key,
+          icon,
+          children,
+          label,
         };
-    }
-    const items = [
-        getItem(<NavLink to={'/admin/dashboard'}>
-            User
-        </NavLink>, '1', <UserOutlined />),
-        getItem('Films', 'sub1', <FileOutlined />, [
-            getItem(<NavLink to={'/admin/listmovie'}>
-                Films
-            </NavLink>, '2', <FileOutlined />),
-            getItem('Add Films', '3', <FileOutlined />),
+      }
+      const items = [
+        getItem(<div className='p-2 w-100 h-100'><img src="https://cybersoft.edu.vn/wp-content/uploads/2022/10/cyberlogo-white.png" alt="" /></div>),
+        getItem('User', 'sub1', <UserOutlined />, [
+          getItem('User', '3'),
         ]),
-    ];
-
-    return (
-        <div>
-            <div
-                className='admin-menu'
-                style={{ width: `${collapsed ? '80px' : '256px'}` }}
-            >
-                <Button
-                    type="primary"
-                    onClick={toggleCollapsed}
-                    className='btn-menu'
-                >
-                    {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                </Button>
-                <Menu
-                    className='ul-menu'
-                    defaultSelectedKeys={['1']}
-                    defaultOpenKeys={['sub1']}
-                    mode="inline"
-                    theme="dark"
-                    inlineCollapsed={collapsed}
-                    items={items}
-                />
-            </div>
-            <Outlet />
-        </div>
-    )
+        getItem('Films', 'sub2', <FileOutlined />, [getItem('Films', '6'), getItem('Add Films', '8')]),
+      ];
+      const [collapsed, setCollapsed] = useState(false);
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
+  return (
+    <Layout
+      style={{
+        minHeight: '100vh',
+      }}
+    >
+      <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+        <div className="demo-logo-vertical" />
+        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
+      </Sider>
+      <Layout>
+        <Header
+          style={{
+            padding: 0,
+            background: colorBgContainer,
+          }}
+        />
+        <Content
+          style={{
+            margin: '0 16px',
+          }}
+        >
+          <Breadcrumb
+            style={{
+              margin: '16px 0',
+            }}
+          >
+            <Breadcrumb.Item>User</Breadcrumb.Item>
+            <Breadcrumb.Item>Bill</Breadcrumb.Item>
+          </Breadcrumb>
+          <div
+            style={{
+              padding: 24,
+              minHeight: '100%',
+              background: colorBgContainer,
+            }}
+          >
+            Bill is a cat.
+          </div>
+        </Content>
+        <Footer
+          style={{
+            textAlign: 'center',
+          }}
+        >
+          Ant Design ©2023 Created by Ant UED
+        </Footer>
+      </Layout>
+    </Layout>
+  );
 }

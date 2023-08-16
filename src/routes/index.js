@@ -33,8 +33,8 @@ const routes = [
                 element: lazy(() => import("./../pages/AdminTemplate/Dashboard")),
             },
             {
-                path: "listmovie",
-                element: lazy(() => import("./../pages/AdminTemplate/ListMovie")),
+                path: "films",
+                element: lazy(() => import("../pages/AdminTemplate/Films")),
             },
 
         ],
