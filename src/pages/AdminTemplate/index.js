@@ -7,28 +7,32 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
+
+import { NavLink, Navigate, Outlet } from 'react-router-dom';
+
+
 const { Header, Content, Footer, Sider } = Layout;
 
 export default function AdminTemplate() {
-    function getItem(label, key, icon, children) {
-        return {
-          key,
-          icon,
-          children,
-          label,
-        };
-      }
-      const items = [
-        getItem(<div className='p-2 w-100 h-100'><img src="https://cybersoft.edu.vn/wp-content/uploads/2022/10/cyberlogo-white.png" alt="" /></div>),
-        getItem('User', 'sub1', <UserOutlined />, [
-          getItem('User', '3'),
-        ]),
-        getItem('Films', 'sub2', <FileOutlined />, [getItem('Films', '6'), getItem('Add Films', '8')]),
-      ];
-      const [collapsed, setCollapsed] = useState(false);
+  function getItem(label, key, icon, children) {
+    return {
+      key,
+      icon,
+      children,
+      label,
+    };
+  }
+  const items = [
+    getItem(<div className='p-2 w-100 h-100'><img src="https://cybersoft.edu.vn/wp-content/uploads/2022/10/cyberlogo-white.png" alt="" /></div>),
+    getItem(<NavLink to={'/admin/dashboard'}>Người dùng</NavLink>, '1', <UserOutlined />),
+    getItem(<NavLink to={'/admin/films'}>Phim</NavLink>, '2', <FileOutlined />),
+  ];
+  const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+
+
   return (
     <Layout
       style={{
@@ -51,22 +55,17 @@ export default function AdminTemplate() {
             margin: '0 16px',
           }}
         >
-          <Breadcrumb
-            style={{
-              margin: '16px 0',
-            }}
-          >
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
-          </Breadcrumb>
+
           <div
             style={{
+              marginTop: 12,
               padding: 24,
               minHeight: '100%',
               background: colorBgContainer,
             }}
           >
-            Bill is a cat.
+            <Outlet />
+
           </div>
         </Content>
         <Footer
