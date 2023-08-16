@@ -10,7 +10,7 @@ export default function MovieTheater() {
     tabPosition: 'left'
   })
   const data = useSelector((state) => state.listMovieTheaterReducer.data)
-  console.log(data)
+  
   const dispatch = useDispatch();
 
   useEffect(() => {
