@@ -7,7 +7,6 @@ const bookingState = {
     error: null,
     danhSachGheDangDat: [],
     thongTinNguoiDung: {},
-    danhSachGheKhachDangDat: [{maGhe:51084},{maGhe:51085}],
     tabActive: "1",
 }
 
