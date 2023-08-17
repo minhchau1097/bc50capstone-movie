@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   DesktopOutlined,
   FileOutlined,
@@ -14,6 +14,12 @@ import { NavLink, Navigate, Outlet } from 'react-router-dom';
 const { Header, Content, Footer, Sider } = Layout;
 
 export default function AdminTemplate() {
+  const [collapsed, setCollapsed] = useState(false);
+    if(!localStorage.getItem('UserAdmin')){
+     return <Navigate to='/auth' replace/>
+    }
+  
+ 
   function getItem(label, key, icon, children) {
     return {
       key,
@@ -27,7 +33,7 @@ export default function AdminTemplate() {
     getItem(<NavLink to={'/admin/dashboard'}>Người dùng</NavLink>, '1', <UserOutlined />),
     getItem(<NavLink to={'/admin/films'}>Phim</NavLink>, '2', <FileOutlined />),
   ];
-  const [collapsed, setCollapsed] = useState(false);
+  
   const {
     token: { colorBgContainer },
   } = theme.useToken();
