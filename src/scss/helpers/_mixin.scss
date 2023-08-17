@@ -48,3 +48,23 @@
         }
     } 
 }
+
+@mixin ReponsiveTicket ($type) {
+    @if $type ==$xxs2 {
+        @media screen and (max-width:$xxs2) {
+            @content;
+        }
+    }@else if $type ==$xs2 {
+        @media screen and (max-width:$xs2) {
+            @content;
+        }
+    }@else if $type == $sm2 {
+        @media screen and (max-width:$sm2) {
+            @content;
+        }
+    }@else if $type == $md2 {
+        @media screen and (max-width:$md2) {
+            @content;
+        }
+    }
+}

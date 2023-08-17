@@ -2,7 +2,8 @@
 module.exports = {
   content: [
     './src/pages/HomeTemplate/_components/footer/index.js',
-    './src/pages/HomeTemplate/BookingTicketPage/index.js'
+    './src/pages/HomeTemplate/BookingTicketPage/index.js',
+    './src/pages/HomeTemplate/HomePage/MovieTheater/index.js',
   ],
   presets: [],
   darkMode:'class',// or  'media' 
