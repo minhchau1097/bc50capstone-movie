@@ -9,61 +9,38 @@ export default function ListMovie() {
     dispatch(actFetchLichChieu())
   }, [])
   
+  
   const columns = [
     {
-      title: 'Ma phim',
+      title: 'Mã phim',
       dataIndex: 'maPhim',
-      filters: [
-        {
-          text: 'Joe',
-          value: 'Joe',
-        },
-        {
-          text: 'Jim',
-          value: 'Jim',
-        },
-        {
-          text: 'Submenu',
-          value: 'Submenu',
-          children: [
-            {
-              text: 'Green',
-              value: 'Green',
-            },
-            {
-              text: 'Black',
-              value: 'Black',
-            },
-          ],
-        },
-      ],
+      width: 100,
       // specify the condition of filtering result
       // here is that finding the name started with `value`
       onFilter: (value, record) => record.name.indexOf(value) === 0,
-      sorter: (a, b) => a.name.length - b.name.length,
+      sorter: (a, b) => a.maPhim - b.maPhim,
       sortDirections: ['descend'],
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
+      
+      title: 'Tên phim',
+      dataIndex: 'tenPhim',
       defaultSortOrder: 'descend',
-      sorter: (a, b) => a.age - b.age,
+       width: 100,
+      sorter: (a, b) => a.tenPhim.length - b.tenPhim.length,
     },
     {
-      title: 'Address',
-      dataIndex: 'address',
-      filters: [
-        {
-          text: 'London',
-          value: 'London',
-        },
-        {
-          text: 'New York',
-          value: 'New York',
-        },
-      ],
-      onFilter: (value, record) => record.address.indexOf(value) === 0,
+      title: 'Hình ảnh',
+      dataIndex: 'hinhAnh',
+       width: 100,
+    
     },
+    {
+      title: 'Mô tả',
+      dataIndex: 'moTa',
+       width: 150,
+    
+    }
   ];
 
   const renderData = () => {
@@ -72,12 +49,14 @@ export default function ListMovie() {
             key: index,
             maPhim: item.maPhim,
             tenPhim: item.tenPhim,
-            hinhAnh: item.hinhAnh,
+            hinhAnh: <img width={120} height={100} src={item.hinhAnh} alt={item.tenPhim} />,
             moTa: item.moTa
           }
       
     })
-    return <Table columns={columns} dataSource={data} onChange={onChange} />
+    return <Table  columns={columns} dataSource={data} onChange={onChange}  scroll={{
+      x: 1000,
+    }}/>
   }
   const onChange = (pagination, filters, sorter, extra) => {
     console.log('params', pagination, filters, sorter, extra);
