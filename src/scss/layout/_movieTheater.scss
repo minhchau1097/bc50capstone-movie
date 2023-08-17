@@ -112,7 +112,20 @@
 }
 
 
-@include Reponsive ($md) {
+@include ReponsiveTicket ($md2) {
+    #movie-theater {
+        display: flex;
+    }
+    .movie-theater-box{
+        display: grid;
+        padding-left: 0;
+        width: 300px;
+        img{
+            margin-left: 9%;
+        }
+    }
+}
+@include ReponsiveTicket ($sm2) {
     #movie-theater {
         display: none;
     }
