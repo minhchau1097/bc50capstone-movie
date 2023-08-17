@@ -10,70 +10,66 @@ import moment from 'moment/moment'
 
 
 export default function DetailMoviePage() {
-
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  })
   const param = useParams()
-  const data = useSelector((state) => state.detailMovieReducer.data)
+  const data = useSelector((state) => state.detailMovieReducer.data);
   const dispatch = useDispatch();
   const [tabPosition, setTabPosition] = useState('left');
 
   useEffect(() => {
     dispatch(fetchDetailMovie(param.id))
   }, [])
-  const checkData = () => {
-    if (data?.heThongRapChieu.length === 0) {
-      return <div className='text-center '>
-        <h2 style={{ paddingTop: 60 }}>Xin lỗi quý khách , hiện tại chưa có lịch chiếu</h2>
-      </div>
-
-
-    } else {
-      return renderTabs()
-    }
-  }
   const renderTabs = () => {
-    let items = data?.heThongRapChieu.map((item, index) => {
-      return {
-        key: index,
-        label: (
-          <div key={index} className='theater-logo'>
-            <img src={item.logo} alt={item.tenHeThongRap} title={item.tenHeThongRap} />
+    if (data?.heThongRapChieu.length > 0) {
 
+
+      let items = data?.heThongRapChieu.map((item, index) => {
+        return {
+          key: index,
+          label: (
+            <div key={index} className='theater-logo'>
+              <img src={item.logo} alt={item.tenHeThongRap} title={item.tenHeThongRap} />
+
+            </div>
+          ),
+          children: (
+            <>
+              {item.cumRapChieu.map((item1, index) => {
+                return (
+                  <div key={index} className='theater-title'>
+                    <div>
+                      <p >{item1.tenCumRap}</p>
+                      <p>{item1.diaChi}</p>
+                    </div>
+                    <div key={index} className=' mt-2 theater-movie-date' >
+                      {item1.lichChieuPhim.map((item2, index) => {
+                        return (
+                          <Fragment key={index}>
+                            <Link to={`/booking-ticket/${item2.maLichChieu}`} className='movie-date' >{moment(item2.ngayChieuGioChieu).format('h:mmA')}</Link>
+
+                          </Fragment>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )
+              })}
+            </>
+          )
+        }
+      })
+      return (
+        <div className="row w-100 mx-auto ">
+          <div className='background-detail-movie-theater col-12'>
+            <div id='detail-movie-theater' >
+              <Tabs tabPosition={tabPosition} defaultActiveKey='1' items={items} className='detail-movie-theater'>
+              </Tabs>
+            </div>
           </div>
-        ),
-        children: (
-          <>
-            {item.cumRapChieu.map((item1, index) => {
-              return (
-                <div key={index} className='theater-title'>
-                  <div>
-                    <p >{item1.tenCumRap}</p>
-                    <p>{item1.diaChi}</p>
-                  </div>
-                  <div key={index} className=' mt-2 theater-movie-date' >
-                    {item1.lichChieuPhim.map((item2, index) => {
-                      return (
-                        <Fragment key={index}>
-                          <Link className='movie-date' >{moment(item2.ngayChieuGioChieu).format('h:mmA')}</Link>
-
-                        </Fragment>
-                      )
-                    })}
-                  </div>
-                </div>
-              )
-            })}
-          </>
-        )
-      }
-    })
-    return (
-      <Tabs tabPosition={tabPosition} defaultActiveKey='1' items={items} className='detail-movie-theater'>
-      </Tabs>
-    )
-
+        </div>
+      )
+    } else {
+      return null
+    }
   }
 
 
@@ -106,18 +102,12 @@ export default function DetailMoviePage() {
                   <a href='#detail-movie-theater' className='btn btn-danger ml-3 ml-sm-5'>Mua vé</a>
                 </div>
               </div>
-              <div className="row w-100 mx-auto ">
-                <div className='background-detail-movie-theater col-12'>
-                  <div id='detail-movie-theater' >
-                    {checkData()}
-
-                  </div>
-                </div>
-              </div>
+              {renderTabs()}
             </div>
           </div>
         </div>
       </div>
+
     </div>
   )
 }
