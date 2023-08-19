@@ -5,17 +5,14 @@ import { actFetchLichChieu } from './duck/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import moment from 'moment';
+import { Radio, Select, Space } from 'antd';
+
 function LichChieu() {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.lichChieuReducer.data);
   const dataMovie = useSelector((state) => state.listMovieTheaterReducer.data);
   console.log("🚀 ~ file: index.js:13 ~ LichChieu ~ dataMovie:", dataMovie)
   const param = useParams();
-  const [state, setState] = useState({
-    tenPhim: "",
-    maHeThongRap: "",
-    ngayChieuGioChieu: "",
-  });
   const settings = {
     dots: true,
     infinite: true,
@@ -57,14 +54,25 @@ function LichChieu() {
 
   const renderListLichChieu = () => {
     return data?.map((movie) => <div key={movie.maPhim} ><LichChieuItem movie={movie} /></div>)
+  };
+
+  //Select antd
+  // dataMovie?.map((movie) => movie.lstCumRap.map((movie) => movie.danhSachPhim.map((movie) => movie.tenPhim)))
+  const options = [];
+  for (let i = 10; i < 36; i++) {
+    options.push({
+      value: i.toString(36) + i,
+      label: i.toString(36) + i,
+    });
   }
-  const handleOnchange = (e) => {
-    const { name, value } = e;
-    setState({
-      ...state,
-      [name]: value,
-    })
-  }
+  const handleChange = (value) => {
+    console.log(`Selected: ${value}`);
+  };
+  const [size, setSize] = useState({
+    maLichChieu: "",
+    maRap: "",
+    ngayChieuGioChieu: "",
+  });
 
   return (
     <div className='container'>
@@ -72,38 +80,59 @@ function LichChieu() {
         <div className='row container'>
           <div className="under-line col-md-3">
             <div className="form-group">
-              <select className="form-control" name="tenPhim" value={dataMovie?.map((movie) => movie.lstCumRap.map((movie) => movie.danhSachPhim.map((movie) => movie.lstLichChieuTheoPhim.map((movie, index) => movie.maLichChieu[index]))))} onChange={(e) => handleOnchange(e)} >
-                <option>Phim</option>
-                {dataMovie?.map((movie) => movie.lstCumRap.map((movie) => movie.danhSachPhim.map((movie, index) =>
-                  <option key={index}>
-                    {movie.tenPhim}
-                  </option>)))}
-              </select>
+              <Select
+                className='mb-2'
+                size={size}
+                defaultValue="Phim"
+                onChange={handleChange}
+                style={{
+                  width: 240,
+                }}
+                options={options}
+              />
             </div>
           </div>
           <div className="under-line col-md-3 partition">
             <div className="form-group">
-              <select className="form-control" name="maHeThongRap" value={dataMovie?.map((movie) => movie.lstCumRap.map((movie) => movie.danhSachPhim.map((movie) => movie.lstLichChieuTheoPhim.map((movie, index) => movie.maRap[index]))))} onChange={(e) => handleOnchange(e)}>
+              <Select
+                size={size}
+                defaultValue="a1"
+                onChange={handleChange}
+                style={{
+                  width: 240,
+                }}
+                options={options}
+              />
+              {/* <select className="form-control" name="maHeThongRap"  onChange={(e) => handleOnchange(e)}>
                 <option>Rạp</option>
                 {dataMovie?.map((movie, index) => <option key={index}>
                   {movie.maHeThongRap}
                 </option>)}
-              </select>
+              </select> */}
             </div>
           </div>
           <div className="under-line col-md-3 partition">
             <div className="form-group">
-              <select className="form-control" name="ngayChieuGioChieu" value={state.ngayChieuGioChieu} onChange={(e) => handleOnchange(e)}>
+              <Select
+                size={size}
+                defaultValue="a1"
+                onChange={handleChange}
+                style={{
+                  width: 240,
+                }}
+                options={options}
+              />
+              {/* <select className="form-control" name="ngayChieuGioChieu" onChange={(e) => handleOnchange(e)}>
                 <option>Ngày giờ chiếu</option>
                 {dataMovie?.map((movie) => movie.lstCumRap.map((movie) => movie.danhSachPhim.map((movie) => movie.lstLichChieuTheoPhim.map((movie, index) => <option key={index}>
                   {moment(movie.ngayChieuGioChieu).format('hh:mm A -') + moment(movie.ngayChieuGioChieu).format(' DD-MM-YYYY')}
                 </option>))))}
-              </select>
+              </select> */}
             </div>
           </div>
           <div className='col-md-3 partition'>
             {/* dùng sweet alert để hiện box */}
-            <Link to={`/booking-ticket/${state.tenPhim}`} className="btn btnMuaVe">MUA VÉ NGAY</Link>
+            <Link to={`/booking-ticket/`} className="btn btnMuaVe">MUA VÉ NGAY</Link>
           </div>
         </div>
       </div>

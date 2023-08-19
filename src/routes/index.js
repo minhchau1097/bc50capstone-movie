@@ -20,7 +20,7 @@ const routes = [
             },
             {
                 path: 'booking-ticket/:id',
-                element: lazy(()=> import("./../pages/HomeTemplate/BookingTicketPage")),
+                element: lazy(() => import("./../pages/HomeTemplate/BookingTicketPage")),
             }
         ]
     },
@@ -36,7 +36,10 @@ const routes = [
                 path: "films",
                 element: lazy(() => import("../pages/AdminTemplate/Films")),
             },
-
+            {
+                path: "add-user",
+                element: lazy(() => import("../pages/AdminTemplate/Dashboard/AddUser")),
+            },
         ],
     },
     {
@@ -54,9 +57,9 @@ const renderRoutes = () => {
     return routes.map((route) => {
         if (route.nested) {
             return (
-                <Route key={route.path} path={route.path} element={<route.element/>}>{
-                    route.nested.map((item) => 
-                        <Route key={item.path} path={item.path} element={<item.element/>} />
+                <Route key={route.path} path={route.path} element={<route.element />}>{
+                    route.nested.map((item) =>
+                        <Route key={item.path} path={item.path} element={<item.element />} />
                     )
                 }</Route>
 
@@ -64,7 +67,7 @@ const renderRoutes = () => {
 
         } else {
             return (
-                <Route key={route.path} path={route.path} element={<route.element/>}></Route>
+                <Route key={route.path} path={route.path} element={<route.element />}></Route>
             )
         }
     })

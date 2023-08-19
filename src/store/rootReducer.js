@@ -1,4 +1,4 @@
-import { combineReducers } from "redux";    
+import { combineReducers } from "redux";
 // import listMovieReducer from "../pages/HomeTemplate/HomePage/duck/reducer";
 import bannerMovieReducer from "../pages/HomeTemplate/HomePage/Banner/duck/reducer";
 import detailMovieReducer from "../pages/HomeTemplate/DetailMoviePage/duck/reducer";
@@ -8,6 +8,8 @@ import lichChieuReducer from './../pages/HomeTemplate/HomePage/LichChieu/duck/re
 import registerReducer from './../pages/AdminTemplate/RegisterPage/duck/reducer';
 import bookingTicketReducer from './../pages/HomeTemplate/BookingTicketPage/duck/reducer';
 import modalReducer from "pages/HOC-Modal/duck/reducer";
+
+import manageUserReducer from './../pages/AdminTemplate/Dashboard/duck/reducer';
 const rootReducer = combineReducers({
     //child
     // listMovieReducer,
@@ -15,10 +17,11 @@ const rootReducer = combineReducers({
     bannerMovieReducer,
     detailMovieReducer,
     listMovieTheaterReducer,
-    loginReducer,    
+    loginReducer,
     registerReducer,
-    bookingTicketReducer,    
+    bookingTicketReducer,
     modalReducer,
+    manageUserReducer,
 })
 
 
