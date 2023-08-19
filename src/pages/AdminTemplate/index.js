@@ -4,6 +4,7 @@ import {
   FileOutlined,
   PieChartOutlined,
   TeamOutlined,
+  UserAddOutlined,
   UserOutlined,
 } from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
@@ -30,14 +31,17 @@ export default function AdminTemplate() {
   }
   const items = [
     getItem(<div className='p-2 w-100 h-100'><img src="https://cybersoft.edu.vn/wp-content/uploads/2022/10/cyberlogo-white.png" alt="" /></div>),
-    getItem(<NavLink to={'/admin/dashboard'}>Người dùng</NavLink>, '1', <UserOutlined />),
+    getItem(<NavLink to={'/admin/dashboard'} className="text-gray-400">Người dùng</NavLink>, '1', <UserOutlined />, [
+      getItem(<NavLink to={'/admin/dashboard'} >Người dùng</NavLink>, '10', <UserOutlined />),
+      getItem(<NavLink to={'/admin/add-user'} >Thêm người dùng</NavLink>, '11', <UserAddOutlined />),
+    ]),
     getItem(<NavLink to={'/admin/films'}>Phim</NavLink>, '2', <FileOutlined />),
+
   ];
   
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-
 
   return (
     <Layout
