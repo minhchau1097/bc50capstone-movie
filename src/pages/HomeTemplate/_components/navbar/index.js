@@ -8,13 +8,13 @@ export default function Navbar() {
   let navigate = useNavigate();
   let isValid = true
   let name = ''
-  if (localStorage.getItem( 'UserAdmin')) {
+  if (localStorage.getItem('UserAdmin')) {
     isValid = false
-    name = localStorage.getItem( 'UserAdmin') ? JSON.parse(localStorage.getItem( 'UserAdmin')) .hoTen : ''
+    name = localStorage.getItem('UserAdmin') ? JSON.parse(localStorage.getItem('UserAdmin')).hoTen : ''
 
-  }else if(localStorage.getItem( 'Customer')){
+  } else if (localStorage.getItem('Customer')) {
     isValid = false
-    name = localStorage.getItem( 'Customer') ? JSON.parse(localStorage.getItem( 'Customer')) .hoTen : ''
+    name = localStorage.getItem('Customer') ? JSON.parse(localStorage.getItem('Customer')).hoTen : ''
   }
   const handleLogout = () => {
     dispatch(actLogout(navigate))
@@ -29,7 +29,7 @@ export default function Navbar() {
 
           <img id='logo' src="https://cybersoft.edu.vn/wp-content/uploads/2022/10/cyberlogo-white.png" alt="cybersoft" />
 
-          
+
           {/* Toggler/collapsibe Button */}
           <button
             className="navbar-toggler"
@@ -42,56 +42,56 @@ export default function Navbar() {
         </div>
         {/* Navbar links */}
         <div className="collapse navbar-collapse" id="collapsibleNavbar">
-            <ul className="navbar-nav">
-              <li className="nav-item ">
-                <NavLink
-                  className='nav-link'
-                  to="/"
-                >
-                  Lịch Chiếu
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <a
-                  className='nav-link'
-                  href="#movie-theater"
-                  
-                >
-                  Cụm Rạp
-                </a>
-              </li>
-              {isValid && (<li className="nav-item">
-                <NavLink
-                  className='nav-link'
-                  to="/auth"
-                >
+          <ul className="navbar-nav">
+            <li className="nav-item ">
+              <NavLink
+                className='nav-link'
+                to="/"
+              >
+                Lịch Chiếu
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <a
+                className='nav-link'
+                href="#movie-theater"
 
-                  <UserOutlined className='mr-1' />Đăng nhập
-                </NavLink>
-              </li>)}
-              {isValid && (<li className="nav-item">
-                <NavLink
-                  className='nav-link'
-                  to="/register"
-                >
-                  <UserAddOutlined className='mr-1' />Đăng ký
-                </NavLink>
-              </li>)}
-              {!isValid && (<li className="nav-item customer-name">
-                <NavLink
-                  className="nav-link "
-                  to="/"
-                >
-                  <UserOutlined className='mr-1' />{name}
-                </NavLink>
-                <ul className='name-menu'>
-                  <li><UserOutlined className='mr-1'/><button>Thông tin cá nhân</button></li>
-                  <li><LogoutOutlined className='mr-1'/><button onClick={handleLogout}>Đăng xuất</button></li>
-                </ul>
-              </li>)}
-            </ul>
+              >
+                Cụm Rạp
+              </a>
+            </li>
+            {isValid && (<li className="nav-item">
+              <NavLink
+                className='nav-link'
+                to="/auth"
+              >
 
-          </div>
+                <UserOutlined className='mr-1' />Đăng nhập
+              </NavLink>
+            </li>)}
+            {isValid && (<li className="nav-item">
+              <NavLink
+                className='nav-link'
+                to="/register"
+              >
+                <UserAddOutlined className='mr-1' />Đăng ký
+              </NavLink>
+            </li>)}
+            {!isValid && (<li className="nav-item customer-name">
+              <NavLink
+                className="nav-link "
+                to="/"
+              >
+                <UserOutlined className='mr-1' />{name}
+              </NavLink>
+              <ul className='name-menu'>
+                <li><UserOutlined className='mr-1' /><button>Thông tin cá nhân</button></li>
+                <li><LogoutOutlined className='mr-1' /><button onClick={handleLogout}>Đăng xuất</button></li>
+              </ul>
+            </li>)}
+          </ul>
+
+        </div>
       </div>
     </nav>
   )
