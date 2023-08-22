@@ -36,6 +36,19 @@ const routes = [
                 path: "films",
                 element: lazy(() => import("../pages/AdminTemplate/Films")),
             },
+            {
+                path: "films/addnew",
+                element: lazy(() => import("../pages/AdminTemplate/AddNew")),
+            },
+            {
+                path: "films/edit/:id",
+                element: lazy(() => import("../pages/AdminTemplate/EditFilms")),
+            },
+            {
+                path: "films/showtime/:id",
+                element: lazy(() => import("../pages/AdminTemplate/ShowTime")),
+            }
+            
 
         ],
     },
