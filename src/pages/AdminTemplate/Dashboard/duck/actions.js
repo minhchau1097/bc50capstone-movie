@@ -2,6 +2,7 @@ import * as ActionType from './constants';
 import api from 'utils/api';
 
 
+
 export const actManageUser = () => {
   return (dispatch) => {
     dispatch(actUserRequest());
@@ -15,6 +16,7 @@ export const actManageUser = () => {
       })
   }
 }
+
 
 export const actAddUser = (formData, navigate) => {
   return (dispatch) => {
