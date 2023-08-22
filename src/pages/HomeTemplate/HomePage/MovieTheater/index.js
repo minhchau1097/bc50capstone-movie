@@ -40,7 +40,7 @@ export default function MovieTheater() {
                         <img src={item2.hinhAnh} alt={item2.tenPhim} style={{ width: 100, height: 130, borderRadius: 12 }} />
                         <div className='pl-4'>
                           <p className='movie-theater-movie-name mb-1'><span>C18</span>{item2.tenPhim}</p>
-                          <div className='movie-theater-movie-date '>{item2.lstLichChieuTheoPhim.slice(0, 4).map((item3, index) => {
+                          <div className='movie-theater-movie-date'>{item2.lstLichChieuTheoPhim.slice(0, 4).map((item3, index) => {
                             return <Link to={`/booking-ticket/${item3.maLichChieu}`} className='movie-date' key={index}>{moment(item3.ngayChieuGioChieu).format('h:mmA')}</Link>
                           })}</div>
                         </div>

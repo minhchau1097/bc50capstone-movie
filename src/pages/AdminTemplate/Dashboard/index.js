@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,Fragment } from 'react';
 import { Button, Table } from 'antd';
 import { AudioOutlined, DeleteOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons';
 import { Input, Space } from 'antd';
@@ -13,6 +13,7 @@ export default function ManageUser() {
   useEffect(() => {
     dispatch(actManageUser());
   }, []);
+  
   //Table Antd
   const columns = [
     {
@@ -85,10 +86,10 @@ export default function ManageUser() {
       dataIndex: '',
       render: (item, object) => {
         return (
-          <>
-            <NavLink className='text-2xl' to={'/'}><EditOutlined /></NavLink>
-            <NavLink className='ml-4 text-2xl' to={'/'}><DeleteOutlined style={{ color: 'red' }} /></NavLink>
-          </>
+          <Fragment key={object}>
+            <NavLink key={1} className='text-2xl' to={'/admin/edit-user'}><EditOutlined /></NavLink>
+            <NavLink key={2} className='ml-4 text-2xl' to={'/'}><DeleteOutlined style={{ color: 'red' }} /></NavLink>
+          </Fragment>
         )
       },
       width: '15%',
