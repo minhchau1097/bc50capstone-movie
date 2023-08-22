@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import LichChieuItem from "./LichChieuItem";
 import Slider from "react-slick";
-import { actFetchLichChieu } from './duck/actions';
+import { actFetchLichChieu, actFetchInfoLichChieu } from './duck/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import moment from 'moment';
@@ -10,9 +10,11 @@ import { Radio, Select, Space } from 'antd';
 function LichChieu() {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.lichChieuReducer.data);
-  const dataMovie = useSelector((state) => state.listMovieTheaterReducer.data);
-  console.log("🚀 ~ file: index.js:13 ~ LichChieu ~ dataMovie:", dataMovie)
+  // const dataMovie = useSelector((state) => state.lichChieuReducer.data);
+  console.log("🚀 ~ file: index.js:13 ~ LichChieu ~ data:", data)
+
   const param = useParams();
+  //React-Slick
   const settings = {
     dots: true,
     infinite: true,
@@ -51,6 +53,10 @@ function LichChieu() {
   useEffect(() => {
     dispatch(actFetchLichChieu());
   }, []);
+
+  // useEffect(() => {
+  //   dispatch(actFetchInfoLichChieu());
+  // }, []);
 
   const renderListLichChieu = () => {
     return data?.map((movie) => <div key={movie.maPhim} ><LichChieuItem movie={movie} /></div>)
@@ -94,7 +100,7 @@ function LichChieu() {
           </div>
           <div className="under-line col-md-3 partition">
             <div className="form-group">
-              <Select
+              {/* <Select
                 size={size}
                 defaultValue="a1"
                 onChange={handleChange}
@@ -102,7 +108,7 @@ function LichChieu() {
                   width: 240,
                 }}
                 options={options}
-              />
+              /> */}
               {/* <select className="form-control" name="maHeThongRap"  onChange={(e) => handleOnchange(e)}>
                 <option>Rạp</option>
                 {dataMovie?.map((movie, index) => <option key={index}>
@@ -113,7 +119,7 @@ function LichChieu() {
           </div>
           <div className="under-line col-md-3 partition">
             <div className="form-group">
-              <Select
+              {/* <Select
                 size={size}
                 defaultValue="a1"
                 onChange={handleChange}
@@ -121,7 +127,7 @@ function LichChieu() {
                   width: 240,
                 }}
                 options={options}
-              />
+              /> */}
               {/* <select className="form-control" name="ngayChieuGioChieu" onChange={(e) => handleOnchange(e)}>
                 <option>Ngày giờ chiếu</option>
                 {dataMovie?.map((movie) => movie.lstCumRap.map((movie) => movie.danhSachPhim.map((movie) => movie.lstLichChieuTheoPhim.map((movie, index) => <option key={index}>
@@ -158,3 +164,5 @@ function LichChieu() {
 }
 
 export default LichChieu;
+
+

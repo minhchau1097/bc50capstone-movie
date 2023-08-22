@@ -1,4 +1,4 @@
-import { LICHCHIEU_REQUEST, LICHCHIEU_SUCCESS, LICHCHIEU_FAIL } from './constants';
+import { LICHCHIEU_REQUEST, LICHCHIEU_SUCCESS, LICHCHIEU_FAIL, INFO_LICHCHIEU_REQUEST, INFO_LICHCHIEU_SUCCESS, INFO_LICHCHIEU_FAIL } from './constants';
 
 const stateLichChieu = {
   loading: false,
@@ -15,13 +15,31 @@ const lichChieuReducer = (state = stateLichChieu, action) => {
       return { ...state };
     }
     case LICHCHIEU_SUCCESS: {
-      state.loading = true;
+      state.loading = false;
       state.data = action.payload;
       state.error = null;
       return { ...state };
     }
     case LICHCHIEU_FAIL: {
+      state.loading = false;
+      state.data = null;
+      state.error = action.payload;
+      return { ...state };
+    }
+    case INFO_LICHCHIEU_REQUEST: {
       state.loading = true;
+      state.data = null;
+      state.error = null;
+      return { ...state };
+    }
+    case INFO_LICHCHIEU_SUCCESS: {
+      state.loading = false;
+      state.data = action.payload;
+      state.error = null;
+      return { ...state };
+    }
+    case INFO_LICHCHIEU_FAIL: {
+      state.loading = false;
       state.data = null;
       state.error = action.payload;
       return { ...state };

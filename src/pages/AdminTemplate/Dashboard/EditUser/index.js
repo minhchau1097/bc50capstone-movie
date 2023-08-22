@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import {
-  Button,
   Form,
   Input,
   Radio,
   Select,
 } from 'antd';
-import { useDispatch } from 'react-redux';
-import { actAddUser } from '../duck/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { actEditUser } from '../duck/actions';
 import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,7 +17,6 @@ const addUserSchema = yup.object().shape({
   email: yup.string().required('Vui lòng nhập email').email('nhập email'),
   soDT: yup.string().required('Vui lòng nhập số điện thoại').matches(/^[0-9]+$/, 'Phải nhập dạng số'),
   maLoaiNguoiDung: yup.string().required('Chọn loại người dùng cần thêm'),
-
 })
 
 const yupSync = {
@@ -27,26 +25,29 @@ const yupSync = {
   },
 };
 
-const AddUser = () => {
+const EditUser = () => {
   const [componentSize, setComponentSize] = useState('default');
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  // const dataUser = useSelector((state) => state.manageUserReducer.data);
+  // console.log("🚀 ~ file: index.js:32 ~ EditUser ~ dataUser:", dataUser)
+
   const [form] = Form.useForm();
   const onFormLayoutChange = ({ size }) => {
     setComponentSize(size);
   };
 
 
-  const onSubmitForm = (values) => {
+  const onSubmitEditForm = (values) => {
     console.log('values: ', values);
     values.maNhom = "GP01";
-    dispatch(actAddUser(values, navigate));
+    dispatch(actEditUser(values, navigate));
   }
-  
+
   return (
     <Form
       form={form}
-      onFinish={onSubmitForm}
+      onFinish={onSubmitEditForm}
       labelCol={{
         span: 4,
       }}
@@ -63,7 +64,7 @@ const AddUser = () => {
         maxWidth: 600,
       }}
     >
-      <h2>Thêm Người Dùng Mới</h2>
+      <h2>Sửa Thông Tin Người Dùng</h2>
       <Form.Item label="Form Size" name="size">
         <Radio.Group>
           <Radio.Button value="small">Small</Radio.Button>
@@ -71,7 +72,7 @@ const AddUser = () => {
           <Radio.Button value="large">Large</Radio.Button>
         </Radio.Group>
       </Form.Item>
-      <Form.Item label="Họ Tên" name='hoTen' rules={[yupSync]}>
+      <Form.Item label="Họ Tên" name='hoTen' rules={[yupSync]} >
         <Input placeholder='Nhập họ tên' />
       </Form.Item>
       <Form.Item label="Tài Khoản" name='taiKhoan' rules={[yupSync]}>
@@ -93,9 +94,9 @@ const AddUser = () => {
         </Select>
       </Form.Item>
       <Form.Item label="Tác Vụ">
-        <button type='submit' className='text-white p-2 rounded-lg' style={{ backgroundColor: 'blueviolet' }}>Thêm user</button>
+        <button type='submit' className='text-white p-2 rounded-lg' style={{ backgroundColor: 'blueviolet' }}>Sửa Thông Tin</button>
       </Form.Item>
     </Form>
   );
 };
-export default AddUser;
+export default EditUser;
