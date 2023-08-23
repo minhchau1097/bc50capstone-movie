@@ -10,3 +10,5 @@ export const ADD_USER_FAIL = "ADD_USER_FAIL";
 export const EDIT_USER_REQUEST = "EDIT_USER_REQUEST";
 export const EDIT_USER_SUCCESS = "EDIT_USER_SUCCESS";
 export const EDIT_USER_FAIL = "EDIT_USER_FAIL";
+
+export const SELECT_USER = "SELECT_USER";

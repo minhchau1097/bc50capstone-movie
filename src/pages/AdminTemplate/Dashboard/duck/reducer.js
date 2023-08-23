@@ -5,7 +5,7 @@ const manageUser = {
     loading: false,
     data: null,
     error: null,
-    thongTinNguoiDung: {}
+    thongTinNguoiDung: undefined
 }
 
 const manageUserReducer = (state = manageUser, action) => {
@@ -65,6 +65,10 @@ const manageUserReducer = (state = manageUser, action) => {
             state.data = null;
             state.error = action.payload;
             return { ...state };
+        }
+        case ActionType.SELECT_USER: {
+            state.thongTinNguoiDung = action.payload;
+            return {...state};
         }
         default:
             return { ...state };

@@ -1,19 +1,27 @@
-import React, { useEffect,Fragment } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { Button, Table } from 'antd';
 import { AudioOutlined, DeleteOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons';
-import { Input, Space } from 'antd';
+import { Input } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { actManageUser } from './duck/actions';
-import { NavLink } from 'react-router-dom';
+import { actManageUser, actUpdateSelectUser } from './duck/actions';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 export default function ManageUser() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const dataUser = useSelector((state) => state.manageUserReducer.data);
+  console.log("🚀 ~ file: index.js:13 ~ ManageUser ~ dataUser:", dataUser)
 
   useEffect(() => {
     dispatch(actManageUser());
   }, []);
-  
+
+  const handleInfoEditUser = (email) => {
+    const user = dataUser?.find((user) => user.email === email);
+    //dispatch thẳng lên store
+    dispatch(actUpdateSelectUser(user));
+    navigate("/admin/edit-user", { replace: true });
+  }
   //Table Antd
   const columns = [
     {
@@ -82,21 +90,33 @@ export default function ManageUser() {
       width: '15%',
     },
     {
-      title: 'Thao Tác',
-      dataIndex: '',
-      render: (item, object) => {
-        return (
-          <Fragment key={object}>
-            <NavLink key={1} className='text-2xl' to={'/admin/edit-user'}><EditOutlined /></NavLink>
-            <NavLink key={2} className='ml-4 text-2xl' to={'/'}><DeleteOutlined style={{ color: 'red' }} /></NavLink>
-          </Fragment>
-        )
-      },
+      title: 'Tác Vụ',
+      dataIndex: 'tacVu',
       width: '15%',
     },
   ];
 
-  const data = dataUser;
+
+  const renderData = () => {
+    const data = dataUser?.map((item, index) => {
+      console.log("🚀 ~ file: index.js:102 ~ data ~ dataUser:", dataUser)
+      
+      return {
+        key: index,
+        taiKhoan: item.taiKhoan,
+        matKhau: item.matKhau,
+        hoTen: item.hoTen,
+        email: item.email,
+        soDT: item.soDT,
+        tacVu: <Fragment >
+          <Button key={1} style={{ paddingBottom: '40px' }} className='text-2xl border-none' onClick={() => handleInfoEditUser(item.email)}><EditOutlined style={{ color: 'blue' }} /></Button>
+          <Button key={2} style={{ paddingBottom: '43px', paddingTop: '0px' }} className='ml-2 text-2xl border-none' ><DeleteOutlined style={{ color: 'red' }} /></Button>
+        </Fragment>
+      }
+
+    })
+    return <Table columns={columns} dataSource={data} onChange={onChange} />
+  }
 
   const onChange = (pagination, filters, sorter, extra) => {
     console.log('params', pagination, filters, sorter, extra);
@@ -124,7 +144,7 @@ export default function ManageUser() {
         suffix={suffix}
         onSearch={onSearch}
       />
-      <Table columns={columns} dataSource={data} onChange={onChange} />
+      {renderData()}
     </div>
   )
 }
