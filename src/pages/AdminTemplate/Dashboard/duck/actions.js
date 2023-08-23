@@ -8,8 +8,7 @@ export const actManageUser = () => {
     dispatch(actUserRequest());
     api.get("QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP01")
       .then((result) => {
-        // console.log(result.data.content);
-        dispatch(actUserSuccess(result.data.content));
+          dispatch(actUserSuccess(result.data.content));
       })
       .catch((error) => {
         dispatch(actUserFail(error));
@@ -25,7 +24,7 @@ export const actAddUser = (formData, navigate) => {
       .then((result) => {
         if (result.data.statusCode === 200) {
           dispatch(actAddUserSuccess(result.data.content));
-          alert('Thêm người dùng thành công');
+          alert(result.data.message);
           navigate("/admin/dashboard", { replace: true });
         }
       })
@@ -36,16 +35,16 @@ export const actAddUser = (formData, navigate) => {
 }
 
 
-export const actEditUser = (navigate) => {
+export const actEditUser = (info, navigate) => {
   return (dispatch) => {
     dispatch(actEditUserRequest());
-    api.put("QuanLyNguoiDung/CapNhatThongTinNguoiDung")
+    api.post("QuanLyNguoiDung/CapNhatThongTinNguoiDung", info)
       .then((result) => {
         if (result.data.statusCode === 200) {
           dispatch(actEditUserSuccess(result.data.content));
-          alert('Sửa thông tin người dùng thành công');
-          navigate("/admin/dashboard", { replace: true });
+          alert(result.data.message);
         }
+        navigate("/admin/dashboard", { replace: true });
       })
       .catch((error) => {
         dispatch(actEditUserFail(error));
@@ -105,5 +104,11 @@ const actEditUserFail = (error) => {
   return {
     type: ActionType.EDIT_USER_FAIL,
     payload: error
+  }
+}
+export const actUpdateSelectUser = (data) => {
+  return {
+    type: ActionType.SELECT_USER,
+    payload: data
   }
 }
