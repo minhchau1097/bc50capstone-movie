@@ -1,19 +1,26 @@
-import React, { useEffect,Fragment } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { Button, Table } from 'antd';
 import { AudioOutlined, DeleteOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons';
 import { Input, Space } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { actManageUser } from './duck/actions';
-import { NavLink } from 'react-router-dom';
+import { actDeleteUser, actManageUser, actUpdateSelectUser } from './duck/actions';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 export default function ManageUser() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const dataUser = useSelector((state) => state.manageUserReducer.data);
 
   useEffect(() => {
     dispatch(actManageUser());
   }, []);
-  
+
+  const handleInfoEditUser = (email) => {
+    const user = dataUser?.find((user) => user.email === email);
+    //dispatch thẳng lên store
+    dispatch(actUpdateSelectUser(user));
+    navigate("/admin/edit-user", { replace: true });
+  }
   //Table Antd
   const columns = [
     {
@@ -82,36 +89,46 @@ export default function ManageUser() {
       width: '15%',
     },
     {
-      title: 'Thao Tác',
-      dataIndex: '',
-      render: (item, object) => {
-        return (
-          <Fragment key={object}>
-            <NavLink key={1} className='text-2xl' to={'/admin/edit-user'}><EditOutlined /></NavLink>
-            <NavLink key={2} className='ml-4 text-2xl' to={'/'}><DeleteOutlined style={{ color: 'red' }} /></NavLink>
-          </Fragment>
-        )
-      },
+      title: 'Tác Vụ',
+      dataIndex: 'tacVu',
       width: '15%',
     },
   ];
 
-  const data = dataUser;
+
+  const renderData = () => {
+    const data = dataUser && dataUser.length ? dataUser?.map((item, index) => {
+      return {
+        key: index,
+        taiKhoan: item.taiKhoan,
+        matKhau: item.matKhau,
+        hoTen: item.hoTen,
+        email: item.email,
+        soDT: item.soDT,
+        tacVu: <Fragment >
+          <Button key={1} style={{ paddingBottom: '40px' }} className='text-2xl border-none' onClick={() => handleInfoEditUser(item.email)}><EditOutlined style={{ color: 'blue' }} /></Button>
+          <Button key={2} style={{ paddingBottom: '43px', paddingTop: '0px' }} className='ml-2 text-2xl border-none' onClick={() => {
+            if (window.confirm('Bạn có chắc muốn xóa tài khoản này ' + item.taiKhoan)) {
+              //gọi action
+              dispatch(actDeleteUser(item.taiKhoan));
+            }
+          }}><DeleteOutlined style={{ color: 'red' }} /></Button>
+        </Fragment>
+      }
+
+    }) : [];
+    return <Table columns={columns} dataSource={data} onChange={onChange} />
+  }
 
   const onChange = (pagination, filters, sorter, extra) => {
     console.log('params', pagination, filters, sorter, extra);
   };
   //Search-Bar
   const { Search } = Input;
-  const suffix = (
-    <AudioOutlined
-      style={{
-        fontSize: 16,
-        color: '#1677ff',
-      }}
-    />
-  );
-  const onSearch = (value) => console.log(value);
+
+  const onSearch = (value) => {
+    dispatch(actManageUser(value));
+  };
   return (
     <div>
       <h2>Quản Lý Người Dùng</h2>
@@ -121,10 +138,10 @@ export default function ManageUser() {
         placeholder="input search text"
         enterButton={<SearchOutlined />}
         size="large"
-        suffix={suffix}
+        allowClear
         onSearch={onSearch}
       />
-      <Table columns={columns} dataSource={data} onChange={onChange} />
+      {renderData()}
     </div>
   )
 }

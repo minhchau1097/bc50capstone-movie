@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Form,
   Input,
@@ -6,11 +6,11 @@ import {
   Select,
 } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { actEditUser } from '../duck/actions';
+import { actEditUser, actManageUser } from '../duck/actions';
 import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 
-const addUserSchema = yup.object().shape({
+const editUserSchema = yup.object().shape({
   hoTen: yup.string().required('Vui lòng nhập họ tên'),
   taiKhoan: yup.string().required('Vui lòng nhập tài khoản'),
   matKhau: yup.string().required('Vui lòng nhập mật khẩu'),
@@ -21,16 +21,19 @@ const addUserSchema = yup.object().shape({
 
 const yupSync = {
   async validator({ field }, value) {
-    await addUserSchema.validateSyncAt(field, { [field]: value });
+    await editUserSchema.validateSyncAt(field, { [field]: value });
   },
 };
 
 const EditUser = () => {
   const [componentSize, setComponentSize] = useState('default');
+  const { thongTinNguoiDung } = useSelector((state) => state.manageUserReducer);
+
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(actManageUser());
+  }, []);
   const navigate = useNavigate();
-  // const dataUser = useSelector((state) => state.manageUserReducer.data);
-  // console.log("🚀 ~ file: index.js:32 ~ EditUser ~ dataUser:", dataUser)
 
   const [form] = Form.useForm();
   const onFormLayoutChange = ({ size }) => {
@@ -39,9 +42,17 @@ const EditUser = () => {
 
 
   const onSubmitEditForm = (values) => {
-    console.log('values: ', values);
-    values.maNhom = "GP01";
-    dispatch(actEditUser(values, navigate));
+      console.log("🚀 ~ file: index.js:45 ~ onSubmitEditForm ~ values:", values)
+      values.maNhom = "GP01";
+      dispatch(actEditUser(values, navigate));
+  }
+  const initialValues = {
+    hoTen: "",
+    taiKhoan: "",
+    matKhau: "",
+    email: "",
+    soDT: "",
+    maLoaiNguoiDung: "",
   }
 
   return (
@@ -55,9 +66,7 @@ const EditUser = () => {
         span: 14,
       }}
       layout="horizontal"
-      initialValues={{
-        size: componentSize,
-      }}
+      initialValues={thongTinNguoiDung !== undefined ? thongTinNguoiDung : initialValues}
       onValuesChange={onFormLayoutChange}
       size={componentSize}
       style={{
@@ -94,7 +103,7 @@ const EditUser = () => {
         </Select>
       </Form.Item>
       <Form.Item label="Tác Vụ">
-        <button type='submit' className='text-white p-2 rounded-lg' style={{ backgroundColor: 'blueviolet' }}>Sửa Thông Tin</button>
+        <button type='submit' className='text-white p-2 rounded-lg' style={{ backgroundColor: 'blueviolet' }}>Cập Nhật Thông Tin</button>
       </Form.Item>
     </Form>
   );
