@@ -1,18 +1,31 @@
 import * as ActionTypes from './constants';
 import api from "utils/api";
 
-export const actFetchLichChieu = () => {
+export const actFetchLichChieu = (tenPhim = '') => {
   return (dispatch) => {
     dispatch(actLichChieuRequest());
-    api.get("QuanLyPhim/LayDanhSachPhim?maNhom=GP03")
-      .then((result) => {
-        if (result.data.statusCode === 200) {
-          dispatch(actLichChieuSuccess(result.data.content));
-        }
-      })
-      .catch((error) => {
-        dispatch(actLichChieuFail(error));
-      })
+    if (tenPhim.trim() != '') {
+      api.get(`QuanLyPhim/LayDanhSachPhim?maNhom=GP03&tenPhim=${tenPhim}`)
+        .then((result) => {
+          if (result.data.statusCode === 200) {
+            dispatch(actLichChieuSuccess(result.data.content));
+          }
+        })
+        .catch((error) => {
+          dispatch(actLichChieuFail(error));
+        })
+    } else {
+      api.get("QuanLyPhim/LayDanhSachPhim?maNhom=GP03")
+        .then((result) => {
+          if (result.data.statusCode === 200) {
+            dispatch(actLichChieuSuccess(result.data.content));
+          }
+        })
+        .catch((error) => {
+          dispatch(actLichChieuFail(error));
+        })
+    }
+
   }
 }
 

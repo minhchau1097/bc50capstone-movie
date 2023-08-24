@@ -20,7 +20,7 @@ export default function Banner() {
             return (
 
                 <div className={`carousel-item  ${active}`} key={index} >
-                    <img  src={item.hinhAnh} alt={item.maBanner} />
+                    <img src={item.hinhAnh} alt={item.maBanner} />
                 </div>
             )
         })
@@ -34,21 +34,9 @@ export default function Banner() {
             </ol>
             <div className="carousel-inner" role="listbox">
                 {renderBanner()}
-                {/* <div className="carousel-item">
-                    <img data-src="holder.js/900x500/auto/#666:#444/text:Second slide" alt="Second slide" />
-                </div>
-                <div className="carousel-item">
-                    <img data-src="holder.js/900x500/auto/#666:#444/text:Third slide" alt="Third slide" />
-                </div> */}
+
             </div>
-            {/* <a className="carousel-control-prev" href="#carouselId" role="button" data-slide="prev">
-                <span className="carousel-control-prev-icon" aria-hidden="true" />
-                <span className="sr-only">Previous</span>
-            </a>
-            <a className="carousel-control-next" href="#carouselId" role="button" data-slide="next">
-                <span className="carousel-control-next-icon" aria-hidden="true" />
-                <span className="sr-only">Next</span>
-            </a> */}
+
         </div>
     )
 }

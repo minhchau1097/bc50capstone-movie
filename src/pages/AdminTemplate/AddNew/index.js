@@ -1,23 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import {
-  Button,
-  Cascader,
   DatePicker,
   Form,
   Input,
   InputNumber,
   Radio,
-  Select,
   Switch,
-  TreeSelect,
 } from 'antd';
-import Upload from 'antd/es/upload/Upload';
-import { CheckOutlined, CloseOutlined, PlusOutlined } from '@ant-design/icons';
-import moment from 'moment'
+import { CheckOutlined, CloseOutlined,  } from '@ant-design/icons';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { actClearNewFilms, actGetAddNewFilms } from './duck/actions';
+import { actGetAddNewFilms } from './duck/actions';
 import { useNavigate } from 'react-router-dom';
+import * as Yup from "yup";
 
 
 export default function AddFilms() {
@@ -25,13 +20,7 @@ export default function AddFilms() {
   const [imgSrc, setImgSrc] = useState(null)
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const mess = useSelector(state => state.addNewFilmsReducer.data)
-  useEffect(() => {
-    if (mess) {
-      alert(mess)
-      dispatch(actClearNewFilms(navigate))
-    }
-  }, [mess])
+
   const formik = useFormik({
     initialValues: {
       tenPhim: '',
@@ -45,6 +34,26 @@ export default function AddFilms() {
       hinhAnh: {},
 
     },
+    validationSchema: Yup.object({
+      tenPhim: Yup.string()
+        .min(5, 'Tối thiểu 5 ký tự')
+        .max(20, 'Tối đa 20 ký tự')
+        .required('Vui lòng không để trống'),
+      trailer: Yup.string()
+        .required('Vui lòng không để trống').url('Vui lòng nhập đường dẫn hợp lệ').nullable(),
+      moTa: Yup.string()
+        .min(5, 'Tối thiểu 5 ký tự')
+        .max(250, 'Tối đa 250 ký tự')
+        .required('Vui lòng không để trống'),
+      ngayKhoiChieu: Yup.string()
+        .required('Vui lòng không để trống'),
+        danhGia: Yup.number()
+        .required('Vui lòng không để trống')
+        .integer('Vui lòng nhập số nguyên'),
+    }),
+
+
+
     onSubmit: (values) => {
       values.maNhom = 'GP03'
       let formData = new FormData();
@@ -52,14 +61,16 @@ export default function AddFilms() {
         if (key !== 'hinhAnh') {
           formData.append(key, values[key])
         } else {
-          formData.append('File', values.hinhAnh, values.hinhAnh.name)
+          if (values.hinhAnh != {}) {
+
+            formData.append('File', values.hinhAnh, values.hinhAnh.name)
+          }
         }
       }
-      // console.log('first' , formData.get('File'))
-      dispatch(actGetAddNewFilms(formData))
+      dispatch(actGetAddNewFilms(formData, navigate))
     }
-  })
 
+  })
   const onFormLayoutChange = ({ size }) => {
     setComponentSize(size);
   };
@@ -91,6 +102,7 @@ export default function AddFilms() {
     formik.setFieldValue('hinhAnh', file)
 
   }
+
   return (
     <Form
       onSubmitCapture={formik.handleSubmit}
@@ -117,18 +129,24 @@ export default function AddFilms() {
           <Radio.Button value="large">Large</Radio.Button>
         </Radio.Group>
       </Form.Item>
-      <Form.Item label="Tên phim" hasFeedback
-        validateStatus="error"
-        help="Should be combination of numbers & alphabets">
-        <Input name='tenPhim' onChange={formik.handleChange} />
+      <Form.Item label="Tên phim" required hasFeedback
+        validateStatus={formik.errors.tenPhim && formik.touched.tenPhim? 'error' : ''}
+        help={formik.errors.tenPhim && formik.touched.tenPhim && (formik.errors.tenPhim)}>
+        <Input name='tenPhim' required onChange={formik.handleChange} />
       </Form.Item>
-      <Form.Item label="Trailer">
+      <Form.Item label="Trailer" required hasFeedback
+        validateStatus={formik.errors.trailer && formik.touched.trailer? 'error' : ''}
+        help={formik.errors.trailer && formik.touched.trailer && (formik.errors.trailer)}>
         <Input name='trailer' onChange={formik.handleChange} />
       </Form.Item>
-      <Form.Item label="Mô tả">
+      <Form.Item label="Mô tả" required hasFeedback
+        validateStatus={formik.errors.moTa && formik.touched.moTa? 'error' : ''}
+        help={formik.errors.moTa && formik.touched.moTa && (formik.errors.moTa)}>
         <Input name='moTa' onChange={formik.handleChange} />
       </Form.Item>
-      <Form.Item label="Ngày khởi chiếu">
+      <Form.Item label="Ngày khởi chiếu" required hasFeedback
+        validateStatus={formik.errors.ngayKhoiChieu && formik.touched.ngayKhoiChieu? 'error' : ''}
+        help={formik.errors.ngayKhoiChieu && formik.touched.ngayKhoiChieu && (formik.errors.ngayKhoiChieu)}>
         <DatePicker format={'DD/MM/YYYY'} onChange={onChangeDate} />
       </Form.Item>
       <Form.Item label="Đang chiếu" >
@@ -155,16 +173,18 @@ export default function AddFilms() {
           onChange={handleOnchangeSwitch('hot')}
         />
       </Form.Item>
-      <Form.Item label="Số sao" >
-        <InputNumber onChange={handleInputNumber('danhGia')} min={1} max={10} />
+      <Form.Item label="Số sao" required hasFeedback
+        validateStatus={formik.errors.danhGia && formik.touched.danhGia? 'error' : ''}
+        help={formik.errors.danhGia && formik.touched.danhGia && (formik.errors.danhGia)} >
+        <InputNumber defaultValue={0} min={0} max={10} onChange={handleInputNumber('danhGia')}  />
       </Form.Item>
-      <Form.Item label="Hình ảnh">
+      <Form.Item label="Hình ảnh" required>
         <input type='file' onChange={handleChangeFile} accept='image/png , image/jpg, image/jpeg' />
 
         <img width={100} height={100} src={imgSrc} alt="..." />
       </Form.Item>
       <Form.Item label="Tác vụ">
-        <button className='btn btn-warning' type='submit'>Thêm phim</button>
+        <button  className='btn btn-warning' type='submit'>Thêm phim</button>
       </Form.Item>
     </Form>
   )
