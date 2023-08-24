@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import LichChieuItem from "./LichChieuItem";
 import Slider from "react-slick";
-import { actFetchLichChieu, actFetchInfoLichChieu } from './duck/actions';
+import { actFetchLichChieu, actFetchInfoHTRap, actGetCumRap } from './duck/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import moment from 'moment';
-import { Radio, Select, Space } from 'antd';
+import { Radio, Select, Space, Form, Input, DatePicker } from 'antd';
 
 function LichChieu() {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.lichChieuReducer.data);
-  // const dataMovie = useSelector((state) => state.lichChieuReducer.data);
   console.log("🚀 ~ file: index.js:13 ~ LichChieu ~ data:", data)
+  const { heThongRapChieu } = useSelector((state) => state.lichChieuReducer);
+  console.log("🚀 ~ file: index.js:15 ~ LichChieu ~ heThongRapChieu:", heThongRapChieu)
 
-  const param = useParams();
   //React-Slick
   const settings = {
     dots: true,
@@ -49,91 +49,69 @@ function LichChieu() {
       }
     ]
   };
-
+  //Call api list movie
   useEffect(() => {
     dispatch(actFetchLichChieu());
   }, []);
-
-  // useEffect(() => {
-  //   dispatch(actFetchInfoLichChieu());
-  // }, []);
+  //call api list movie bar
+  useEffect(() => {
+    dispatch(actFetchInfoHTRap());
+  }, [])
 
   const renderListLichChieu = () => {
     return data?.map((movie) => <div key={movie.maPhim} ><LichChieuItem movie={movie} /></div>)
   };
 
   //Select antd
-  // dataMovie?.map((movie) => movie.lstCumRap.map((movie) => movie.danhSachPhim.map((movie) => movie.tenPhim)))
-  const options = [];
-  for (let i = 10; i < 36; i++) {
-    options.push({
-      value: i.toString(36) + i,
-      label: i.toString(36) + i,
-    });
-  }
-  const handleChange = (value) => {
-    console.log(`Selected: ${value}`);
-  };
-  const [size, setSize] = useState({
-    maLichChieu: "",
-    maRap: "",
-    ngayChieuGioChieu: "",
-  });
 
+  const options = [];
+  const handleChangeInfoFilms = (value) => {
+    dispatch(actGetCumRap(value));
+  };
+  const onOk = (value) => {
+
+  }
+  const onChangeDate = (values) => {
+
+  }
   return (
     <div className='container'>
       <div className="titleLichChieu">
         <div className='row container'>
           <div className="under-line col-md-3">
+            <Form
+              className='form-group'
+              name="basic"
+              labelCol={{
+                span: 8,
+              }}
+              wrapperCol={{
+                span: 24,
+              }}
+              style={{
+                maxWidth: 600,
+              }}
+              initialValues={{
+                remember: true,
+              }}
+            >
+              <Form.Item>
+                <Select options={options} onChange={handleChangeInfoFilms} placeholder="Chọn Phim" />
+              </Form.Item>
+            </Form>
+          </div>
+          <div className="under-line col-md-3 partition">
             <div className="form-group">
-              <Select
-                className='mb-2'
-                size={size}
-                defaultValue="Phim"
-                onChange={handleChange}
-                style={{
-                  width: 240,
-                }}
-                options={options}
-              />
+              <Form.Item>
+                <Select options={heThongRapChieu?.map((htrap) => { return { label: htrap.tenHeThongRap, value: htrap.maHeThongRap } })} onChange={handleChangeInfoFilms} placeholder="Chọn Cụm Rạp" />
+              </Form.Item>
             </div>
           </div>
           <div className="under-line col-md-3 partition">
             <div className="form-group">
-              {/* <Select
-                size={size}
-                defaultValue="a1"
-                onChange={handleChange}
-                style={{
-                  width: 240,
-                }}
-                options={options}
-              /> */}
-              {/* <select className="form-control" name="maHeThongRap"  onChange={(e) => handleOnchange(e)}>
-                <option>Rạp</option>
-                {dataMovie?.map((movie, index) => <option key={index}>
-                  {movie.maHeThongRap}
-                </option>)}
-              </select> */}
-            </div>
-          </div>
-          <div className="under-line col-md-3 partition">
-            <div className="form-group">
-              {/* <Select
-                size={size}
-                defaultValue="a1"
-                onChange={handleChange}
-                style={{
-                  width: 240,
-                }}
-                options={options}
-              /> */}
-              {/* <select className="form-control" name="ngayChieuGioChieu" onChange={(e) => handleOnchange(e)}>
-                <option>Ngày giờ chiếu</option>
-                {dataMovie?.map((movie) => movie.lstCumRap.map((movie) => movie.danhSachPhim.map((movie) => movie.lstLichChieuTheoPhim.map((movie, index) => <option key={index}>
-                  {moment(movie.ngayChieuGioChieu).format('hh:mm A -') + moment(movie.ngayChieuGioChieu).format(' DD-MM-YYYY')}
-                </option>))))}
-              </select> */}
+              <Form.Item>
+                <DatePicker className='w-full' showTime onChange={onChangeDate} onOk={onOk} placeholder="Chọn Ngày Giờ Chiếu" />
+              </Form.Item>
             </div>
           </div>
           <div className='col-md-3 partition'>
