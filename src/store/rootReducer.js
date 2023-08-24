@@ -8,11 +8,10 @@ import lichChieuReducer from './../pages/HomeTemplate/HomePage/LichChieu/duck/re
 import registerReducer from './../pages/AdminTemplate/RegisterPage/duck/reducer';
 import bookingTicketReducer from './../pages/HomeTemplate/BookingTicketPage/duck/reducer';
 import modalReducer from "pages/HOC-Modal/duck/reducer";
-import addNewFilmsReducer from "pages/AdminTemplate/AddNew/duck/reducer";
 import deleteFilmsReducer from "pages/AdminTemplate/Films/duck/reducer";
 import editFilmsReducer from "pages/AdminTemplate/EditFilms/duck/reducer";
-
 import manageUserReducer from './../pages/AdminTemplate/Dashboard/duck/reducer';
+import showTimeInforReducer from "pages/AdminTemplate/ShowTime/duck/reducer";
 const rootReducer = combineReducers({
     //child
     // listMovieReducer,
@@ -24,10 +23,10 @@ const rootReducer = combineReducers({
     registerReducer,
     bookingTicketReducer,
     modalReducer,
-    addNewFilmsReducer,
     deleteFilmsReducer,
     editFilmsReducer,
     manageUserReducer,
+    showTimeInforReducer,
 })
 
 

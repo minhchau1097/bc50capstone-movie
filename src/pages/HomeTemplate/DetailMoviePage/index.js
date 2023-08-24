@@ -75,7 +75,7 @@ export default function DetailMoviePage() {
     )
 
   }
- 
+
   return (
     <div style={{ backgroundImage: `url(${data && data.hinhAnh})`, backgroundPosition: 'top', backgroundSize: 'cover', minHeight: '100vh' }}>
       <div className='card-blur' >

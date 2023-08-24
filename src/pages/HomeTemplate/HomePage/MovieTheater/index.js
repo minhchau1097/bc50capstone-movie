@@ -6,9 +6,7 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 export default function MovieTheater() {
   const { TabPane } = Tabs;
-  const [state, setState] = useState({
-    tabPosition: 'left'
-  })
+ 
   const data = useSelector((state) => state.listMovieTheaterReducer.data)
 
   const dispatch = useDispatch();
@@ -24,7 +22,7 @@ export default function MovieTheater() {
             <img style={{ width: 50, height: 50 }} src={item.logo} alt={item.tenHeThongRap} /> </div>} key={index}
         >
 
-          <Tabs tabPosition={state.tabPosition} style={{ height: 720 }} >
+          <Tabs tabPosition={'left'} style={{ height: 720 }} >
             {item.lstCumRap.map((item1, index) => {
               return (
                 <TabPane tab={
@@ -59,7 +57,7 @@ export default function MovieTheater() {
 
   return (
     <div className="container mb-5  ">
-      <Tabs id='movie-theater' tabPosition={state.tabPosition} >
+      <Tabs id='movie-theater' tabPosition={'left'} >
         {renderMovieTheater()}
       </Tabs>
 

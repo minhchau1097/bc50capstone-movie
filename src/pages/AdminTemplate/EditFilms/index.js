@@ -3,32 +3,23 @@ import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom'
 import {
-    Button,
-    Cascader,
-    ConfigProvider,
     DatePicker,
     Form,
     Input,
     InputNumber,
     Radio,
-    Select,
     Switch,
-    TreeSelect,
 } from 'antd';
-import Upload from 'antd/es/upload/Upload';
 import { CheckOutlined, CloseOutlined, PlusOutlined } from '@ant-design/icons';
-
 import { actGetEditFilms, actUpdateEditFilms } from './duck/actions';
-import moment from 'moment/moment';
 import dayjs from 'dayjs';
+import * as Yup from "yup";
 
 
 export default function EditFilms() {
     const dateFormat = "DD/MM/YYYY";
-
     const param = useParams();
     const dataEdit = useSelector(state => state.editFilmsReducer.data)
-
     const [componentSize, setComponentSize] = useState('default');
     const [imgSrc, setImgSrc] = useState('')
     const dispatch = useDispatch();
@@ -37,8 +28,8 @@ export default function EditFilms() {
 
     useEffect(() => {
         dispatch(actGetEditFilms(param.id))
-        
     }, [])
+
 
     const formik = useFormik({
         enableReinitialize: true,
@@ -55,8 +46,22 @@ export default function EditFilms() {
             hinhAnh: null
 
         },
+        validationSchema: Yup.object({
+            tenPhim: Yup.string()
+                .min(5, 'Tối thiểu 5 ký tự')
+                .max(40, 'Tối đa 40 ký tự')
+                .required('Vui lòng không để trống'),
+            trailer: Yup.string()
+                .required('Vui lòng không để trống').url('Vui lòng nhập đường dẫn hợp lệ').nullable(),
+            moTa: Yup.string()
+                .min(5, 'Tối thiểu 5 ký tự')
+                .max(250, 'Tối đa 250 ký tự')
+                .required('Vui lòng không để trống'),
+            ngayKhoiChieu: Yup.string()
+                .required('Vui lòng không để trống'),
+            danhGia: Yup.number().required('Vui lòng không để trống').integer('Vui lòng nhập số nguyên'),
+        }),
         onSubmit: (values) => {
-            console.log(values)
             values.maNhom = 'GP03'
             let formData = new FormData();
             for (let key in values) {
@@ -68,11 +73,10 @@ export default function EditFilms() {
                     }
                 }
             }
-            // console.log('first' , formData.get('File'))
+
             dispatch(actUpdateEditFilms(formData, navigate))
         }
     })
-  
     const onFormLayoutChange = ({ size }) => {
         setComponentSize(size);
     };
@@ -89,7 +93,6 @@ export default function EditFilms() {
     }
     const onChangeDate = (value) => {
         let ngayKhoiChieu = dayjs(value).format(dateFormat);
-        console.log(ngayKhoiChieu)
         formik.setFieldValue('ngayKhoiChieu', ngayKhoiChieu)
     };
     const handleChangeFile = (e) => {
@@ -104,6 +107,11 @@ export default function EditFilms() {
         }
         formik.setFieldValue('hinhAnh', file)
 
+    }
+    const renderDatePicker = () => {
+        if (formik.values.ngayKhoiChieu) {
+            return <DatePicker defaultValue={dayjs(formik.values.ngayKhoiChieu)} onChange={onChangeDate} format={dateFormat} />
+        }
     }
     return (
         <Form
@@ -133,18 +141,22 @@ export default function EditFilms() {
                 </Radio.Group>
             </Form.Item>
             <Form.Item label="Tên phim" hasFeedback
-                validateStatus="error"
-                help="Should be combination of numbers & alphabets">
+                validateStatus={formik.errors.tenPhim && formik.touched.tenPhim ? 'error' : ''}
+                help={formik.errors.tenPhim && formik.touched.tenPhim && (formik.errors.tenPhim)}>
                 <Input value={formik.values.tenPhim} name='tenPhim' onChange={formik.handleChange} />
             </Form.Item>
-            <Form.Item label="Trailer">
+            <Form.Item label="Trailer" hasFeedback
+                validateStatus={formik.errors.trailer && formik.touched.trailer ? 'error' : ''}
+                help={formik.errors.trailer && formik.touched.trailer && (formik.errors.trailer)}>
                 <Input value={formik.values.trailer} name='trailer' onChange={formik.handleChange} />
             </Form.Item>
-            <Form.Item label="Mô tả">
+            <Form.Item label="Mô tả" hasFeedback
+                validateStatus={formik.errors.moTa && formik.touched.moTa ? 'error' : ''}
+                help={formik.errors.moTa && formik.touched.moTa && (formik.errors.moTa)}>
                 <Input value={formik.values.moTa} name='moTa' onChange={formik.handleChange} />
             </Form.Item>
             <Form.Item label="Ngày khởi chiếu" >
-                <DatePicker defaultValue={dayjs(formik.values.ngayKhoiChieu)} onChange={onChangeDate} format={dateFormat} />
+                {renderDatePicker()}
             </Form.Item>
             <Form.Item label="Đang chiếu" >
                 <Switch
@@ -168,10 +180,12 @@ export default function EditFilms() {
                     onChange={handleOnchangeSwitch('hot')}
                 />
             </Form.Item>
-            <Form.Item label="Số sao" >
-                <InputNumber value={formik.values.danhGia} onChange={handleInputNumber('danhGia')} min={1} max={10} />
+            <Form.Item label="Số sao" hasFeedback
+                validateStatus={formik.errors.danhGia && formik.touched.danhGia ? 'error' : ''}
+                help={formik.errors.danhGia && formik.touched.danhGia && (formik.errors.danhGia)}>
+                <InputNumber value={formik.values.danhGia} onChange={handleInputNumber('danhGia')} min={0} max={10} />
             </Form.Item>
-            <Form.Item label="Hình ảnh">
+            <Form.Item label="Hình ảnh" >
                 <input type='file' onChange={handleChangeFile} accept='image/png , image/jpg, image/jpeg' />
 
                 <img width={100} height={100} src={imgSrc === '' ? dataEdit?.hinhAnh : imgSrc} alt="..." />
