@@ -1,4 +1,4 @@
-import { LICHCHIEU_REQUEST, LICHCHIEU_SUCCESS, LICHCHIEU_FAIL, INFO_LICHCHIEU_REQUEST, INFO_LICHCHIEU_SUCCESS, INFO_LICHCHIEU_FAIL } from './constants';
+import * as ActionTypes from './constants';
 import api from "utils/api";
 
 export const actFetchLichChieu = (tenPhim = '') => {
@@ -30,15 +30,28 @@ export const actFetchLichChieu = (tenPhim = '') => {
 }
 
 
-export const actFetchInfoLichChieu = (id) => {
+export const actFetchInfoHTRap = () => {
   return (dispatch) => {
-    dispatch(actInfoLichChieuRequest());
-    api.get(`QuanLyRap/LayThongTinLichChieuPhim?MaPhim=${id}`)
+    dispatch(actInfoHTRapRequest());
+    api.get(`QuanLyRap/LayThongTinHeThongRap`)
       .then((result) => {
-        dispatch(actInfoLichChieuSuccess(result.data.content));
+        dispatch(actInfoHTRapSuccess(result.data.content));
       })
       .catch((error) => {
-        dispatch(actInfoLichChieuFail(error));
+        dispatch(actInfoHTRapFail(error));
+      })
+  }
+}
+
+export const actGetCumRap = (maHeThongRap) => {
+  return (dispatch) => {
+    dispatch(actGetCumRapRequest());
+    api.get(`QuanLyRap/LayThongTinCumRapTheoHeThong?maHeThongRap=${maHeThongRap}`)
+      .then((result) => {
+        dispatch(actGetCumRapSuccess(result.data.content));
+      })
+      .catch((error) => {
+        dispatch(actGetCumRapFail(error));
       })
   }
 }
@@ -46,40 +59,60 @@ export const actFetchInfoLichChieu = (id) => {
 
 const actLichChieuRequest = () => {
   return {
-    type: LICHCHIEU_REQUEST,
+    type: ActionTypes.LICHCHIEU_REQUEST,
   };
 }
 
 const actLichChieuSuccess = (data) => {
   return {
-    type: LICHCHIEU_SUCCESS,
+    type: ActionTypes.LICHCHIEU_SUCCESS,
     payload: data
   };
 }
 
 const actLichChieuFail = (error) => {
   return {
-    type: LICHCHIEU_FAIL,
+    type: ActionTypes.LICHCHIEU_FAIL,
     payload: error
   };
 }
-
-const actInfoLichChieuRequest = () => {
+//GET HT RAP
+const actInfoHTRapRequest = () => {
   return {
-    type: INFO_LICHCHIEU_REQUEST,
+    type: ActionTypes.INFO_HT_RAP_REQUEST,
   };
 }
 
-const actInfoLichChieuSuccess = (data) => {
+const actInfoHTRapSuccess = (data) => {
   return {
-    type: INFO_LICHCHIEU_SUCCESS,
+    type: ActionTypes.INFO_HT_RAP_SUCCESS,
     payload: data
   };
 }
 
-const actInfoLichChieuFail = (error) => {
+const actInfoHTRapFail = (error) => {
   return {
-    type: INFO_LICHCHIEU_FAIL,
+    type: ActionTypes.INFO_HT_RAP_FAIL,
+    payload: error
+  };
+}
+//GET CUM RAP
+const actGetCumRapRequest = () => {
+  return {
+    type: ActionTypes.INFO_CUM_RAP_REQUEST,
+  };
+}
+
+const actGetCumRapSuccess = (data) => {
+  return {
+    type: ActionTypes.INFO_CUM_RAP_SUCCESS,
+    payload: data
+  };
+}
+
+const actGetCumRapFail = (error) => {
+  return {
+    type: ActionTypes.INFO_CUM_RAP_FAIL,
     payload: error
   };
 }
