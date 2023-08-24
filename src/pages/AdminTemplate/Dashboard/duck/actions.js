@@ -1,14 +1,24 @@
+import { replace } from 'formik';
 import * as ActionType from './constants';
 import api from 'utils/api';
 
 
 
-export const actManageUser = () => {
+export const actManageUser = (taiKhoan = '') => {
   return (dispatch) => {
     dispatch(actUserRequest());
-    api.get("QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP01")
-      .then((result) => {
+    if (taiKhoan !== '') {
+      return api.get(`QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP01&tuKhoa=${taiKhoan}`, taiKhoan)
+        .then((result) => {
           dispatch(actUserSuccess(result.data.content));
+        })
+        .catch((error) => {
+          dispatch(actUserFail(error));
+        })
+    }
+    return api.get("QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP01")
+      .then((result) => {
+        dispatch(actUserSuccess(result.data.content));
       })
       .catch((error) => {
         dispatch(actUserFail(error));
@@ -43,11 +53,27 @@ export const actEditUser = (info, navigate) => {
         if (result.data.statusCode === 200) {
           dispatch(actEditUserSuccess(result.data.content));
           alert(result.data.message);
+          navigate("/admin/dashboard", { replace: true });
         }
-        navigate("/admin/dashboard", { replace: true });
       })
       .catch((error) => {
         dispatch(actEditUserFail(error));
+      })
+  }
+}
+
+
+export const actDeleteUser = (account) => {
+  return (dispatch) => {
+    dispatch(actDeleteUserRequest());
+    api.delete(`QuanLyNguoiDung/XoaNguoiDung?TaiKhoan=${account}`)
+      .then((result) => {
+        if (result.data.statusCode === 200) {
+          dispatch(actDeleteUserSuccess(result.data.content));
+        }
+      })
+      .catch((error) => {
+        dispatch(actDeleteUserFail(error));
       })
   }
 }
@@ -110,5 +136,23 @@ export const actUpdateSelectUser = (data) => {
   return {
     type: ActionType.SELECT_USER,
     payload: data
+  }
+}
+//DELETE
+const actDeleteUserRequest = () => {
+  return {
+    type: ActionType.DELETE_USER_REQUEST,
+  }
+}
+const actDeleteUserSuccess = (data) => {
+  return {
+    type: ActionType.DELETE_USER_SUCCESS,
+    payload: data
+  }
+}
+const actDeleteUserFail = (error) => {
+  return {
+    type: ActionType.DELETE_USER_FAIL,
+    payload: error
   }
 }

@@ -1,16 +1,15 @@
 import React, { useEffect, Fragment } from 'react';
 import { Button, Table } from 'antd';
 import { AudioOutlined, DeleteOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons';
-import { Input } from 'antd';
+import { Input, Space } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { actManageUser, actUpdateSelectUser } from './duck/actions';
+import { actDeleteUser, actManageUser, actUpdateSelectUser } from './duck/actions';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 export default function ManageUser() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const dataUser = useSelector((state) => state.manageUserReducer.data);
-  console.log("🚀 ~ file: index.js:13 ~ ManageUser ~ dataUser:", dataUser)
 
   useEffect(() => {
     dispatch(actManageUser());
@@ -98,9 +97,7 @@ export default function ManageUser() {
 
 
   const renderData = () => {
-    const data = dataUser?.map((item, index) => {
-      console.log("🚀 ~ file: index.js:102 ~ data ~ dataUser:", dataUser)
-      
+    const data = dataUser && dataUser.length ? dataUser?.map((item, index) => {
       return {
         key: index,
         taiKhoan: item.taiKhoan,
@@ -110,11 +107,16 @@ export default function ManageUser() {
         soDT: item.soDT,
         tacVu: <Fragment >
           <Button key={1} style={{ paddingBottom: '40px' }} className='text-2xl border-none' onClick={() => handleInfoEditUser(item.email)}><EditOutlined style={{ color: 'blue' }} /></Button>
-          <Button key={2} style={{ paddingBottom: '43px', paddingTop: '0px' }} className='ml-2 text-2xl border-none' ><DeleteOutlined style={{ color: 'red' }} /></Button>
+          <Button key={2} style={{ paddingBottom: '43px', paddingTop: '0px' }} className='ml-2 text-2xl border-none' onClick={() => {
+            if (window.confirm('Bạn có chắc muốn xóa tài khoản này ' + item.taiKhoan)) {
+              //gọi action
+              dispatch(actDeleteUser(item.taiKhoan));
+            }
+          }}><DeleteOutlined style={{ color: 'red' }} /></Button>
         </Fragment>
       }
 
-    })
+    }) : [];
     return <Table columns={columns} dataSource={data} onChange={onChange} />
   }
 
@@ -123,15 +125,10 @@ export default function ManageUser() {
   };
   //Search-Bar
   const { Search } = Input;
-  const suffix = (
-    <AudioOutlined
-      style={{
-        fontSize: 16,
-        color: '#1677ff',
-      }}
-    />
-  );
-  const onSearch = (value) => console.log(value);
+
+  const onSearch = (value) => {
+    dispatch(actManageUser(value));
+  };
   return (
     <div>
       <h2>Quản Lý Người Dùng</h2>
@@ -141,7 +138,7 @@ export default function ManageUser() {
         placeholder="input search text"
         enterButton={<SearchOutlined />}
         size="large"
-        suffix={suffix}
+        allowClear
         onSearch={onSearch}
       />
       {renderData()}
