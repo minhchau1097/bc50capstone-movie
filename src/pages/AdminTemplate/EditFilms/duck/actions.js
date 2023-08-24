@@ -48,3 +48,8 @@ const actEditFilmsFail = (error) => {
     payload: error
   };
 }
+export const actEditFilmsClear = () => {
+  return {
+    type: ActionTypes.EDIT_FILMS_CLEAR
+  };
+}

@@ -1,15 +1,19 @@
-import React, { useEffect } from 'react'
-import { Button, Table } from 'antd';
+import React, { useEffect, useRef } from 'react'
+import { Table } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { actFetchLichChieu } from 'pages/HomeTemplate/HomePage/LichChieu/duck/actions';
 import { CalendarOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { NavLink, Navigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { actClearDeleteFilms, actDeleteFilms } from './duck/action';
+import Search from 'antd/es/input/Search';
+import { actEditFilmsClear } from '../EditFilms/duck/actions';
 export default function ListMovie() {
   const dispatch = useDispatch()
   const films = useSelector((state) => state.lichChieuReducer.data)
   const data = useSelector(state => state.deleteFilmsReducer.data)
+  const searchRef = useRef(null);
   useEffect(() => {
+    dispatch(actEditFilmsClear())
     dispatch(actFetchLichChieu());
   }, [])
   useEffect(() => {
@@ -20,7 +24,6 @@ export default function ListMovie() {
       dispatch(actClearDeleteFilms())
     }
   }, [data])
-
   const handleDelete = (id) => {
     dispatch(actDeleteFilms(id))
   }
@@ -90,25 +93,41 @@ export default function ListMovie() {
         hanhDong: <div className='d-flex' style={{ gap: 12, fontSize: 20 }}>
           <NavLink title='Cập nhật phim' to={`/admin/films/edit/${item.maPhim}`} className='text-primary'> <EditOutlined /></NavLink>
           <button title='Xoá phim' className='text-danger' onClick={() => {
-            handleDelete(item.maPhim)
+            if (window.confirm('Bạn có chắc muốn xoá phim ?')) {
+
+              handleDelete(item.maPhim)
+            }
           }}> <DeleteOutlined /></button>
           <NavLink title='Tạo lịch chiếu' to={`/admin/films/showtime/${item.maPhim}`} className={'text-warning'}><CalendarOutlined /></NavLink>
         </div>
       }
 
     })
-    return <Table style={{ minHeight: 300 }} columns={columns} dataSource={data} onChange={onChange} scroll={{
+    return <Table style={{ minHeight: 300 }} columns={columns} dataSource={data} scroll={{
       x: 800,
     }} />
   }
-  const onChange = (pagination, filters, sorter, extra) => {
-    console.log('params', pagination, filters, sorter, extra);
-  };
+
 
   return (
     <div>
       <h3>Quản lý phim</h3>
       <NavLink className={'btn btn-success my-5'} to={'/admin/films/addnew'}>Thêm phim</NavLink>
+      <Search
+        className='mb-5'
+        placeholder="Tìm phim"
+        size="medium"
+        onChange={(e) => {
+          const value = e.target.value
+
+          if (searchRef.current) {
+            clearTimeout(searchRef.current)
+          }
+          searchRef.current = setTimeout(() => {
+            dispatch(actFetchLichChieu(value))
+          }, 1000)
+        }}
+      />
       {renderData()}
     </div>
   )
