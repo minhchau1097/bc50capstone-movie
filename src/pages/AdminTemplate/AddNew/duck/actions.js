@@ -6,7 +6,7 @@ export const actGetAddNewFilms = (formData, navigate) => {
     api.post("QuanLyPhim/ThemPhimUploadHinh", formData)
       .then((result) => {
         if (result.data.statusCode === 200) {
-          alert(result.data.content);
+          alert(result.data.message);
           navigate('/admin/films', {replace : true})
         }
       })
