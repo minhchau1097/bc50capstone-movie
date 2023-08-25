@@ -111,6 +111,7 @@ export default function ManageUser() {
             if (window.confirm('Bạn có chắc muốn xóa tài khoản này ' + item.taiKhoan)) {
               //gọi action
               dispatch(actDeleteUser(item.taiKhoan));
+              dispatch(actManageUser())
             }
           }}><DeleteOutlined style={{ color: 'red' }} /></Button>
         </Fragment>

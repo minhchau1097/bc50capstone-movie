@@ -4,6 +4,9 @@ import * as ActionType from './constants';
 const manageUser = {
     loading: false,
     data: null,
+    dataAdd: null,
+    dataEdit: null,
+    dataDelete: null,
     error: null,
     thongTinNguoiDung: undefined
 }
@@ -31,38 +34,38 @@ const manageUserReducer = (state = manageUser, action) => {
         //ADD-USER
         case ActionType.ADD_USER_REQUEST: {
             state.loading = true;
-            state.data = null;
+            state.dataAdd = null;
             state.error = null;
             return { ...state };
         }
         case ActionType.ADD_USER_SUCCESS: {
             state.loading = false;
-            state.data = action.payload;
+            state.dataAdd = action.payload;
             state.error = null;
             return { ...state };
         }
         case ActionType.ADD_USER_FAIL: {
             state.loading = false;
-            state.data = null;
+            state.dataAdd = null;
             state.error = action.payload;
             return { ...state };
         }
         //EDIT-USER
         case ActionType.EDIT_USER_REQUEST: {
             state.loading = true;
-            state.data = null;
+            state.dataEdit = null;
             state.error = null;
             return { ...state };
         }
         case ActionType.EDIT_USER_SUCCESS: {
             state.loading = false;
-            state.data = action.payload;
+            state.dataEdit = action.payload;
             state.error = null;
             return { ...state };
         }
         case ActionType.EDIT_USER_FAIL: {
             state.loading = false;
-            state.data = null;
+            state.dataEdit = null;
             state.error = action.payload;
             return { ...state };
         }
@@ -73,19 +76,19 @@ const manageUserReducer = (state = manageUser, action) => {
         //DELETE
         case ActionType.DELETE_USER_REQUEST: {
             state.loading = true;
-            state.data = null;
+            state.dataDelete = null;
             state.error = null;
             return { ...state };
         }
         case ActionType.DELETE_USER_SUCCESS: {
             state.loading = false;
-            state.data = action.payload;
+            state.dataDelete = action.payload;
             state.error = null;
             return { ...state };
         }
         case ActionType.DELETE_USER_FAIL: {
             state.loading = false;
-            state.data = null;
+            state.dataDelete = null;
             state.error = action.payload;
             return { ...state };
         }
