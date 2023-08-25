@@ -102,10 +102,10 @@ const actAddUserRequest = () => {
     type: ActionType.ADD_USER_REQUEST,
   }
 }
-const actAddUserSuccess = (data) => {
+const actAddUserSuccess = (dataAdd) => {
   return {
     type: ActionType.ADD_USER_FAIL,
-    payload: data
+    payload: dataAdd
   }
 }
 const actAddUserFail = (error) => {
@@ -132,10 +132,10 @@ const actEditUserFail = (error) => {
     payload: error
   }
 }
-export const actUpdateSelectUser = (data) => {
+export const actUpdateSelectUser = (dataEdit) => {
   return {
     type: ActionType.SELECT_USER,
-    payload: data
+    payload: dataEdit
   }
 }
 //DELETE
@@ -144,10 +144,10 @@ const actDeleteUserRequest = () => {
     type: ActionType.DELETE_USER_REQUEST,
   }
 }
-const actDeleteUserSuccess = (data) => {
+const actDeleteUserSuccess = (dataDelete) => {
   return {
     type: ActionType.DELETE_USER_SUCCESS,
-    payload: data
+    payload: dataDelete
   }
 }
 const actDeleteUserFail = (error) => {
