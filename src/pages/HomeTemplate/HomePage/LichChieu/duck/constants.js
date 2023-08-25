@@ -1,11 +1,11 @@
-export const LICHCHIEU_REQUEST = "@@carouselReducer/LICHCHIEU_REQUEST";
-export const LICHCHIEU_SUCCESS = "@@carouselReducer/LICHCHIEU_SUCCESS";
-export const LICHCHIEU_FAIL = "@@carouselReducer/LICHCHIEU_FAIL";
+export const LICHCHIEU_REQUEST = "LICHCHIEU_REQUEST";
+export const LICHCHIEU_SUCCESS = "LICHCHIEU_SUCCESS";
+export const LICHCHIEU_FAIL = "LICHCHIEU_FAIL";
 
-export const INFO_HT_RAP_REQUEST = "@@carouselReducer/INFO_HT_RAP_REQUEST";
-export const INFO_HT_RAP_SUCCESS = "@@carouselReducer/INFO_HT_RAP_SUCCESS";
-export const INFO_HT_RAP_FAIL = "@@carouselReducer/INFO_HT_RAP_FAIL";
+export const INFO_CUM_RAP_REQUEST = "INFO_CUM_RAP_REQUEST";
+export const INFO_CUM_RAP_SUCCESS = "INFO_CUM_RAP_SUCCESS";
+export const INFO_CUM_RAP_FAIL = "INFO_CUM_RAP_FAIL";
 
-export const INFO_CUM_RAP_REQUEST = "@@carouselReducer/INFO_CUM_RAP_REQUEST";
-export const INFO_CUM_RAP_SUCCESS = "@@carouselReducer/INFO_CUM_RAP_SUCCESS";
-export const INFO_CUM_RAP_FAIL = "@@carouselReducer/INFO_CUM_RAP_FAIL";
+export const DATE_REQUEST = "DATE_REQUEST";
+export const DATE_SUCCESS = "DATE_SUCCESS";
+export const DATE_FAIL = "DATE_FAIL";

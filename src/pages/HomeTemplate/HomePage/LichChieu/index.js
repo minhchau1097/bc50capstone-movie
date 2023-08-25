@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import LichChieuItem from "./LichChieuItem";
 import Slider from "react-slick";
-import { actFetchLichChieu, actFetchInfoHTRap, actGetCumRap } from './duck/actions';
+import { actFetchLichChieu, actFetchInfoHTRap, actGetCumRap, actFetchInfoPhim, actCumRap, actFetchInfoCumRap, actNgayGioChieu } from './duck/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import moment from 'moment';
 import { Radio, Select, Space, Form, Input, DatePicker } from 'antd';
 
 
-
 function LichChieu() {
+  const [maPhim, setMaPhim] = useState('');
+
   const dispatch = useDispatch();
   const data = useSelector((state) => state.lichChieuReducer.data);
-  console.log("🚀 ~ file: index.js:13 ~ LichChieu ~ data:", data)
-  const { heThongRapChieu } = useSelector((state) => state.lichChieuReducer);
-  console.log("🚀 ~ file: index.js:15 ~ LichChieu ~ heThongRapChieu:", heThongRapChieu)
+  const { cumRap, ngayGioChieu } = useSelector((state) => state.lichChieuReducer);
 
   //React-Slick
   const settings = {
@@ -55,27 +54,29 @@ function LichChieu() {
   useEffect(() => {
     dispatch(actFetchLichChieu());
   }, []);
-  //call api list movie bar
-  useEffect(() => {
-    dispatch(actFetchInfoHTRap());
-  }, [])
 
   const renderListLichChieu = () => {
-    return data?.map((movie) => <div key={movie.maPhim} ><LichChieuItem movie={movie} /></div>)
+    return data?.map((films) => <div key={films.maPhim} ><LichChieuItem films={films} /></div>)
   };
 
   //Select antd
 
-  const options = [];
   const handleChangeInfoFilms = (value) => {
-    dispatch(actGetCumRap(value));
+    console.log("🚀 ~ file: index.js:71 ~ handleChangeInfoFilms ~ value:", value)
+    dispatch(actFetchInfoCumRap());
+    setMaPhim(value);
   };
-  const onOk = (value) => {
+
+
+  const handleChangeInfoCumRap = () => {
+    dispatch(actNgayGioChieu(maPhim));
+  }
+
+  const onChangeDate = (value) => {
+    console.log("🚀 ~ file: index.js:82 ~ onChangeDate ~ value:", value)
 
   }
-  const onChangeDate = (values) => {
 
-  }
   return (
     <div className='container'>
       <div className="titleLichChieu">
@@ -98,21 +99,32 @@ function LichChieu() {
               }}
             >
               <Form.Item>
-                <Select options={options} onChange={handleChangeInfoFilms} placeholder="Chọn Phim" />
+                <Select options={data?.map((movie) => { return { label: movie.tenPhim, value: movie.maPhim } })} onChange={handleChangeInfoFilms} placeholder="Chọn Phim" />
               </Form.Item>
             </Form>
           </div>
           <div className="under-line col-md-3 partition">
             <div className="form-group">
               <Form.Item>
-                <Select options={heThongRapChieu?.map((htrap) => { return { label: htrap.tenHeThongRap, value: htrap.maHeThongRap } })} onChange={handleChangeInfoFilms} placeholder="Chọn Cụm Rạp" />
+                <Select options={cumRap?.map((cr) => {
+                  return {
+                    label: cr.tenHeThongRap,
+                    value: cr.maHeThongRap
+                  }
+                })} onChange={handleChangeInfoCumRap} placeholder="Chọn Cụm Rạp" />
               </Form.Item>
             </div>
           </div>
           <div className="under-line col-md-3 partition">
             <div className="form-group">
               <Form.Item>
-                <DatePicker className='w-full' showTime onChange={onChangeDate} onOk={onOk} placeholder="Chọn Ngày Giờ Chiếu" />
+                <Select className='w-full' options={ngayGioChieu?.heThongRapChieu.map((item) => item.cumRapChieu.map((item) => item.lichChieuPhim.map((item) => {
+                  console.log('item', item)
+                  return {
+                    label: item.ngayChieuGioChieu,
+                    value: item.maLichChieu
+                  }
+                })))} onChange={onChangeDate} placeholder="Chọn Ngày Giờ Chiếu" />
               </Form.Item>
             </div>
           </div>

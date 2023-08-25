@@ -30,31 +30,40 @@ export const actFetchLichChieu = (tenPhim = '') => {
 }
 
 
-export const actFetchInfoHTRap = () => {
+export const actFetchInfoCumRap = () => {
   return (dispatch) => {
-    dispatch(actInfoHTRapRequest());
+    dispatch(actFetInfoCumRapRequest());
     api.get(`QuanLyRap/LayThongTinHeThongRap`)
       .then((result) => {
-        dispatch(actInfoHTRapSuccess(result.data.content));
+        // console.log(result.data.content);
+        if (result.data.statusCode === 200) {
+          dispatch(actFetInfoCumRapSuccess(result.data.content));
+        }
       })
       .catch((error) => {
-        dispatch(actInfoHTRapFail(error));
+        dispatch(actFetInfoCumRapFail(error));
       })
   }
 }
 
-export const actGetCumRap = (maHeThongRap) => {
+
+
+
+export const actNgayGioChieu = (id) => {
   return (dispatch) => {
-    dispatch(actGetCumRapRequest());
-    api.get(`QuanLyRap/LayThongTinCumRapTheoHeThong?maHeThongRap=${maHeThongRap}`)
+    dispatch(actNgayGioChieuRequest());
+    api.get(`QuanLyRap/LayThongTinLichChieuPhim?MaPhim=${id}`)
       .then((result) => {
-        dispatch(actGetCumRapSuccess(result.data.content));
+        // console.log(result.data.content);
+        dispatch(actNgayGioChieuSuccess(result.data.content));
       })
       .catch((error) => {
-        dispatch(actGetCumRapFail(error));
+        dispatch(actNgayGioChieuFail(error));
       })
   }
 }
+
+
 
 
 const actLichChieuRequest = () => {
@@ -76,43 +85,45 @@ const actLichChieuFail = (error) => {
     payload: error
   };
 }
-//GET HT RAP
-const actInfoHTRapRequest = () => {
-  return {
-    type: ActionTypes.INFO_HT_RAP_REQUEST,
-  };
-}
-
-const actInfoHTRapSuccess = (data) => {
-  return {
-    type: ActionTypes.INFO_HT_RAP_SUCCESS,
-    payload: data
-  };
-}
-
-const actInfoHTRapFail = (error) => {
-  return {
-    type: ActionTypes.INFO_HT_RAP_FAIL,
-    payload: error
-  };
-}
-//GET CUM RAP
-const actGetCumRapRequest = () => {
+//GET INFO PHIM
+const actFetInfoCumRapRequest = () => {
   return {
     type: ActionTypes.INFO_CUM_RAP_REQUEST,
   };
 }
 
-const actGetCumRapSuccess = (data) => {
+const actFetInfoCumRapSuccess = (data) => {
   return {
     type: ActionTypes.INFO_CUM_RAP_SUCCESS,
     payload: data
   };
 }
 
-const actGetCumRapFail = (error) => {
+const actFetInfoCumRapFail = (error) => {
   return {
     type: ActionTypes.INFO_CUM_RAP_FAIL,
+    payload: error
+  };
+}
+
+
+//GET CUM RAP
+const actNgayGioChieuRequest = () => {
+  return {
+    type: ActionTypes.DATE_REQUEST,
+  };
+}
+
+const actNgayGioChieuSuccess = (data) => {
+  return {
+    type: ActionTypes.DATE_SUCCESS,
+    payload: data
+  };
+}
+
+const actNgayGioChieuFail = (error) => {
+  return {
+    type: ActionTypes.DATE_FAIL,
     payload: error
   };
 }
