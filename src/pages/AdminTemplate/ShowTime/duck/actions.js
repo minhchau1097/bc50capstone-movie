@@ -29,12 +29,13 @@ export const actGetMovieTheaterCluster = (id) => {
       })
   }
 }
-export const actCreateCalendar = (value) => {
+export const actCreateCalendar = (value,navigate) => {
   return (dispatch) => {
     api.post(`QuanLyDatVe/TaoLichChieu`, value)
       .then((result) => {
         if (result.data.statusCode === 200) {
           alert(result.data.content)
+          navigate('/admin/films',{replace: true})
         }
       })
       .catch((error) => {

@@ -55,7 +55,6 @@ export default function EditFilms() {
                 .required('Vui lòng không để trống').url('Vui lòng nhập đường dẫn hợp lệ').nullable(),
             moTa: Yup.string()
                 .min(5, 'Tối thiểu 5 ký tự')
-                .max(250, 'Tối đa 250 ký tự')
                 .required('Vui lòng không để trống'),
             ngayKhoiChieu: Yup.string()
                 .required('Vui lòng không để trống'),
@@ -129,10 +128,9 @@ export default function EditFilms() {
             onValuesChange={onFormLayoutChange}
             size={componentSize}
 
-            style={{
-                maxWidth: 600,
-            }}
+           
         >
+            <h3 className='text-center'>Cập nhật phim</h3>
             <Form.Item label="Form Size" name="size">
                 <Radio.Group>
                     <Radio.Button value="small">Small</Radio.Button>

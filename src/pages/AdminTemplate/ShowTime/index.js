@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import {
   DatePicker,
   Form,
@@ -21,9 +21,7 @@ export default function ShowTime() {
   const dateFormat = "DD/MM/YYYY hh:mm:ss";
   const movieTheater = useSelector(state => state.showTimeInforReducer.movieTheater)
   const cluster = useSelector(state => state.showTimeInforReducer.cluster)
-  const [state, setState] = useState({
-    status: 'warning'
-  })
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(actGetEditFilms(param.id))
     dispatch(actGetMovieTheater())
@@ -46,7 +44,7 @@ export default function ShowTime() {
         .required('Vui lòng không để trống'),
     }),
     onSubmit: (values) => {
-      dispatch(actCreateCalendar(values))
+      dispatch(actCreateCalendar(values,navigate))
 
     }
   })
@@ -77,7 +75,8 @@ export default function ShowTime() {
   }
   return (
     <div className='container-fluid'>
-      <h4>Tạo lịch chiếu - {dataEdit?.tenPhim}</h4>
+      <h3 className='text-center'>Tạo lịch chiếu </h3>
+      <h4>Phim {dataEdit?.tenPhim}</h4>
       <div className='row mt-5'>
         <div className='col-12 col-lg-6'>
           <img width={200} height={200} src={dataEdit?.hinhAnh} alt="" />

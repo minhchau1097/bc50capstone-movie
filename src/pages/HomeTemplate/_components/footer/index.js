@@ -12,18 +12,18 @@ export default function Footer() {
             <div className="grid grid-cols-2 gap-6">
               <ul className="text-gray-500 dark:text-gray-400 font-medium mt-2 text-sm">
                 <li className="mb-4">
-                  <span className="text-gray-400">FAQ</span>
+                  <span className="text-gray-400 hover:text-white">FAQ</span>
                 </li>
                 <li>
-                  <span className="text-gray-400">Brand Guidelines</span>
+                  <span className="text-gray-400 hover:text-white">Brand Guidelines</span>
                 </li>
               </ul>
               <ul className="text-gray-500 dark:text-gray-400 font-medium mt-2 text-sm">
                 <li className="mb-4">
-                  <span className="text-gray-400">Thỏa thuận sử dụng</span>
+                  <span className="text-gray-400 hover:text-white">Thỏa thuận sử dụng</span>
                 </li>
                 <li>
-                  <span className="text-gray-400">Chính sách bảo mật </span>
+                  <span className="text-gray-400 hover:text-white">Chính sách bảo mật </span>
                 </li>
               </ul>
             </div>
@@ -34,7 +34,7 @@ export default function Footer() {
             <div className='grid grid-cols-3 gap-3 mt-4 mr-auto'>
 
               {data?.map((item, index) => {
-                return <img key={index} width={40} height={40} src={item.logo} alt={item.tenHeThongRap} />
+                return <img className='hover:opacity-50 cursor-pointer' key={index} width={40} height={40} src={item.logo} alt={item.tenHeThongRap} />
               })}
               </div>
             </div>
