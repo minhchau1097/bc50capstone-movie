@@ -1,5 +1,5 @@
 # BC50_CapStone-Project_MASTERWORK
-Team Size: 3
+Team Size: 2
 <br>
 Team members:
 * Nguyễn Thành Nguyên
@@ -8,4 +8,4 @@ Team members:
 <br>
 
 * Our Shedule of this Project. Please follow up link below:
-<br> https://docs.google.com/spreadsheets/d/1sc4bk2wEYNsE-KqerdhiSk1ONqtrpDM5B05m443Ry5c/edit?usp=sharing
+<br> https://docs.google.com/spreadsheets/d/1Ef6ZTWkbojW_FBB2DmfJJTIJHNtAKhy45lkwtJ_b85c/edit#gid=0
