@@ -4,8 +4,8 @@ const stateLichChieu = {
   loading: false,
   data: null,
   error: null,
-  heThongRapChieu: [],
-  cumRapChieu: []
+  cumRap: null,
+  ngayGioChieu: null,
 }
 
 const lichChieuReducer = (state = stateLichChieu, action) => {
@@ -28,44 +28,47 @@ const lichChieuReducer = (state = stateLichChieu, action) => {
       state.error = action.payload;
       return { ...state };
     }
-    //HT RẠP
-    case ActionTypes.INFO_HT_RAP_REQUEST: {
-      state.loading = true;
-      state.data = null;
-      state.error = null;
-      return { ...state };
-    }
-    case ActionTypes.INFO_HT_RAP_SUCCESS: {
-      state.loading = false;
-      state.heThongRapChieu = action.payload;
-      state.error = null;
-      return { ...state };
-    }
-    case ActionTypes.INFO_HT_RAP_FAIL: {
-      state.loading = false;
-      state.data = null;
-      state.error = action.payload;
-      return { ...state };
-    }
-    //CUM RẠP
+    
+    //CỤM RẠP
     case ActionTypes.INFO_CUM_RAP_REQUEST: {
       state.loading = true;
-      state.data = null;
+      state.cumRap = null;
       state.error = null;
       return { ...state };
     }
     case ActionTypes.INFO_CUM_RAP_SUCCESS: {
       state.loading = false;
-      state.data = action.payload;
+      state.cumRap = action.payload;
       state.error = null;
       return { ...state };
     }
     case ActionTypes.INFO_CUM_RAP_FAIL: {
       state.loading = false;
-      state.data = null;
+      state.cumRap = null;
       state.error = action.payload;
       return { ...state };
     }
+    //NGAY GIO CHIEU
+    case ActionTypes.DATE_REQUEST: {
+      state.loading = true;
+      state.ngayGioChieu = null;
+      state.error = null;
+      return { ...state };
+    }
+    case ActionTypes.DATE_SUCCESS: {
+      state.loading = false;
+      state.ngayGioChieu = action.payload;
+      state.error = null;
+      return { ...state };
+    }
+    case ActionTypes.DATE_FAIL: {
+      state.loading = false;
+      state.ngayGioChieu = null;
+      state.error = action.payload;
+      return { ...state };
+    }
+    
+
     default:
       return { ...state };
   }
