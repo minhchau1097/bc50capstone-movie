@@ -17,7 +17,9 @@ const { Header, Content, Footer, Sider } = Layout;
 
 export default function AdminTemplate() {
   const [collapsed, setCollapsed] = useState(false);
-    if(!localStorage.getItem('UserAdmin')){
+  if(localStorage.getItem('Customer')){
+    return <div  style={{backgroundImage: 'url(https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-5529.jpg?w=826&t=st=1692949167~exp=1692949767~hmac=db15d559f4ed1e36aeed2eba15a983d9212fa4247fb77f52ecdb7393b78a0036)', backgroundRepeat:'no-repeat', backgroundPosition:'center',minHeight:'100vh'}}></div>
+  } else  if(!localStorage.getItem('UserAdmin')){
      return <Navigate to='/auth' replace/>
     }
   

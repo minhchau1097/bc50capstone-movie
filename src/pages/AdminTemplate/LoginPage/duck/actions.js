@@ -1,6 +1,6 @@
 import * as ActionTypes from "./constants";
 import api from "utils/api";
-// import { history } from 'App';
+import { history } from 'App';
 
 export const actAuth = (user, navigate) => {
     return (dispatch) => {
@@ -22,7 +22,7 @@ export const actAuth = (user, navigate) => {
                         localStorage.setItem('Customer', JSON.stringify(user));
                         // quantri => redirect admin/dashboard
                         navigate('/', { replace: true })
-                        // history.goBack();
+                        history.goBack();
                     }
 
                 }
