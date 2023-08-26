@@ -43,7 +43,6 @@ export default function Navbar() {
       ${item.tenHeThongRap}
       `
   }));
-  console.log("🚀 ~ file: index.js:48 ~ thongTinGhe ~ thongTinGhe:", thongTinGhe)
 
   const dataInfoUser = {
     hoTen: data?.hoTen,
@@ -53,6 +52,7 @@ export default function Navbar() {
     maLoaiNguoiDung: data?.maLoaiNguoiDung,
     soDT: data?.soDT,
     thongTinDatVe: thongTinDatVe,
+    thongTinGhe: thongTinGhe,
   }
 
   const handlePersonal = () => {
