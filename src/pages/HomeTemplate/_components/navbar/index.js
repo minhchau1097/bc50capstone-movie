@@ -124,7 +124,7 @@ export default function Navbar() {
                 <UserOutlined className='mr-1' />{name}
               </NavLink>
               <ul className='name-menu'>
-                <li><UserOutlined className='mr-1' /><button onClick={() => handlePersonal()} className='text-white'>Thông tin cá nhân</button></li>
+                <li><UserOutlined className='mr-1' /><button onClick={() => handlePersonal()} >Thông tin cá nhân</button></li>
                 <li><LogoutOutlined className='mr-1' /><button onClick={handleLogout}>Đăng xuất</button></li>
               </ul>
             </li>)}
