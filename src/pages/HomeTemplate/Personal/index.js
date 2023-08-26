@@ -8,7 +8,7 @@ import {
 } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
-import { actFetchPersonalInfo } from './duck/actions';
+import { actEditPersonalInfo, actFetchPersonalInfo } from './duck/actions';
 
 export default function PersonalInfo() {
   const [componentSize, setComponentSize] = useState('default');
@@ -18,11 +18,8 @@ export default function PersonalInfo() {
   const onFormLayoutChange = ({ size }) => {
     setComponentSize(size);
   };
-  const { TextArea } = Input;
 
   const { data, personalInfo } = useSelector((state) => state.personalInfoReducer);
-  console.log("🚀 ~ file: index.js:24 ~ PersonalInfo ~ personalInfo:", personalInfo)
-  console.log("🚀 ~ file: index.js:22 ~ PersonalInfo ~ data:", data)
 
   useEffect(() => {
     dispatch(actFetchPersonalInfo());
@@ -32,6 +29,7 @@ export default function PersonalInfo() {
     console.log('values: ', values);
     values.maNhom = "GP01";
     dispatch(actFetchPersonalInfo(values));
+    dispatch(actEditPersonalInfo(values, navigate));
   }
   const initialValues = {
     hoTen: "",
@@ -41,7 +39,7 @@ export default function PersonalInfo() {
     soDT: "",
     maLoaiNguoiDung: "",
   }
-
+  const { TextArea } = Input;
   return (
     <Form
       className='ml-96'
@@ -73,7 +71,7 @@ export default function PersonalInfo() {
         <Input placeholder='Nhập họ tên' />
       </Form.Item>
       <Form.Item label="Tài Khoản" name='taiKhoan' >
-        <Input placeholder='Nhập ID tài khoản' />
+        <Input placeholder='Nhập ID tài khoản' disabled={true} />
       </Form.Item>
       <Form.Item label="Mật Khẩu" name='matKhau' >
         <Input placeholder='Nhập mật khẩu' />
@@ -85,6 +83,9 @@ export default function PersonalInfo() {
         <Input placeholder='Nhập số điện thoại' />
       </Form.Item>
       <Form.Item label="Thông Tin Đặt Vé" name='thongTinDatVe' >
+        <TextArea rows={8} placeholder='' className='font-medium' />
+      </Form.Item>
+      <Form.Item label="Thông Tin Ghế Đặt" name='thongTinGhe' >
         <TextArea rows={8} placeholder='' className='font-medium' />
       </Form.Item>
       <Form.Item label="Mã Loại" name='maLoaiNguoiDung' >

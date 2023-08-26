@@ -6,9 +6,28 @@ export const actFetchPersonalInfo = () => {
     dispatch(actPersonalRequest());
     api.post('QuanLyNguoiDung/ThongTinTaiKhoan')
       .then((result) => {
-        dispatch(actPersonalSuccess(result.data.content))
+        if (result.data.statusCode === 200) {
+          dispatch(actPersonalSuccess(result.data.content));
+        }
       }).catch((error) => {
         dispatch(actPersonalFail(error))
+      })
+  }
+}
+
+
+export const actEditPersonalInfo = (info, navigate) => {
+  return (dispatch) => {
+    dispatch(actEditPersonalRequest());
+    api.post('QuanLyNguoiDung/CapNhatThongTinNguoiDung', info)
+      .then((result) => {
+        if (result.data.statusCode === 200) {
+          dispatch(actEditPersonalSuccess(result.data.content));
+          alert(result.data.message);
+          navigate("/", { replace: true });
+        }
+      }).catch((error) => {
+        dispatch(actEditPersonalFail(error))
       })
   }
 }
@@ -35,5 +54,24 @@ export const actUpdateInput = (data) => {
   return {
     type: ActionTypes.PERSONAL_INFO,
     payload: data
+  }
+}
+
+//EDIT
+const actEditPersonalRequest = () => {
+  return {
+    type: ActionTypes.EDIT_PERSONAL_REQUEST,
+  }
+}
+const actEditPersonalSuccess = (dataEdit) => {
+  return {
+    type: ActionTypes.EDIT_PERSONAL_SUCCESS,
+    payload: dataEdit
+  }
+}
+const actEditPersonalFail = (error) => {
+  return {
+    type: ActionTypes.EDIT_PERSONAL_FAIL,
+    payload: error
   }
 }
