@@ -11,7 +11,7 @@ export default function Trailer(props) {
         return 'https://www.youtube.com/embed/' + ID
     }
   return (
-        <iframe width={'100%'} height={'100%'} src={'show' && pause && getSrcYoutube(props.trailer)} title='Trailer'  frameborder={0} allowFullScreen ></iframe>
+        <iframe width={'100%'} height={'100%'} src={'show' && pause && getSrcYoutube(props.trailer)} title='Trailer'  frameBorder={0} allowFullScreen ></iframe>
         
   )
 }

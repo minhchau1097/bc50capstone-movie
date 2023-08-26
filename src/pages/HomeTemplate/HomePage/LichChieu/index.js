@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import LichChieuItem from "./LichChieuItem";
 import Slider from "react-slick";
-import { actFetchLichChieu, actFetchInfoHTRap, actGetCumRap, actFetchInfoPhim, actCumRap, actFetchInfoCumRap, actNgayGioChieu } from './duck/actions';
+import { actFetchLichChieu, actFetchInfoCumRap, actNgayGioChieu } from './duck/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import moment from 'moment';
-import { Radio, Select, Space, Form, Input, DatePicker } from 'antd';
+import { Select, Form, } from 'antd';
+import { filter } from 'lodash';
 
 
 function LichChieu() {
   const [maPhim, setMaPhim] = useState('');
+  const [state, setState] = useState([]);
 
   const dispatch = useDispatch();
   const data = useSelector((state) => state.lichChieuReducer.data);
@@ -62,18 +64,23 @@ function LichChieu() {
   //Select antd
 
   const handleChangeInfoFilms = (value) => {
-    console.log("🚀 ~ file: index.js:71 ~ handleChangeInfoFilms ~ value:", value)
     dispatch(actFetchInfoCumRap());
     setMaPhim(value);
   };
 
-
-  const handleChangeInfoCumRap = () => {
-    dispatch(actNgayGioChieu(maPhim));
+  const handleChangeInfoCumRap = (value) => {
+    if (value) {
+      let realList = [];
+     const cumRap = ngayGioChieu?.heThongRapChieu.map((item) =>item )
+     const heThong = cumRap.filter((item)=> item.maHeThongRap === value)
+     heThong?.map((item)=>item.cumRapChieu.map((item1)=>item1.lichChieuPhim.map((item2)=> realList.push(item2))))
+      setState({
+        state: realList
+      })
+    }
   }
 
   const onChangeDate = (value) => {
-    console.log("🚀 ~ file: index.js:82 ~ onChangeDate ~ value:", value)
 
   }
 
@@ -111,20 +118,19 @@ function LichChieu() {
                     label: cr.tenHeThongRap,
                     value: cr.maHeThongRap
                   }
-                })} onChange={handleChangeInfoCumRap} placeholder="Chọn Cụm Rạp" />
+                })} onChange={handleChangeInfoCumRap} onClick={() => {
+                  dispatch(actNgayGioChieu(maPhim));
+                }} placeholder="Chọn Cụm Rạp" />
               </Form.Item>
             </div>
           </div>
           <div className="under-line col-md-3 partition">
             <div className="form-group">
               <Form.Item>
-                <Select className='w-full' options={ngayGioChieu?.heThongRapChieu.map((item) => item.cumRapChieu.map((item) => item.lichChieuPhim.map((item) => {
-                  console.log('item', item)
-                  return {
-                    label: item.ngayChieuGioChieu,
-                    value: item.maLichChieu
-                  }
-                })))} onChange={onChangeDate} placeholder="Chọn Ngày Giờ Chiếu" />
+                <Select className='w-full' options={state.state?.map((item) => {
+
+                  return { label: item.ngayChieuGioChieu, value: item.maLichChieu }
+                })} onChange={onChangeDate} placeholder="Chọn Ngày Giờ Chiếu" />
               </Form.Item>
             </div>
           </div>
