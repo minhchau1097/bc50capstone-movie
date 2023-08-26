@@ -12,6 +12,7 @@ import deleteFilmsReducer from "pages/AdminTemplate/Films/duck/reducer";
 import editFilmsReducer from "pages/AdminTemplate/EditFilms/duck/reducer";
 import manageUserReducer from './../pages/AdminTemplate/Dashboard/duck/reducer';
 import showTimeInforReducer from "pages/AdminTemplate/ShowTime/duck/reducer";
+import personalInfoReducer from 'pages/HomeTemplate/Personal/duck/reducer';
 const rootReducer = combineReducers({
     //child
     // listMovieReducer,
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
     editFilmsReducer,
     manageUserReducer,
     showTimeInforReducer,
+    personalInfoReducer,
 })
 
 

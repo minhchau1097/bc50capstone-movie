@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Form,
   Input,
@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actEditUser, actManageUser } from '../duck/actions';
 import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from 'antd/es/form/Form';
 
 const editUserSchema = yup.object().shape({
   hoTen: yup.string().required('Vui lòng nhập họ tên'),
@@ -40,11 +41,10 @@ const EditUser = () => {
     setComponentSize(size);
   };
 
-
   const onSubmitEditForm = (values) => {
-      console.log("🚀 ~ file: index.js:45 ~ onSubmitEditForm ~ values:", values)
-      values.maNhom = "GP01";
-      dispatch(actEditUser(values, navigate));
+    values.maNhom = "GP01";
+    dispatch(actEditUser(values, navigate));
+    
   }
   const initialValues = {
     hoTen: "",
