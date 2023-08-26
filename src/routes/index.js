@@ -22,7 +22,12 @@ const routes = [
                 path: 'booking-ticket/:id',
                 element: lazy(() => import("./../pages/HomeTemplate/BookingTicketPage")),
             }
-        ]
+        ],
+        
+    },
+    {
+        path: "personal-info",
+        element: lazy(() => import("./../pages/HomeTemplate/Personal")),
     },
     {
         path: "admin",

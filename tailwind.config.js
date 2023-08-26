@@ -6,7 +6,8 @@ module.exports = {
     './src/pages/HomeTemplate/HomePage/MovieTheater/index.js',
     './src/pages/HomeTemplate/HomePage/LichChieu/index.js',
     './src/pages/AdminTemplate/Dashboard/index.js',
-    './src/pages/AdminTemplate/index.js'
+    './src/pages/AdminTemplate/index.js',
+    './src/pages/HomeTemplate/Personal/index.js'
   ],
   presets: [],
   darkMode: 'class',// or  'media' 
