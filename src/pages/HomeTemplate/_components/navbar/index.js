@@ -1,8 +1,10 @@
 import { UserOutlined, UserAddOutlined, LogoutOutlined } from '@ant-design/icons'
 import { actLogout } from 'pages/AdminTemplate/LoginPage/duck/actions'
-import React from 'react'
-import { useDispatch } from 'react-redux'
-import { NavLink, useNavigate } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { actFetchPersonalInfo, actUpdateInput } from './../../Personal/duck/actions';
+import { NavLink, useNavigate, Link } from 'react-router-dom'
+import moment from 'moment';
 export default function Navbar() {
   let dispatch = useDispatch();
   let navigate = useNavigate();
@@ -19,9 +21,46 @@ export default function Navbar() {
   const handleLogout = () => {
     dispatch(actLogout(navigate))
   }
+
+  const { data } = useSelector((state) => state.personalInfoReducer);
+  useEffect(() => {
+    dispatch(actFetchPersonalInfo());
+  }, []);
+
+  const thongTinDatVe = data?.thongTinDatVe.map((item) => {
+    let ngayDatVe = moment(item.ngayDat).format('hh:mm A - DD/MM/YYYY')
+    return `
+      ${item.tenPhim}
+      ${item.giaVe.toLocaleString() + ' VND'}
+      ${ngayDatVe}
+      `
+  });
+
+  const thongTinGhe = data?.thongTinDatVe.map((item) => item.danhSachGhe.map((item) => {
+    return `
+      ${item.tenGhe}
+      ${item.tenRap}
+      ${item.tenHeThongRap}
+      `
+  }));
+  console.log("🚀 ~ file: index.js:48 ~ thongTinGhe ~ thongTinGhe:", thongTinGhe)
+
+  const dataInfoUser = {
+    hoTen: data?.hoTen,
+    email: data?.email,
+    taiKhoan: data?.taiKhoan,
+    matKhau: data?.matKhau,
+    maLoaiNguoiDung: data?.maLoaiNguoiDung,
+    soDT: data?.soDT,
+    thongTinDatVe: thongTinDatVe,
+  }
+
+  const handlePersonal = () => {
+    // console.log('user', user)
+    dispatch(actUpdateInput(dataInfoUser));
+    navigate("/personal-info", { replace: true });
+  }
   return (
-
-
     <nav className="navbar navbar-expand-md  navbar-dark">
       <div className="container">
         {/* Brand */}
@@ -85,7 +124,7 @@ export default function Navbar() {
                 <UserOutlined className='mr-1' />{name}
               </NavLink>
               <ul className='name-menu'>
-                <li><UserOutlined className='mr-1' /><button>Thông tin cá nhân</button></li>
+                <li><UserOutlined className='mr-1' /><button onClick={() => handlePersonal()} className='text-white'>Thông tin cá nhân</button></li>
                 <li><LogoutOutlined className='mr-1' /><button onClick={handleLogout}>Đăng xuất</button></li>
               </ul>
             </li>)}
