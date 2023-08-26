@@ -6,6 +6,7 @@ import Trailer from '../Trailer'
 import { PlayCircleOutlined } from '@ant-design/icons'
 import { Rate, Tabs } from 'antd'
 import moment from 'moment/moment'
+import { styled } from 'styled-components'
 
 
 
@@ -22,6 +23,12 @@ export default function DetailMoviePage() {
   useEffect(() => {
     dispatch(fetchDetailMovie(param.id))
   }, [])
+  const Wrapper = styled.section`
+    background-image: url(${data && data.hinhAnh});
+    background-position: top;
+    background-size: cover;
+    min-height: 100vh;
+`;
   const checkData = () => {
     if (data?.heThongRapChieu.length === 0) {
       return <div className='text-center '>
@@ -77,7 +84,7 @@ export default function DetailMoviePage() {
   }
 
   return (
-    <div style={{ backgroundImage: `url(${data && data.hinhAnh})`, backgroundPosition: 'top', backgroundSize: 'cover', minHeight: '100vh' }}>
+    <Wrapper >
       <div className='card-blur' >
         <div className="container " style={{ padding: '100px 0' }}>
           <div className='detail-movie'>
@@ -118,6 +125,6 @@ export default function DetailMoviePage() {
         </div>
       </div>
 
-    </div>
+    </Wrapper>
   )
 }
