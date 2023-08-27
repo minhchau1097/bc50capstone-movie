@@ -7,7 +7,6 @@ import { Tabs } from 'antd';
 import moment from 'moment';
 function BookingTicketPage() {
   const data = useSelector((state) => state.bookingTicketReducer.data);
-  console.log(data);
   const { danhSachGheDangDat } = useSelector((state) => state.bookingTicketReducer);
   const dispatch = useDispatch();
   const param = useParams();

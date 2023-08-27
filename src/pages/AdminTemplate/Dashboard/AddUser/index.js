@@ -38,7 +38,6 @@ const AddUser = () => {
 
 
   const onSubmitForm = (values) => {
-    console.log('values: ', values);
     values.maNhom = "GP01";
     dispatch(actAddUser(values, navigate));
   }

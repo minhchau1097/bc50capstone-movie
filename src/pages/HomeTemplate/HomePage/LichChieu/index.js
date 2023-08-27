@@ -82,11 +82,9 @@ function LichChieu() {
     }
   }
   const onChangeDate = (value) => {
-    console.log("🚀 ~ file: index.js:84 ~ onChangeDate ~ value:", value)
     setMaLichChieu(value);
   }
   const handleMLC = () => {
-    console.log("first", 12314)
     if (maLichChieu) {
       navigate(`/booking-ticket/${maLichChieu}`);
     } else {

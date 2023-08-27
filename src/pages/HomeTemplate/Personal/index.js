@@ -19,14 +19,13 @@ export default function PersonalInfo() {
     setComponentSize(size);
   };
 
-  const { data, personalInfo } = useSelector((state) => state.personalInfoReducer);
+  const { personalInfo } = useSelector((state) => state.personalInfoReducer);
 
   useEffect(() => {
     dispatch(actFetchPersonalInfo());
   }, []);
 
   const onSubmitForm = (values) => {
-    console.log('values: ', values);
     values.maNhom = "GP01";
     dispatch(actFetchPersonalInfo(values));
     dispatch(actEditPersonalInfo(values, navigate));
@@ -96,7 +95,7 @@ export default function PersonalInfo() {
       </Form.Item>
       <Form.Item label="Tác Vụ">
         <button type='submit' className='text-white p-2 px-3 rounded-lg' style={{ backgroundColor: 'blueviolet' }}>Cập nhật</button>
-        <Link to={'/'} type='submit' className='text-white p-2 px-3 rounded-lg ml-4' style={{ backgroundColor: 'blueviolet' }}>Về Trang Chủ</Link>
+        <Link to={'/'} className='text-white p-2 px-3 rounded-lg ml-4' style={{ backgroundColor: 'blueviolet' }}>Về Trang Chủ</Link>
       </Form.Item>
     </Form>
   )

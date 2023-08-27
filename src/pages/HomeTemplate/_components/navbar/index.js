@@ -3,7 +3,7 @@ import { actLogout } from 'pages/AdminTemplate/LoginPage/duck/actions'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { actFetchPersonalInfo, actUpdateInput } from './../../Personal/duck/actions';
-import { NavLink, useNavigate, Link } from 'react-router-dom'
+import { NavLink, useNavigate, Link, Navigate } from 'react-router-dom'
 import moment from 'moment';
 export default function Navbar() {
   let dispatch = useDispatch();
@@ -23,8 +23,11 @@ export default function Navbar() {
   }
 
   const { data } = useSelector((state) => state.personalInfoReducer);
+
   useEffect(() => {
-    dispatch(actFetchPersonalInfo());
+    if (localStorage.getItem("Customer") || (localStorage.getItem("UserAdmin"))) {
+      return dispatch(actFetchPersonalInfo());
+    }
   }, []);
 
   const thongTinDatVe = data?.thongTinDatVe.map((item) => {
@@ -56,10 +59,10 @@ export default function Navbar() {
   }
 
   const handlePersonal = () => {
-    // console.log('user', user)
     dispatch(actUpdateInput(dataInfoUser));
     navigate("/personal-info", { replace: true });
   }
+
   return (
     <nav className="navbar navbar-expand-md  navbar-dark">
       <div className="container">
