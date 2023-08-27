@@ -26,7 +26,6 @@ export default function PersonalInfo() {
   }, []);
 
   const onSubmitForm = (values) => {
-    console.log('values: ', values);
     values.maNhom = "GP01";
     dispatch(actFetchPersonalInfo(values));
     dispatch(actEditPersonalInfo(values, navigate));

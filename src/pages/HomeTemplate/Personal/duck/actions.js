@@ -14,11 +14,11 @@ export const actFetchPersonalInfo = () => {
       })
   }
 }
-// QuanLyNguoiDung/CapNhatThongTinNguoiDung
+
 export const actEditPersonalInfo = (info, navigate) => {
   return (dispatch) => {
     dispatch(actEditPersonalRequest());
-    api.post('QuanLyNguoiDung/ThongTinTaiKhoan', info)
+    api.post('QuanLyNguoiDung/CapNhatThongTinNguoiDung', info)
       .then((result) => {
         if (result.data.statusCode === 200) {
           dispatch(actEditPersonalSuccess(result.data.content));      
