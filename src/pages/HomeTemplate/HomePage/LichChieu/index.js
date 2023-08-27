@@ -3,7 +3,7 @@ import LichChieuItem from "./LichChieuItem";
 import Slider from "react-slick";
 import { actFetchLichChieu, actFetchInfoCumRap, actNgayGioChieu } from './duck/actions';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, Navigate, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import { Select, Form, } from 'antd';
 import { filter } from 'lodash';
@@ -12,7 +12,8 @@ import { filter } from 'lodash';
 function LichChieu() {
   const [maPhim, setMaPhim] = useState('');
   const [state, setState] = useState([]);
-
+  const [maLichChieu, setMaLichChieu] = useState();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const data = useSelector((state) => state.lichChieuReducer.data);
   const { cumRap, ngayGioChieu } = useSelector((state) => state.lichChieuReducer);
@@ -71,17 +72,21 @@ function LichChieu() {
   const handleChangeInfoCumRap = (value) => {
     if (value) {
       let realList = [];
-     const cumRap = ngayGioChieu?.heThongRapChieu.map((item) =>item )
-     const heThong = cumRap.filter((item)=> item.maHeThongRap === value)
-     heThong?.map((item)=>item.cumRapChieu.map((item1)=>item1.lichChieuPhim.map((item2)=> realList.push(item2))))
+      const cumRap = ngayGioChieu?.heThongRapChieu.map((item) => item)
+      const heThong = cumRap.filter((item) => item.maHeThongRap === value)
+      heThong?.map((item) => item.cumRapChieu.map((item1) => item1.lichChieuPhim.map((item2) => realList.push(item2))))
       setState({
         state: realList
       })
     }
   }
-
   const onChangeDate = (value) => {
-
+    console.log("🚀 ~ file: index.js:84 ~ onChangeDate ~ value:", value)
+    setMaLichChieu(value);
+  }
+  const handleMLC = () => {
+    console.log("first", 12314)
+    return navigate(`/booking-ticket/${maLichChieu}`);
   }
 
   return (
@@ -128,15 +133,17 @@ function LichChieu() {
             <div className="form-group">
               <Form.Item>
                 <Select className='w-full' options={state.state?.map((item) => {
-
-                  return { label: item.ngayChieuGioChieu, value: item.maLichChieu }
+                  let ngayChieuGioChieu = moment(item.ngayChieuGioChieu).format('hh:mm A - DD/MM/YYYY')
+                  return { label: ngayChieuGioChieu, value: item.maLichChieu }
                 })} onChange={onChangeDate} placeholder="Chọn Ngày Giờ Chiếu" />
               </Form.Item>
             </div>
           </div>
           <div className='col-md-3 partition'>
             {/* dùng sweet alert để hiện box */}
-            <Link to={`/booking-ticket/`} className="btn btnMuaVe">MUA VÉ NGAY</Link>
+            <Form.Item>
+              <button onClick={handleMLC} className="btn btnMuaVe">MUA VÉ NGAY</button>
+            </Form.Item>
           </div>
         </div>
       </div>

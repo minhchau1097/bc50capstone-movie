@@ -8,7 +8,7 @@ import {
 } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
-import { actEditPersonalInfo, actFetchPersonalInfo } from './duck/actions';
+import { actEditPersonalInfo, actFetchPersonalInfo, actUpdateInput } from './duck/actions';
 
 export default function PersonalInfo() {
   const [componentSize, setComponentSize] = useState('default');
