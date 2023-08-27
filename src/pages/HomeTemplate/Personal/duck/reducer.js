@@ -29,7 +29,9 @@ const personalInfoReducer = (state = initialState, action) => {
       return { ...state }
     }
     case ActionTypes.PERSONAL_INFO: {
+      state.loading = false;
       state.personalInfo = action.payload;
+      state.error = null;
       return { ...state }
     }
     //EDIT
