@@ -1,6 +1,8 @@
 import * as ActionTypes from "./constants";
 import api from "utils/api";
 import { history } from 'App';
+//phiên đăng nhập 60p
+ const expire = 60 * 60 * 1000;
 
 export const actAuth = (user, navigate) => {
     return (dispatch) => {
@@ -9,12 +11,13 @@ export const actAuth = (user, navigate) => {
             .then((result) => {
                 if (result.data.statusCode === 200) {
                     const user = result.data.content
+
                     if ((user.maLoaiNguoiDung === 'QuanTri')) {
                         dispatch(actAuthSuccess(user));
                         // quan tri => luu trang thai login
                         localStorage.setItem('UserAdmin', JSON.stringify(user));
                         // quantri => redirect admin/dashboard
-                        navigate('/admin/dashboard' , { replace: true })
+                        navigate('/admin/dashboard', { replace: true })
                         // history.goBack();
                     } else {
                         dispatch(actAuthSuccess(user));
@@ -24,7 +27,11 @@ export const actAuth = (user, navigate) => {
                         navigate('/', { replace: true })
                         history.goBack();
                     }
-
+                    let date = new Date().getTime()
+                    //setLocalStorage expire 
+                    localStorage.setItem('expire', date + expire)
+                    // action timeout logout
+                    dispatch(timeoutLogout(expire, navigate))
                 }
             })
             .catch((error) => {
@@ -33,17 +40,48 @@ export const actAuth = (user, navigate) => {
     }
 }
 export const actLogout = (navigate) => {
-    if(localStorage.getItem( 'UserAdmin')){
+    if (localStorage.getItem('UserAdmin')) {
 
         localStorage.removeItem('UserAdmin')
         navigate('/auth', { replace: true })
-    }else if(localStorage.getItem( 'Customer')){
+    } else if (localStorage.getItem('Customer')) {
 
         localStorage.removeItem('Customer')
         navigate('/', { replace: true })
     }
     return {
         type: ActionTypes.AUTH_CLEAR
+    }
+}
+
+export const actTryLogin = (navigate) => {
+    return (dispatch) => {
+        let user = null
+        if (localStorage.getItem('UserAdmin')) {
+            user = JSON.parse(localStorage.getItem('UserAdmin'))
+        } else if (localStorage.getItem('Customer')) {
+            user = JSON.parse(localStorage.getItem('Customer'))
+        }
+
+
+        if (!user) return;
+
+        const exp = localStorage.getItem('expire')
+        const date = new Date().getTime()
+        if (date > exp) {
+            dispatch(actLogout(navigate))
+            return;
+        }
+        // neu thoi gian hien tai < thoi gian het han
+        dispatch(timeoutLogout(exp - date, navigate))
+        dispatch(actAuthSuccess(user))
+    }
+}
+const timeoutLogout = (expire, navigate) => {
+    return (dispatch) => {
+        setTimeout(() => {
+            dispatch(actLogout(navigate))
+        }, expire);
     }
 }
 const actAuthRequest = () => {
