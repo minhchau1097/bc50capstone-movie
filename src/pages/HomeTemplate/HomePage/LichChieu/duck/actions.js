@@ -37,7 +37,7 @@ export const actFetchInfoCumRap = () => {
       .then((result) => {
         // console.log(result.data.content);
         if (result.data.statusCode === 200) {
-          dispatch(actFetInfoCumRapSuccess(result.data.content));          
+          dispatch(actFetInfoCumRapSuccess(result.data.content));  
         }
       })
       .catch((error) => {

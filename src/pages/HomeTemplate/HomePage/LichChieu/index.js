@@ -7,6 +7,7 @@ import { useParams, Link, Navigate, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import { Select, Form, } from 'antd';
 import { filter } from 'lodash';
+import Swal from 'sweetalert2';
 
 
 function LichChieu() {
@@ -86,7 +87,17 @@ function LichChieu() {
   }
   const handleMLC = () => {
     console.log("first", 12314)
-    return navigate(`/booking-ticket/${maLichChieu}`);
+    if (maLichChieu) {
+      navigate(`/booking-ticket/${maLichChieu}`);
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'CHỌN PHIM ĐI BA LỌI',
+        footer: '<a href="">Why do I have this issue?</a>'
+      })
+    }
+
   }
 
   return (
