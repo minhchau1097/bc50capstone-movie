@@ -134,6 +134,7 @@ export default function ManageUser() {
     <div>
       <h2>Quản Lý Người Dùng</h2>
       <NavLink to={'/admin/add-user'} className='mb-3 btn btn-info' >Thêm người dùng</NavLink>
+      <NavLink to={'/'} className='mb-3 btn btn-info ml-4' >Về Trang Chủ</NavLink>
       <Search
         className='mb-5 bg-blue-500'
         placeholder="input search text"

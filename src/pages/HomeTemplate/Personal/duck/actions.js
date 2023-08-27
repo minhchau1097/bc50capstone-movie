@@ -14,15 +14,14 @@ export const actFetchPersonalInfo = () => {
       })
   }
 }
-
-
+// QuanLyNguoiDung/CapNhatThongTinNguoiDung
 export const actEditPersonalInfo = (info, navigate) => {
   return (dispatch) => {
     dispatch(actEditPersonalRequest());
-    api.post('QuanLyNguoiDung/CapNhatThongTinNguoiDung', info)
+    api.post('QuanLyNguoiDung/ThongTinTaiKhoan', info)
       .then((result) => {
         if (result.data.statusCode === 200) {
-          dispatch(actEditPersonalSuccess(result.data.content));
+          dispatch(actEditPersonalSuccess(result.data.content));      
           alert(result.data.message);
           navigate("/", { replace: true });
         }
