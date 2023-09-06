@@ -5,6 +5,7 @@ import { fetchBookingTicket, actBookingSeat, actBuyTicket, actHistoryTicket, act
 import _ from 'lodash';
 import { Tabs } from 'antd';
 import moment from 'moment';
+
 function BookingTicketPage() {
   const data = useSelector((state) => state.bookingTicketReducer.data);
   const { danhSachGheDangDat } = useSelector((state) => state.bookingTicketReducer);
@@ -62,6 +63,7 @@ function BookingTicketPage() {
   if (!(localStorage.getItem("Customer") || (localStorage.getItem("UserAdmin")))) {
     return <Navigate replace to={"/auth"} />;
   }
+  
   return (
     <div style={{ marginTop: "10px" }}>
       <div className="grid grid-cols-12" >

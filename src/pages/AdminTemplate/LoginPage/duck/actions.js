@@ -25,7 +25,7 @@ export const actAuth = (user, navigate) => {
                         localStorage.setItem('Customer', JSON.stringify(user));
                         // quantri => redirect admin/dashboard
                         navigate('/', { replace: true })
-                        history.goBack();
+                        // history.goBack();
                     }
                     let date = new Date().getTime()
                     //setLocalStorage expire 
