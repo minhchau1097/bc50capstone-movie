@@ -93,11 +93,12 @@ export default function DetailMoviePage() {
                 <div className="detail-movie-left mx-auto mx-md-0">
                   <img className=' mr-auto' style={{ height: 400, width: '100%' }} src={data && data.hinhAnh} alt="" />
                   {/* Button trigger modal */}
-                  <button className='play-trailer' type="button" data-toggle="modal" data-target="#modelId" onClick={() => {
-                    dispatch({
-                      type: 'OPEN_FORM',
-                      data: <Trailer trailer={data.trailer} />
-                    })
+                  <button className='play-trailer' type="button" onClick={() => {
+                  dispatch({
+                    type: 'OPEN_FORM',
+                    data: <Trailer trailer={data?.trailer} />,
+                    open:true,
+                  })
                   }}>
                     <PlayCircleOutlined className='d-block' />
                   </button>

@@ -1,7 +1,7 @@
 import { PlayCircleOutlined } from '@ant-design/icons';
 import Trailer from 'pages/HomeTemplate/Trailer';
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 export default function LichChieuItem(props) {
@@ -12,10 +12,11 @@ export default function LichChieuItem(props) {
         <Link to={`/detail/${props.films.maPhim}`} className='btn btn-BuyTicket' style={{ zIndex: '1' }}>Mua Vé</Link>
         <div className='footer-buy-ticket'></div>
         {/* Button trigger modal */}
-      <button className='play-trailer' type="button" data-toggle="modal" data-target="#modelId" onClick={() => {
+      <button className='play-trailer' type="button" onClick={() => {
         dispatch({
           type: 'OPEN_FORM',
-          data: <Trailer trailer={props.films.trailer} />
+          data: <Trailer trailer={props.films.trailer} />,
+          open:true,
         })
       }}>
         <PlayCircleOutlined className='d-block'/>
