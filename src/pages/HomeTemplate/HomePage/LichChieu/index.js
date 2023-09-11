@@ -8,6 +8,8 @@ import moment from 'moment';
 import { Select, Form, } from 'antd';
 import { filter } from 'lodash';
 import Swal from 'sweetalert2';
+import Search from './../../../../assets/images/search.png';
+import Shadow from './../../../../assets/images/shadow.png';
 
 
 function LichChieu() {
@@ -162,7 +164,7 @@ function LichChieu() {
             <div className="col-10">
               <input className="input-search form-control mr-sm-2" type="text" placeholder="Search Movie" style={{ border: "none" }} /></div>
             <div className="col-2">
-              <img className='img-search img-fluid' src="./images/search.png" alt="image-search" />
+              <img className='img-search img-fluid' src={Search} alt="image-search" />
             </div>
           </div>
         </form>
@@ -171,7 +173,7 @@ function LichChieu() {
         {renderListLichChieu()}
       </Slider>
       <div className='container mt-5'>
-        <img src="./images/shadow.png" alt="" width={1080} />
+        <img src={Shadow} alt="" width={1080} />
       </div>
     </div>
   )
