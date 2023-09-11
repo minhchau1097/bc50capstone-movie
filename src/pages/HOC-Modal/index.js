@@ -1,28 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
-export default function Modal() {
-    let component = useSelector(state => state.modalReducer.Component)
-    
+import { Modal } from 'antd';
+export default function ModalTrailer() {
+    let { Component, openModal, data } = useSelector(state => state.modalReducer)
+    console.log(data)
     const dispatch = useDispatch()
+    const [open, setOpen] = useState(true);
+    useEffect(() => {
+        setOpen(true)
+    }, [openModal])
     return (
-        <div>
-            {/* Modal */}
-            <div className="modal fade" id="modelId" tabIndex={-1} role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-                <div className="modal-dialog" role="document">
-                    <div className="modal-content">
-                        {component}
-                        <button  type="button" className="close btn-close-trailer" data-dismiss="modal" aria-label="Close" onClick={()=>{
-                            dispatch({
-                               type:'CLOSE_FORM',
-                               data:''
-                            })
-                        }}>
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+       
+        <Modal
+            destroyOnClose
+            open={open && openModal}
+            footer=''
+            onCancel={() => {
+                setOpen(false);
+                dispatch({
+                    type: 'CLOSE_FORM',
+
+                })
+            }}
+            width={690}
+            height={500}
+        >
+            {Component}
+        </Modal>
     )
 }
