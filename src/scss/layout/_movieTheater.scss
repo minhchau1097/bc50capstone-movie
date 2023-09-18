@@ -89,6 +89,9 @@
         font-weight: 500;
         color: #000;
         font-size: 1.25rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
 
         span {
             background-color: #fb4226;

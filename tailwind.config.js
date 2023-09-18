@@ -2,8 +2,10 @@
 module.exports = {
   content: [
     './src/pages/HomeTemplate/_components/footer/index.js',
+    './src/pages/HomeTemplate/_components/BackToTop/index.js',
     './src/pages/HomeTemplate/BookingTicketPage/index.js',
     './src/pages/HomeTemplate/HomePage/MovieTheater/index.js',
+    './src/pages/HomeTemplate/HomePage/About/index.js',
     './src/pages/HomeTemplate/HomePage/LichChieu/index.js',
     './src/pages/AdminTemplate/Dashboard/index.js',
     './src/pages/AdminTemplate/index.js',
