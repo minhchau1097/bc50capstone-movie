@@ -1,0 +1,29 @@
+
+@include Reponsive ($md) {
+    .about{
+
+        .slick-slider{
+            margin-top: 0;
+        }
+    }
+}
+@include Reponsive ($xs) {
+    .about{
+        .about-content{
+            justify-content: center;
+            .about-content-right{
+               margin-top: 80px;
+            }
+        }
+    }
+}
+@include Reponsive ($xxs) {
+    .about{
+        .about-content{
+            justify-content: center;
+            .about-content-right{
+               margin-top: 80px;
+            }
+        }
+    }
+}

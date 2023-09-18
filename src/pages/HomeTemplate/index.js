@@ -3,6 +3,7 @@ import { Outlet, useNavigate } from 'react-router-dom'
 import Navbar from './_components/navbar'
 import { actTryLogin } from 'pages/AdminTemplate/LoginPage/duck/actions'
 import { useDispatch } from 'react-redux'
+import BackToTop from './_components/BackToTop'
 
 export default function HomeTemplate() {
   const dispatch = useDispatch()
@@ -16,6 +17,7 @@ export default function HomeTemplate() {
   return (
     <>
       <Navbar />
+      <BackToTop/>
       <Outlet />
 
     </>
