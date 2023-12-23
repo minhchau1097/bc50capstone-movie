@@ -46,11 +46,11 @@ export default function BackToTop() {
 
     return (
         <>
-        <Button>
-            <span className='items-center justify-center text-[22px] w-full h-full rounded-lg' onClick={scrollToTop} style={{ display: visible ? 'flex' : 'none', backgroundColor: '#fb4226' }}>
-            <UpOutlined className='text-white '/>
-            </span>
-        </Button>
+            <Button>
+                <span className='items-center justify-center text-[22px] w-full h-full rounded-lg' onClick={scrollToTop} style={{ display: visible ? 'flex' : 'none', backgroundColor: '#fb4226' }}>
+                    <UpOutlined className='text-white ' />
+                </span>
+            </Button>
         </>
     )
 }

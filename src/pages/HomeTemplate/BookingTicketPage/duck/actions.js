@@ -47,6 +47,12 @@ export const actHistoryTicket = () => {
   }
 }
 
+export const actChoosingSeat = (ghe) => {
+  return {
+    type: ActionType.CHOOSING_SEAT,
+    payload: ghe
+  }
+}
 
 
 export const actBookingSeat = (ghe) => {

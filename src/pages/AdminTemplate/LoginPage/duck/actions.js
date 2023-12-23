@@ -2,7 +2,7 @@ import * as ActionTypes from "./constants";
 import api from "utils/api";
 import { history } from 'App';
 //phiên đăng nhập 60p
- const expire = 60 * 60 * 1000;
+ const expire = 6000 * 60 * 1000;
 
 export const actAuth = (user, navigate) => {
     return (dispatch) => {
@@ -18,14 +18,14 @@ export const actAuth = (user, navigate) => {
                         localStorage.setItem('UserAdmin', JSON.stringify(user));
                         // quantri => redirect admin/dashboard
                         navigate('/admin/dashboard', { replace: true })
-                        // history.goBack();
+                        history.goBack();
                     } else {
                         dispatch(actAuthSuccess(user));
                         // quan tri => luu trang thai login
                         localStorage.setItem('Customer', JSON.stringify(user));
                         // quantri => redirect admin/dashboard
                         navigate('/', { replace: true })
-                        // history.goBack();
+                        history.goBack();
                     }
                     let date = new Date().getTime()
                     //setLocalStorage expire 
