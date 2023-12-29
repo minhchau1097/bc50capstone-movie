@@ -1,6 +1,12 @@
-.navbar {
-    background-color: #00000079;
+.fixed-nav{
+    position: fixed;
+    background-color: $bgColor;
+}
+.top-nav{
     position: absolute;
+    background-color: transparent;
+}
+.navbar {
     z-index: 50;
     top: 0;
     width: 100%;
@@ -21,7 +27,7 @@
                 justify-content: center;
 
                 &:hover {
-                    color: #f30808e8;
+                    color: $mainColor;
                 }
             }
 
@@ -45,7 +51,7 @@
                 font-weight: bold;
 
                 &:hover {
-                    color: #f30808e8;
+                    color: $mainColor;
                 }
             }
         }

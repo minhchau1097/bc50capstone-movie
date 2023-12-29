@@ -7,6 +7,7 @@ import { PlayCircleOutlined } from '@ant-design/icons'
 import { Rate, Tabs } from 'antd'
 import moment from 'moment/moment'
 import { styled } from 'styled-components'
+import Loader from 'Loader'
 
 
 
@@ -16,7 +17,7 @@ export default function DetailMoviePage() {
     window.scrollTo(0, 0)
   })
   const param = useParams()
-  const data = useSelector((state) => state.detailMovieReducer.data)
+  const {data,loading} = useSelector((state) => state.detailMovieReducer)
   const dispatch = useDispatch();
   const [tabPosition, setTabPosition] = useState('left');
   const [status, setStatus] = useState(false);
@@ -35,6 +36,7 @@ export default function DetailMoviePage() {
     background-size: cover;
     min-height: 100vh;
 `;
+if(loading) return <Loader value={50}></Loader>
   const checkData = () => {
     if (data?.heThongRapChieu.length === 0) {
       return <div className='text-center '>

@@ -41,21 +41,19 @@
 // }
 .titleLichChieu {
   position: relative;
-  background-color: white;
-  color: black;
+  background-color: $bgColor;
+  color: #fff;
   width: 100%;
   height: 100%;
-  bottom: 35px;
+  bottom: 80px;
   border-radius: 5px;
-  box-shadow: 0px 8px 8px gray;
+  // box-shadow: 0px 8px 8px gray;
 
   .form-group {
     margin-top: 13%;
   }
   
-  .partition {
-    border-left: 1px solid #eeeeee;
-  }
+  
 
   .btnMuaVe {
     font-size: 15px;
@@ -66,14 +64,16 @@
     justify-content: center;
     align-items: center;
     color: #fff;
-    background-color: #fb4226;
+    background-color: $bgColor;
     border: none;
     font-weight: 700;
     border-radius: 5px;
     transition: all .3s;
+    border: solid 1px $mainColor;
 
     &:hover {
-      background-color: #c52911;
+      background-color: $mainColor;
+      color: $titleColor;
     }
   }
 
@@ -85,7 +85,7 @@
       right: 0;
       bottom: 0;
       transform: scaleX(0);
-      border-bottom: 3px solid #fb4226;
+      border-bottom: 3px solid $mainColor;
       transition: all .5s;
     }
   }
@@ -117,6 +117,7 @@
 
 .movie-card {
   border: none;
+  background-color: $bgColor;
 
   .header-buy-ticket {
     position: absolute;
@@ -124,7 +125,7 @@
     left: 0;
     width: 100%;
     height: 80%;
-    background-color: rgba(32, 31, 31, 0.6);
+    // background-color: rgba(32, 31, 31, 0.6);
     color: white;
     padding: 100px 40px;
     opacity: 0;
@@ -146,13 +147,13 @@
     left: 0;
     width: 100%;
     height: 15%;
-    background-color: #fb4226;
+    background-color: $mainColor;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 22px;
-    font-weight: 700;
-    color: #fff;
+    font-weight: 600;
+    color: $titleColor;
     opacity: 1;
   }
 
@@ -162,7 +163,7 @@
     left: 0;
     width: 100%;
     height: 22%;
-    background-color: white;
+    // background-color: white;
     opacity: 1;
   }
 }
@@ -188,7 +189,7 @@
 
 .slick-dots li.slick-active button:before {
   opacity: 1 !important;
-  color: #fb4226 !important;
+  color: $mainColor !important;
 }
 
 .slick-dots li button:before {
@@ -203,7 +204,7 @@
   content: '•';
   text-align: center;
   opacity: .5 !important;
-  color: #fb4226 !important;
+  color: $bgColor !important;
 }
 
 
@@ -256,4 +257,10 @@
       height: 100%;
     }
   }
+}
+.bg-lichchieu{
+  background-image: url('../../assets/images/tr_movies_bg.jpg');
+  background-position: top center;
+  background-size: 150%;
+  padding: 40px;
 }

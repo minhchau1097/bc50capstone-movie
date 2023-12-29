@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchMovieTheater } from './duck/actions'
-import { Tabs } from 'antd';
+import { ConfigProvider, Tabs } from 'antd';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 export default function MovieTheater() {
   const { TabPane } = Tabs;
- 
+
   const data = useSelector((state) => state.listMovieTheaterReducer.data)
 
   const dispatch = useDispatch();
@@ -30,14 +30,14 @@ export default function MovieTheater() {
                     <p className='movie-theater-name'>{item1.tenCumRap}</p>
                     <p className='movie-theater-address'>{item1.diaChi}</p>
                   </div>
-                } key={index} style={{ overflowY: 'scroll', flexGrow: 1, height: 720 }} >
+                } key={index} style={{ flexGrow: 1, height: 720 }} className='hover:overflow-y-scroll transition-all' >
                   {item1.danhSachPhim.map((item2, index) => {
                     return (
 
                       <div className={`flex flex-row movie-theater-box  ${index >= 1 ? 'mt-4' : ''}`} key={index} >
                         <img src={item2.hinhAnh} alt={item2.tenPhim} style={{ width: 100, height: 130, borderRadius: 12 }} />
                         <div className='pl-4 w-[320px]'>
-                          <p className='movie-theater-movie-name mb-1'><span>C18</span>{item2.tenPhim}</p>
+                          <p className='movie-theater-movie-name mb-3'><span>C18</span>{item2.tenPhim}</p>
                           <div className='movie-theater-movie-date'>{item2.lstLichChieuTheoPhim.slice(0, 4).map((item3, index) => {
                             return <Link to={`/booking-ticket/${item3.maLichChieu}`} className='movie-date' key={index}>{moment(item3.ngayChieuGioChieu).format('h:mmA')}</Link>
                           })}</div>
@@ -56,11 +56,26 @@ export default function MovieTheater() {
   }
 
   return (
-    <div className="container mb-5  ">
-      <Tabs id='movie-theater' tabPosition={'left'} >
-        {renderMovieTheater()}
-      </Tabs>
+    <div className="bg-movie-theater">
+      <div className="container">
+        <ConfigProvider theme={{
+          components: {
+            Tabs: {
+              
+              inkBarColor: '#e4d804',
+              itemSelectedColor: '#e4d804',
+              itemHoverColor: '#e4d804',
+              // itemActiveColor: '#e4d804'
+            },
+          },
+        }}>
 
+          <Tabs id='movie-theater' tabPosition={'left'} >
+            {renderMovieTheater()}
+          </Tabs>
+        </ConfigProvider>
+
+      </div>
     </div>
   )
 }

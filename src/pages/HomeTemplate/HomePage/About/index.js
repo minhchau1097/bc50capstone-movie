@@ -11,14 +11,14 @@ export default function About() {
         arrows: false,
         autoplay: true,
         fade: true,
-        touchMove:false,
-        pauseOnFocus:false,
+        touchMove: false,
+        pauseOnFocus: false,
     };
     const Wrapper = styled.section`
     background:url('https://demo1.cybersoft.edu.vn/static/media/backapp.b46ef3a1.jpg');
     background-size: contain;
     padding: 120px 0;
-    height: 620px;
+    // height: 620px;
     background-attachment: fixed;
     `
     const arrImg = ['https://demo1.cybersoft.edu.vn/static/media/banner-slider-5.8a084f78.jpg', 'https://demo1.cybersoft.edu.vn/static/media/banner-slider-6.0b2b382d.jpg', 'https://demo1.cybersoft.edu.vn/static/media/banner-slider-1.c4d5fe9e.jpg', 'https://demo1.cybersoft.edu.vn/static/media/banner-slider-2.454924ec.jpg']
@@ -32,12 +32,12 @@ export default function About() {
         })
     }
     return (
-        <Wrapper>
+        <Wrapper >
 
             <div className='container about'>
-                <div className='grid md:grid-cols-2 sm:grid-cols-1 about-content items-center'>
+                <div className='grid md:gap-0 md:grid-cols-2 sm:grid-cols-1 about-content items-center min-[688px]:gap-24 min-[688px]:justify-items-center'>
                     <div className='about-content-left'>
-                        <span className=' cursor-pointer bg-[#fb4226] px-8 py-6 text-white rounded-[8px] uppercase font-semibold'>App miễn phí - Tải về ngay!</span>
+                        <span className=' cursor-pointer text-[#fff] bg-titleColor border-mainColor border-2 px-8 py-6  rounded-[8px] uppercase font-semibold hover:text-titleColor hover:bg-mainColor'>App miễn phí - Tải về ngay!</span>
                     </div>
                     <div className='flex justify-center  about-content-right'>
 
