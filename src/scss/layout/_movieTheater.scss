@@ -1,3 +1,7 @@
+.bg-movie-theater{
+    padding: 50px 0;
+    background-image: url(../../assets/images/live_bg.jpg);
+}
 #movie-theater {
     overflow: hidden;
     height: 720px;
@@ -18,10 +22,10 @@
     .ant-tabs-tab-active {
         opacity: 1;
     }
-    .ant-tabs-ink-bar{
-        background: #fb4226;
-        transition: all 0.5s;
-}
+//     .ant-tabs-ink-bar{
+//         background: #fb4226;
+//         transition: all 0.5s;
+// }
     .ant-tabs-tabpane {
         padding-left: 0;
     }
@@ -75,27 +79,27 @@
     }
 
     .movie-theater-address {
-        color: #757575;
+        color: $textColor;
         overflow: hidden;
         font-weight: 400;
         text-overflow: ellipsis;
     }
 
     .movie-theater-name {
-        color: #108f3e;
+        color: $titleColor;
     }
 
     .movie-theater-movie-name {
         font-weight: 500;
-        color: #000;
+        color: $titleColor;
         font-size: 1.25rem;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
 
         span {
-            background-color: #fb4226;
-            color: #fff;
+            background-color: $titleColor;
+            color: $mainColor;
             border-radius: 6px;
             padding: 0 5px;
             display: inline-block;
@@ -116,6 +120,9 @@
 
 
 @include ReponsiveTicket ($md2) {
+    .bg-movie-theater{
+        display: none;
+    }
     #movie-theater {
         display: none;
     }    

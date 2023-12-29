@@ -1,15 +1,25 @@
 import { UserOutlined, UserAddOutlined, LogoutOutlined } from '@ant-design/icons'
 import { actLogout } from 'pages/AdminTemplate/LoginPage/duck/actions'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { actFetchPersonalInfo, actUpdateInput } from './../../Personal/duck/actions';
 import { NavLink, useNavigate, Link, Navigate } from 'react-router-dom'
 import moment from 'moment';
+import Logo from '../../../../assets/images/logo.png'
 export default function Navbar() {
   let dispatch = useDispatch();
   let navigate = useNavigate();
+  const [visible, setVisible] = useState(false)
+
+  const { data } = useSelector((state) => state.personalInfoReducer);
   let isValid = true
   let name = ''
+  useEffect(() => {
+    window.addEventListener('scroll', toggleVisible);
+    if (localStorage.getItem("Customer") || (localStorage.getItem("UserAdmin"))) {
+      return dispatch(actFetchPersonalInfo());
+    }
+  }, []);
   if (localStorage.getItem('UserAdmin')) {
     isValid = false
     name = localStorage.getItem('UserAdmin') ? JSON.parse(localStorage.getItem('UserAdmin')).hoTen : ''
@@ -21,14 +31,16 @@ export default function Navbar() {
   const handleLogout = () => {
     dispatch(actLogout(navigate))
   }
-
-  const { data } = useSelector((state) => state.personalInfoReducer);
-
-  useEffect(() => {
-    if (localStorage.getItem("Customer") || (localStorage.getItem("UserAdmin"))) {
-      return dispatch(actFetchPersonalInfo());
+  const toggleVisible = () => {
+    const scrolled = window.scrollY;
+    if (scrolled > 300) {
+      setVisible(true)
     }
-  }, []);
+    else if (scrolled <= 300) {
+      setVisible(false)
+    }
+  };
+
 
   const thongTinDatVe = data?.thongTinDatVe.map((item) => {
     let ngayDatVe = moment(item.ngayDat).format('hh:mm A - DD/MM/YYYY')
@@ -64,13 +76,11 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="navbar navbar-expand-md  navbar-dark">
+    <nav className={`${visible ? 'fixed-nav animate__animated animate__fadeInDown' : 'top-nav'} navbar navbar-expand-md  navbar-dark`} >
       <div className="container">
         {/* Brand */}
         <div className='navbar-custom'>
-
-          <img id='logo' src="https://cybersoft.edu.vn/wp-content/uploads/2022/10/cyberlogo-white.png" alt="cybersoft" />
-
+         <img src={Logo}alt="asdasd"  />
 
           {/* Toggler/collapsibe Button */}
           <button
@@ -135,6 +145,6 @@ export default function Navbar() {
 
         </div>
       </div>
-    </nav>
+    </nav >
   )
 }

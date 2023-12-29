@@ -9,7 +9,7 @@ export default function Banner() {
         dispatch(fetchBannerMovie())
     }, [])
     const renderBanner = () => {
-        if (loading) return <div>LOading...</div>
+      
         return data?.map((item, index) => {
             let active = ''
             if (index === 0) {
