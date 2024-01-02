@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchDetailMovie } from './duck/actions'
@@ -21,7 +21,6 @@ export default function DetailMoviePage() {
   const dispatch = useDispatch();
   const [tabPosition, setTabPosition] = useState('left');
   const [status, setStatus] = useState(false);
-  const user = JSON.parse(localStorage.getItem('Customer'))
 
   useEffect(() => {
     if (localStorage.getItem('Customer')) {

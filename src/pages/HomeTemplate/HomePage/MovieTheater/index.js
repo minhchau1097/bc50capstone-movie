@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchMovieTheater } from './duck/actions'
 import { ConfigProvider, Tabs } from 'antd';
@@ -61,7 +61,7 @@ export default function MovieTheater() {
         <ConfigProvider theme={{
           components: {
             Tabs: {
-              
+
               inkBarColor: '#e4d804',
               itemSelectedColor: '#e4d804',
               itemHoverColor: '#e4d804',

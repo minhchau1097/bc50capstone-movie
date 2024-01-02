@@ -9,7 +9,7 @@ import {
 } from 'antd';
 import { CheckOutlined, CloseOutlined, } from '@ant-design/icons';
 import { useFormik } from 'formik';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { actGetAddNewFilms } from './duck/actions';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from "yup";

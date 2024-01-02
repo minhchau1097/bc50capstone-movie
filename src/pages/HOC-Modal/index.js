@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Modal } from 'antd';
 export default function ModalTrailer() {
-    let { Component, openModal, data } = useSelector(state => state.modalReducer)
+    let { Component, openModal } = useSelector(state => state.modalReducer)
     const dispatch = useDispatch()
     const [open, setOpen] = useState(true);
     useEffect(() => {

@@ -1,7 +1,7 @@
 import { PlayCircleOutlined } from '@ant-design/icons';
 import Trailer from 'pages/HomeTemplate/Trailer';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 export default function LichChieuItem(props) {

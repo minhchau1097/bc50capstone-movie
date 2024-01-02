@@ -34,7 +34,7 @@ const bookingTicketReducer = (state = bookingState, action) => {
         case ActionType.BOOKING_SEAT: {
             const danhSachGheCapNhat = [...state.danhSachGheDangDat];
             const index = danhSachGheCapNhat.findIndex((gheDD) => gheDD.maGhe === action.payload.maGhe);
-            if (index != -1) {
+            if (index !== -1) {
                 state.danhSachGheDangDat = danhSachGheCapNhat.splice(index, 1);
             } else {
                 danhSachGheCapNhat.push(action.payload);
@@ -44,7 +44,7 @@ const bookingTicketReducer = (state = bookingState, action) => {
         case ActionType.CHOOSING_SEAT: {
             const newData = [...state.danhSachGheNguoiKhacDangDat];
             const index = newData.findIndex(item => item.maGhe === action.payload.maGhe)
-            if (index != -1) {
+            if (index !== -1) {
                 state.danhSachGheNguoiKhacDangDat = newData.splice(index, 1)
             } else {
                 newData.push(action.payload)

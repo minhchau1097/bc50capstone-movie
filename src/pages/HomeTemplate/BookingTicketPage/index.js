@@ -1,12 +1,11 @@
 import React, { useEffect, Fragment, useContext, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Navigate, Link } from 'react-router-dom';
-import { fetchBookingTicket, actBookingSeat, actBuyTicket, actHistoryTicket, actBuyTicketChangeTabPane, actAnotherBookingSeat, actChoosingSeat } from './duck/actions';
+import { fetchBookingTicket, actBookingSeat, actBuyTicket, actHistoryTicket, actBuyTicketChangeTabPane, actChoosingSeat } from './duck/actions';
 import _ from 'lodash';
 import { Tabs } from 'antd';
 import moment from 'moment';
 import { WebsocketContext } from 'contexts/WebsocketContext';
-import axios from 'axios';
 
 function BookingTicketPage() {
   const data = useSelector((state) => state.bookingTicketReducer.data);
@@ -15,7 +14,6 @@ function BookingTicketPage() {
   const param = useParams();
   const socket = useContext(WebsocketContext)
   const [booking, setBooking] = useState()
-  const [arr, setArr] = useState([])
   const user = JSON.parse(localStorage.getItem('Customer'))?.taiKhoan || JSON.parse(localStorage.getItem('UserAdmin'))?.taiKhoan
   // console.log(status)
   useEffect(() => {

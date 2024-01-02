@@ -1,4 +1,4 @@
-import { actFetchLichChieu } from "pages/HomeTemplate/HomePage/LichChieu/duck/actions";
+
 import * as ActionTypes from "./constants";
 import api from "utils/api";
 export const actDeleteFilms = (id) => {

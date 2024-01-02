@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchBannerMovie } from './duck/actions'
+import Loader from 'Loader'
 export default function Banner() {
     const loading = useSelector((state) => state.bannerMovieReducer.loading)
     const data = useSelector((state) => state.bannerMovieReducer.data)
@@ -8,8 +9,9 @@ export default function Banner() {
     useEffect(() => {
         dispatch(fetchBannerMovie())
     }, [])
+    if (loading) return <Loader />
     const renderBanner = () => {
-      
+
         return data?.map((item, index) => {
             let active = ''
             if (index === 0) {

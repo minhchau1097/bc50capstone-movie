@@ -10,7 +10,7 @@ import {
     Radio,
     Switch,
 } from 'antd';
-import { CheckOutlined, CloseOutlined, PlusOutlined } from '@ant-design/icons';
+import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { actGetEditFilms, actUpdateEditFilms } from './duck/actions';
 import dayjs from 'dayjs';
 import * as Yup from "yup";

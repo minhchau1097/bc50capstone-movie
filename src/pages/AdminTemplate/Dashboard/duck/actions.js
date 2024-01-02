@@ -1,4 +1,3 @@
-import { replace } from 'formik';
 import * as ActionType from './constants';
 import api from 'utils/api';
 
