@@ -9,7 +9,8 @@ module.exports = {
     './src/pages/HomeTemplate/HomePage/LichChieu/index.js',
     './src/pages/AdminTemplate/Dashboard/index.js',
     './src/pages/AdminTemplate/index.js',
-    './src/pages/HomeTemplate/Personal/index.js'
+    './src/pages/HomeTemplate/Personal/index.js',
+    './src/Loader/index.js'
   ],
   presets: [],
   darkMode: 'class',// or  'media' 
@@ -169,6 +170,10 @@ module.exports = {
       fuchsia: colors.fuchsia,
       pink: colors.pink,
       rose: colors.rose,
+      bgColor: '#171d22',
+      mainColor: '#e4d804',
+      titleColor: '#1e1b29',
+      textColor: '#6a6a6a',
     }),
     columns: {
       auto: 'auto',

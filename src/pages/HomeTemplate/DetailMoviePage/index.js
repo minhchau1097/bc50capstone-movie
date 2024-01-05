@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useContext, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchDetailMovie } from './duck/actions'
@@ -7,6 +7,7 @@ import { PlayCircleOutlined } from '@ant-design/icons'
 import { Rate, Tabs } from 'antd'
 import moment from 'moment/moment'
 import { styled } from 'styled-components'
+import Loader from 'Loader'
 
 
 
@@ -16,12 +17,18 @@ export default function DetailMoviePage() {
     window.scrollTo(0, 0)
   })
   const param = useParams()
-  const data = useSelector((state) => state.detailMovieReducer.data)
+  const {data,loading} = useSelector((state) => state.detailMovieReducer)
   const dispatch = useDispatch();
   const [tabPosition, setTabPosition] = useState('left');
+  const [status, setStatus] = useState(false);
+  const user = JSON.parse(localStorage.getItem('Customer'))
 
   useEffect(() => {
+    if (localStorage.getItem('Customer')) {
+      setStatus(true)
+    }
     dispatch(fetchDetailMovie(param.id))
+
   }, [])
   const Wrapper = styled.section`
     background-image: url(${data && data.hinhAnh});
@@ -29,6 +36,7 @@ export default function DetailMoviePage() {
     background-size: cover;
     min-height: 100vh;
 `;
+if(loading) return <Loader value={50}></Loader>
   const checkData = () => {
     if (data?.heThongRapChieu.length === 0) {
       return <div className='text-center '>
@@ -94,11 +102,11 @@ export default function DetailMoviePage() {
                   <img className=' mr-auto' style={{ height: 400, width: '100%' }} src={data && data.hinhAnh} alt="" />
                   {/* Button trigger modal */}
                   <button className='play-trailer' type="button" onClick={() => {
-                  dispatch({
-                    type: 'OPEN_FORM',
-                    data: <Trailer trailer={data?.trailer} />,
-                    open:true,
-                  })
+                    dispatch({
+                      type: 'OPEN_FORM',
+                      data: <Trailer trailer={data?.trailer} />,
+                      open: true,
+                    })
                   }}>
                     <PlayCircleOutlined className='d-block' />
                   </button>
@@ -109,7 +117,7 @@ export default function DetailMoviePage() {
                 <h3 className='mt-3'>{data && data.tenPhim}</h3>
                 <p className='mt-3'>{data && data.moTa}</p>
                 <div className='d-flex justify-content-start  align-items-baseline mt-4'>
-                  <Rate disabled allowHalf value={data && (data.danhGia <= 1 ? data.danhGia : data.danhGia / 2)} /> <span className='ml-2'>{data && data.danhGia}/10</span>
+                  <Rate disabled allowHalf value={data && (data.danhGia / 2)} /> <span className='ml-2'>{data && data.danhGia}/10</span>
                   <a href='#detail-movie-theater' className='btn btn-danger ml-3 ml-sm-5'>Mua vé</a>
                 </div>
               </div>
@@ -118,6 +126,31 @@ export default function DetailMoviePage() {
                   <div id='detail-movie-theater' >
                     {checkData()}
 
+                  </div>
+                </div>
+              </div>
+              <div className='row w-100 mx-auto' >
+                <div className='col-12'>
+                  <div className='detail-movie-comments'>
+                    <div className='p-4'>
+                      <p>Bình luận</p>
+                      {status ? (
+                        <form className='d-flex mt-2 items-start ' onSubmit={(e) => {
+                          e.preventDefault()
+                          console.log(e.target[0].value)
+                        }}>
+
+                          <textarea style={{backgroundColor:'#100f0fb8'}} name="" id="" className='w-100   p-2 rounded' onChange={(e) => {
+                            // console.log(e.target.value)
+                          }} placeholder='Nhập bình luận tại đây'></textarea>
+                          <button type='submit' className='btn btn-danger ml-2'>Gửi</button>
+                        </form>
+                      ) : (
+                        <div className='text-center'>
+                          <Link to={'/auth'} className='btn btn-primary'>Đăng nhập để bình luận</Link>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>

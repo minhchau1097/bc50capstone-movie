@@ -6,6 +6,7 @@ const bookingState = {
     data: null,
     error: null,
     danhSachGheDangDat: [],
+    danhSachGheNguoiKhacDangDat: [],
     thongTinNguoiDung: {},
     tabActive: "1",
 }
@@ -39,6 +40,16 @@ const bookingTicketReducer = (state = bookingState, action) => {
                 danhSachGheCapNhat.push(action.payload);
             }
             return { ...state, danhSachGheDangDat: danhSachGheCapNhat };
+        }
+        case ActionType.CHOOSING_SEAT: {
+            const newData = [...state.danhSachGheNguoiKhacDangDat];
+            const index = newData.findIndex(item => item.maGhe === action.payload.maGhe)
+            if (index != -1) {
+                state.danhSachGheNguoiKhacDangDat = newData.splice(index, 1)
+            } else {
+                newData.push(action.payload)
+            }
+            return { ...state, danhSachGheNguoiKhacDangDat: newData }
         }
         //BUY TICKET
         case ActionType.BUY_TICKET_REQUEST: {

@@ -1,26 +1,54 @@
-import React, { useEffect, Fragment } from 'react'
+import React, { useEffect, Fragment, useContext, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Navigate, Link } from 'react-router-dom';
-import { fetchBookingTicket, actBookingSeat, actBuyTicket, actHistoryTicket, actBuyTicketChangeTabPane } from './duck/actions';
+import { fetchBookingTicket, actBookingSeat, actBuyTicket, actHistoryTicket, actBuyTicketChangeTabPane, actAnotherBookingSeat, actChoosingSeat } from './duck/actions';
 import _ from 'lodash';
 import { Tabs } from 'antd';
 import moment from 'moment';
+import { WebsocketContext } from 'contexts/WebsocketContext';
+import axios from 'axios';
 
 function BookingTicketPage() {
   const data = useSelector((state) => state.bookingTicketReducer.data);
-  const { danhSachGheDangDat } = useSelector((state) => state.bookingTicketReducer);
+  const { danhSachGheDangDat, danhSachGheNguoiKhacDangDat } = useSelector((state) => state.bookingTicketReducer);
   const dispatch = useDispatch();
   const param = useParams();
+  const socket = useContext(WebsocketContext)
+  const [booking, setBooking] = useState()
+  const [arr, setArr] = useState([])
+  const user = JSON.parse(localStorage.getItem('Customer'))?.taiKhoan || JSON.parse(localStorage.getItem('UserAdmin'))?.taiKhoan
+  // console.log(status)
   useEffect(() => {
     dispatch(fetchBookingTicket(param.id));
+    socket.emit('join-room',param.id)
   }, []);
+  useEffect(() => {
+    setBooking(danhSachGheNguoiKhacDangDat)
+
+
+  }, [danhSachGheNguoiKhacDangDat])
+  useEffect(() => {
+    // socket.emit('booking', danhSachGheDangDat)
+    socket.on('onBooking', (data) => {
+      if (data.id != socket.id) {
+        dispatch(actChoosingSeat(data))
+
+      }
+    })
+    return () => {
+      socket.off()
+    }
+  }, [danhSachGheDangDat])
 
   const handleChoseSeat = (ghe) => {
-    dispatch(actBookingSeat(ghe));
-  }
 
+    // dispatch(actAnotherBookingSeat(ghe))
+    dispatch(actBookingSeat(ghe));
+
+  }
   const renderSeats = () => {
     return data?.danhSachGhe.map((ghe, index) => {
+
       //Ghế vip
       const classGheVip = ghe.loaiGhe === "Vip" ? "gheVip" : "";
       //ghế người khác đã đặt
@@ -31,16 +59,28 @@ function BookingTicketPage() {
       if (indexGheDangDat != -1) {
         classGheDangDat = "gheDangDat";
       }
+      let anotherCus = false
+      let classNguoiKhacDat = ''
+      booking?.forEach(item => {
+        if (ghe.maGhe === item.maGhe) {
+          classNguoiKhacDat = 'gheNguoiKhacDat'
+          anotherCus = true
+        }
+      })
       // Xử lý ghế mình tự đặt
-      const user = JSON.parse(localStorage.getItem('Customer'))?.taiKhoan || JSON.parse(localStorage.getItem('UserAdmin'))?.taiKhoan
+      // const user = JSON.parse(localStorage.getItem('Customer'))?.taiKhoan || JSON.parse(localStorage.getItem('UserAdmin'))?.taiKhoan
       let classGheDaDuocDat = "";
       if (user === ghe.taiKhoanNguoiDat) {
         classGheDaDuocDat = 'gheDaDuocDat';
       }
 
       return <Fragment key={index}>
-        <button onClick={() => handleChoseSeat(ghe)} disabled={ghe.daDat} className={`ghe ${classGheVip} ${classGheDaDat} ${classGheDangDat} ${classGheDaDuocDat} `} key={index}>
-          {ghe.daDat ? "X" : ghe.stt}
+        <button onClick={() => {
+          let newData = { ...ghe, taiKhoanNguoiDat: user, id: socket.id ,room: param.id}
+          handleChoseSeat(newData)
+          socket.emit('booking', newData)
+        }} disabled={ghe.daDat || anotherCus} className={`ghe ${classGheVip} ${classGheDaDat} ${classGheDangDat} ${classGheDaDuocDat}${classNguoiKhacDat}  `} key={index} >
+          {ghe.daDat ? "X" : ghe.tenGhe}
         </button>
         {(index + 1) % 16 === 0 ? <br /> : ""}
       </Fragment>
@@ -63,7 +103,7 @@ function BookingTicketPage() {
   if (!(localStorage.getItem("Customer") || (localStorage.getItem("UserAdmin")))) {
     return <Navigate replace to={"/auth"} />;
   }
-  
+
   return (
     <div style={{ marginTop: "10px" }}>
       <div className="grid grid-cols-12" >
@@ -71,7 +111,7 @@ function BookingTicketPage() {
         <div className="col-span-8">
           <div>
             {renderSeats()}
-            <div className='grid grid-cols-5 mr-10'>
+            <div className='grid grid-cols-6 mr-10'>
               <div className='gird grid-cols-2 text-center'>
                 <button className='ghe'></button>
                 <span style={{ fontWeight: "600" }}><br />Ghế Thường</span>
@@ -79,6 +119,10 @@ function BookingTicketPage() {
               <div className='gird grid-cols-2 text-center'>
                 <button className='ghe gheDaDat'>X</button>
                 <span style={{ fontWeight: "600" }}><br />Ghế Đã Đặt</span>
+              </div>
+              <div className='gird grid-cols-2 text-center'>
+                <button className='ghe gheNguoiKhacDat'></button>
+                <span style={{ fontWeight: "600" }}><br />Ghế Người Khác Chọn</span>
               </div>
               <div className='gird grid-cols-2 text-center'>
                 <button className='ghe gheDangDat'></button>
