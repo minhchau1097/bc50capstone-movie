@@ -96,7 +96,7 @@ const EditUser = () => {
       <Form.Item label="Số Điện Thoại" name='soDT' rules={[yupSync]}>
         <Input placeholder='Nhập số điện thoại' />
       </Form.Item>
-      <Form.Item label="Mã Loại" name='maLoaiNguoiDung' rules={[yupSync]}>
+      <Form.Item label="Mã Loại" name='maLoaiNguoiDung' rules={[yupSync]} >
         <Select >
           <Select.Option value="QuanTri">Quản Trị</Select.Option>
           <Select.Option value="KhachHang">Khách Hàng</Select.Option>

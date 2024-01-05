@@ -5,7 +5,7 @@ import { actFetchLichChieu, actFetchInfoCumRap, actNgayGioChieu } from './duck/a
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Link, Navigate, useNavigate } from 'react-router-dom';
 import moment from 'moment';
-import { Select, Form, } from 'antd';
+import { Select, Form } from 'antd';
 import { filter } from 'lodash';
 import Swal from 'sweetalert2';
 import Search from './../../../../assets/images/search.png';
@@ -73,6 +73,7 @@ function LichChieu() {
   };
 
   const handleChangeInfoCumRap = (value) => {
+    console.log("🚀 ~ file: index.js:76 ~ handleChangeInfoCumRap ~ value:", value)
     if (value) {
       let realList = [];
       const cumRap = ngayGioChieu?.heThongRapChieu.map((item) => item)

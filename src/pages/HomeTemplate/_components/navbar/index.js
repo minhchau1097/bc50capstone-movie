@@ -23,6 +23,7 @@ export default function Navbar() {
   }
 
   const { data } = useSelector((state) => state.personalInfoReducer);
+  console.log("🚀 ~ file: index.js:26 ~ Navbar ~ data:", data)
 
   useEffect(() => {
     if (localStorage.getItem("Customer") || (localStorage.getItem("UserAdmin"))) {
