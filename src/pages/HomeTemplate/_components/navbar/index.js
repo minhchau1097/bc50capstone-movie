@@ -31,21 +31,15 @@ export default function Navbar() {
   const handleLogout = () => {
     dispatch(actLogout(navigate))
   }
-
-  useEffect(() => {
-    if (localStorage.getItem("Customer") || (localStorage.getItem("UserAdmin"))) {
-      return dispatch(actFetchPersonalInfo());
-      const toggleVisible = () => {
-        const scrolled = window.scrollY;
-        if (scrolled > 300) {
-          setVisible(true)
-        }
-        else if (scrolled <= 300) {
-          setVisible(false)
-        }
-      }
+  const toggleVisible = () => {
+    const scrolled = window.scrollY;
+    if (scrolled > 300) {
+      setVisible(true)
     }
-  });
+    else if (scrolled <= 300) {
+      setVisible(false)
+    }
+  };
 
 
   const thongTinDatVe = data?.thongTinDatVe.map((item) => {
@@ -86,7 +80,7 @@ export default function Navbar() {
       <div className="container">
         {/* Brand */}
         <div className='navbar-custom'>
-          <img src={Logo} alt="asdasd" />
+         <img src={Logo}alt="asdasd"  />
 
           {/* Toggler/collapsibe Button */}
           <button
