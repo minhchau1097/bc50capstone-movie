@@ -6,7 +6,7 @@ export const actFetchPersonalInfo = () => {
     dispatch(actPersonalRequest());
     api.post('QuanLyNguoiDung/ThongTinTaiKhoan')
       .then((result) => {
-        if (result.data.statusCode === 200) {
+        if (result.data.statusCode === 201) {
           dispatch(actPersonalSuccess(result.data.content));
         }
       }).catch((error) => {

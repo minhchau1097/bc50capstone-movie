@@ -18,24 +18,25 @@ export default function PersonalInfo() {
     setComponentSize(size);
   };
 
-  const { personalInfo } = useSelector((state) => state.personalInfoReducer);
+  const { data } = useSelector((state) => state.personalInfoReducer);
 
   useEffect(() => {
     dispatch(actFetchPersonalInfo());
   }, []);
 
   const onSubmitForm = (values) => {
-    values.maNhom = "GP01";
-    dispatch(actFetchPersonalInfo(values));
-    dispatch(actEditPersonalInfo(values, navigate));
+    // values.maNhom = "GP01";
+    const {size,...newValues} = values
+    dispatch(actFetchPersonalInfo(newValues));
+    dispatch(actEditPersonalInfo(newValues, navigate));
   }
   const initialValues = {
     hoTen: "",
     taiKhoan: "",
     matKhau: "",
     email: "",
-    soDT: "",
-    maLoaiNguoiDung: "",
+    soDt: "",
+    loaiNguoiDung: "",
   }
   const { TextArea } = Input;
   return (
@@ -50,7 +51,7 @@ export default function PersonalInfo() {
         span: 14,
       }}
       layout="horizontal"
-      initialValues={personalInfo !== '' ? personalInfo : initialValues}
+      initialValues={data ? data : initialValues}
       onValuesChange={onFormLayoutChange}
       size={componentSize}
       style={{
@@ -77,7 +78,7 @@ export default function PersonalInfo() {
       <Form.Item label="Email" name='email' >
         <Input placeholder='Nhập email' />
       </Form.Item>
-      <Form.Item label="Số Điện Thoại" name='soDT' >
+      <Form.Item label="Số Điện Thoại" name='soDt' >
         <Input placeholder='Nhập số điện thoại' />
       </Form.Item>
       <Form.Item label="Thông Tin Đặt Vé" name='thongTinDatVe' >
@@ -86,10 +87,10 @@ export default function PersonalInfo() {
       <Form.Item label="Thông Tin Ghế Đặt" name='thongTinGhe' >
         <TextArea rows={8} placeholder='' className='font-medium' />
       </Form.Item>
-      <Form.Item label="Mã Loại" name='maLoaiNguoiDung' >
+      <Form.Item label="Mã Loại" name='loaiNguoiDung' >
         <Select >
-          <Select.Option value="QuanTri">Quản Trị</Select.Option>
-          <Select.Option value="KhachHang">Khách Hàng</Select.Option>
+          <Select.Option value="ADMIN">Quản Trị</Select.Option>
+          <Select.Option value="CUSTOMER">Khách Hàng</Select.Option>
         </Select>
       </Form.Item>
       <Form.Item label="Tác Vụ">

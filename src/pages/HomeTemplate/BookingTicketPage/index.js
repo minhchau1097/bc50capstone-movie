@@ -6,6 +6,13 @@ import _ from 'lodash';
 import { Tabs } from 'antd';
 import moment from 'moment';
 import { WebsocketContext } from 'contexts/WebsocketContext';
+import bg from '../../../assets/images/live_bg.jpg'
+import styled from 'styled-components';
+const Wrapper = styled.div`
+  background-image: url(${bg});
+  background-position: top center;
+  background-size: cover;
+`;
 
 function BookingTicketPage() {
   const data = useSelector((state) => state.bookingTicketReducer.data);
@@ -15,10 +22,10 @@ function BookingTicketPage() {
   const socket = useContext(WebsocketContext)
   const [booking, setBooking] = useState()
   const user = JSON.parse(localStorage.getItem('Customer'))?.taiKhoan || JSON.parse(localStorage.getItem('UserAdmin'))?.taiKhoan
-  // console.log(status)
+   
   useEffect(() => {
     dispatch(fetchBookingTicket(param.id));
-    socket.emit('join-room',param.id)
+    socket.emit('join-room', param.id)
   }, []);
   useEffect(() => {
     setBooking(danhSachGheNguoiKhacDangDat)
@@ -74,7 +81,7 @@ function BookingTicketPage() {
 
       return <Fragment key={index}>
         <button onClick={() => {
-          let newData = { ...ghe, taiKhoanNguoiDat: user, id: socket.id ,room: param.id}
+          let newData = { ...ghe, taiKhoanNguoiDat: user, id: socket.id, room: param.id }
           handleChoseSeat(newData)
           socket.emit('booking', newData)
         }} disabled={ghe.daDat || anotherCus} className={`ghe ${classGheVip} ${classGheDaDat} ${classGheDangDat} ${classGheDaDuocDat}${classNguoiKhacDat}  `} key={index} >
@@ -213,12 +220,15 @@ const items = [
   },
 ];
 export default function ManageTicket() {
+ 
   const { tabActive } = useSelector((state) => state.bookingTicketReducer);
   const dispatch = useDispatch();
   // defaultActiveKey: phải là chuỗi
-  return <Tabs defaultActiveKey='1' activeKey={tabActive} items={items} onChange={(key) => {
-    dispatch(actBuyTicketChangeTabPane(key));
-  }} className='mt-20 ml-2 text-sm font-medium' />;
+  return <Wrapper className='pt-[120px] pb-[175px]'>
+    <Tabs i defaultActiveKey='1' activeKey={tabActive} items={items} onChange={(key) => {
+      dispatch(actBuyTicketChangeTabPane(key));
+    }} className='mt-20 ml-2 text-sm font-medium' />
+  </Wrapper>
 }
 
 

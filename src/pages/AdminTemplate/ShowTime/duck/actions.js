@@ -30,16 +30,15 @@ export const actGetMovieTheaterCluster = (id) => {
   }
 }
 export const actCreateCalendar = (value,navigate) => {
-  return (dispatch) => {
+  return () => {
     api.post(`QuanLyDatVe/TaoLichChieu`, value)
       .then((result) => {
-        if (result.data.statusCode === 200) {
-          alert(result.data.content)
+        if (result.data.statusCode === 201) {
+          alert(result.data.message)
           navigate('/admin/films',{replace: true})
         }
       })
       .catch((error) => {
-        console.log(error)
         alert(error.response.data.message)
       })
   }

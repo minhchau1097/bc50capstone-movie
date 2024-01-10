@@ -4,7 +4,7 @@ import api from "utils/api";
 export const actGetEditFilms = (id) => {
   return (dispatch) => {
     dispatch(actEditFilmsRequest());
-    api.get(`QuanLyPhim/LayThongTinPhim?MaPhim=${id}`)
+    api.get(`QuanLyPhim/LayThongTinPhim?maPhim=${id}`)
       .then((result) => {
         if (result.data.statusCode === 200) {
           dispatch(actEditFilmsSuccess(result.data.content));

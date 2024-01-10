@@ -80,7 +80,10 @@ export default function Navbar() {
       <div className="container">
         {/* Brand */}
         <div className='navbar-custom'>
-          <img src={Logo} alt="asdasd" />
+          <NavLink to={'/'}>
+
+            <img src={Logo} alt="asdasd" />
+          </NavLink>
 
           {/* Toggler/collapsibe Button */}
           <button

@@ -54,7 +54,7 @@ export default function AddFilms() {
 
 
     onSubmit: (values) => {
-      values.maNhom = 'GP03'
+      // values.maNhom = 'GP03'
       let formData = new FormData();
       for (let key in values) {
         if (key !== 'hinhAnh') {
@@ -62,7 +62,7 @@ export default function AddFilms() {
         }
       }
       if (values.hinhAnh) {
-        formData.append('File', values.hinhAnh, values.hinhAnh.name)
+        formData.append('file', values.hinhAnh, values.hinhAnh.name)
         dispatch(actGetAddNewFilms(formData, navigate))
       } else {
         alert('Vui lòng thêm hình ảnh')
@@ -145,7 +145,7 @@ export default function AddFilms() {
       <Form.Item label="Ngày khởi chiếu" required hasFeedback
         validateStatus={formik.errors.ngayKhoiChieu && formik.touched.ngayKhoiChieu ? 'error' : ''}
         help={formik.errors.ngayKhoiChieu && formik.touched.ngayKhoiChieu && (formik.errors.ngayKhoiChieu)}>
-        <DatePicker format={'DD/MM/YYYY'} onChange={onChangeDate} />
+        <DatePicker format={'DD-MM-YYYY'} onChange={onChangeDate} />
       </Form.Item>
       <Form.Item label="Đang chiếu" >
         <Switch

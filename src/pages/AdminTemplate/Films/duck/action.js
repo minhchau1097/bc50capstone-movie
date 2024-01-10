@@ -4,7 +4,7 @@ import api from "utils/api";
 export const actDeleteFilms = (id) => {
     return (dispatch) => {
         dispatch(actDeleteFilmsRequest())
-        api.delete(`QuanLyPhim/XoaPhim?MaPhim=${id}`)
+        api.delete(`QuanLyPhim/XoaPhim?maPhim=${id}`)
         .then((result) => { 
             if (result.data.statusCode === 200) {
                dispatch(actDeleteFilmsSuccess(result.data.content))

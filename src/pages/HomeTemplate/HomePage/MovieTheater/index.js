@@ -23,7 +23,7 @@ export default function MovieTheater() {
         >
 
           <Tabs tabPosition={'left'} style={{ height: 720 }} >
-            {item.lstCumRap.map((item1, index) => {
+            {item.lstCumRap?.map((item1, index) => {
               return (
                 <TabPane tab={
                   <div className='text-left movie-theater-title ' style={{ width: 280, height: 50 }}>

@@ -41,7 +41,6 @@ export default function AdminTemplate() {
     getItem(<NavLink to={'/admin/dashboard'} className="text-gray-400">Người dùng</NavLink>, '1', <UserOutlined />, [
       getItem(<NavLink to={'/admin/dashboard'} >Người dùng</NavLink>, '10', <UserOutlined />),
       getItem(<NavLink to={'/admin/add-user'} >Thêm người dùng</NavLink>, '11', <UserAddOutlined />),
-      getItem(<NavLink to={'/admin/edit-user'} >Sửa người dùng</NavLink>, '12', <FileTextOutlined />),
     ]),
     getItem(<NavLink to={'/admin/films'}>Phim</NavLink>, '2', <FileOutlined />),
 

@@ -22,7 +22,11 @@ export default function Banner() {
             return (
 
                 <div className={`carousel-item  ${active}`} key={index} >
-                    <img src={item.hinhAnh} alt={item.maBanner} />
+                    <img src={item?.hinhAnh} alt={item.maBanner} onError={({ currentTarget }) => {
+                        currentTarget.onerror = null; // prevents looping
+                        currentTarget.src = 'https://static.thenounproject.com/png/504708-200.png';
+                        currentTarget.style.objectFit = 'contain'
+                    }} />
                 </div>
             )
         })

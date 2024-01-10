@@ -52,8 +52,8 @@
   .form-group {
     margin-top: 13%;
   }
-  
-  
+
+
 
   .btnMuaVe {
     font-size: 15px;
@@ -118,6 +118,14 @@
 .movie-card {
   border: none;
   background-color: $bgColor;
+
+  .card-title {
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    overflow: hidden;
+    color: #fff;
+  }
 
   .header-buy-ticket {
     position: absolute;
@@ -258,7 +266,8 @@
     }
   }
 }
-.bg-lichchieu{
+
+.bg-lichchieu {
   background-image: url('../../assets/images/tr_movies_bg.jpg');
   background-position: top center;
   background-size: 150%;

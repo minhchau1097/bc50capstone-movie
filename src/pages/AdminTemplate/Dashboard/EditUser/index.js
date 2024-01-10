@@ -15,8 +15,8 @@ const editUserSchema = yup.object().shape({
   taiKhoan: yup.string().required('Vui lòng nhập tài khoản'),
   matKhau: yup.string().required('Vui lòng nhập mật khẩu'),
   email: yup.string().required('Vui lòng nhập email').email('nhập email'),
-  soDT: yup.string().required('Vui lòng nhập số điện thoại').matches(/^[0-9]+$/, 'Phải nhập dạng số'),
-  maLoaiNguoiDung: yup.string().required('Chọn loại người dùng cần thêm'),
+  soDt: yup.string().required('Vui lòng nhập số điện thoại').matches(/^[0-9]+$/, 'Phải nhập dạng số'),
+  loaiNguoiDung: yup.string().required('Chọn loại người dùng cần thêm'),
 })
 
 const yupSync = {
@@ -41,8 +41,9 @@ const EditUser = () => {
   };
 
   const onSubmitEditForm = (values) => {
-    values.maNhom = "GP01";
-    dispatch(actEditUser(values, navigate));
+    const {size,...newValues} = values
+    // values.maNhom = "GP01";
+    dispatch(actEditUser(newValues, navigate));
     
   }
   const initialValues = {
@@ -51,7 +52,7 @@ const EditUser = () => {
     matKhau: "",
     email: "",
     soDT: "",
-    maLoaiNguoiDung: "",
+    loaiNguoiDung: "",
   }
 
   return (
@@ -92,13 +93,13 @@ const EditUser = () => {
       <Form.Item label="Email" name='email' rules={[yupSync]}>
         <Input placeholder='Nhập email' />
       </Form.Item>
-      <Form.Item label="Số Điện Thoại" name='soDT' rules={[yupSync]}>
+      <Form.Item label="Số Điện Thoại" name='soDt' rules={[yupSync]}>
         <Input placeholder='Nhập số điện thoại' />
       </Form.Item>
-      <Form.Item label="Mã Loại" name='maLoaiNguoiDung' rules={[yupSync]}>
+      <Form.Item label="Mã Loại" name='loaiNguoiDung' rules={[yupSync]}>
         <Select >
-          <Select.Option value="QuanTri">Quản Trị</Select.Option>
-          <Select.Option value="KhachHang">Khách Hàng</Select.Option>
+          <Select.Option value="ADMIN">Quản Trị</Select.Option>
+          <Select.Option value="CUSTOMER">Khách Hàng</Select.Option>
         </Select>
       </Form.Item>
       <Form.Item label="Tác Vụ">

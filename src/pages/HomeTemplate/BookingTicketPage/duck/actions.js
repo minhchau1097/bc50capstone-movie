@@ -4,7 +4,7 @@ import api from 'utils/api';
 export const fetchBookingTicket = (id) => {
   return (dispatch) => {
     dispatch(actBookingTicketRequest());
-    api.get(`QuanLyDatVe/LayDanhSachPhongVe?MaLichChieu=${id}`)
+    api.get(`QuanLyDatVe/LayDanhSachPhongVe?maLichChieu=${id}`)
       .then((result) => {
         if (result.data.statusCode === 200) {
           dispatch(actBookingTicketSuccess(result.data.content));
