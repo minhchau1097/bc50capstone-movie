@@ -7,8 +7,9 @@ export const actRegister = (user, navigate) => {
     dispatch(actRegisterRequest());
     api.post("QuanLyNguoiDung/DangKy", user)
       .then((result) => {
-        if (result.data.statusCode === 200) {
+        if (result.data.statusCode === 201) {
           const user = result.data.content;
+          console.log(user)
           //luu thong tin tk moi dang ky
           dispatch(actRegisterSuccess(user));
           //lưu trạng thái register

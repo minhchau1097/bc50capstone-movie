@@ -3,7 +3,7 @@ import { actLogout } from 'pages/AdminTemplate/LoginPage/duck/actions'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { actFetchPersonalInfo, actUpdateInput } from './../../Personal/duck/actions';
-import { NavLink, useNavigate, Link, Navigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import moment from 'moment';
 import Logo from '../../../../assets/images/logo.png'
 export default function Navbar() {
@@ -80,7 +80,10 @@ export default function Navbar() {
       <div className="container">
         {/* Brand */}
         <div className='navbar-custom'>
-         <img src={Logo}alt="asdasd"  />
+          <NavLink to={'/'}>
+
+            <img src={Logo} alt="asdasd" />
+          </NavLink>
 
           {/* Toggler/collapsibe Button */}
           <button

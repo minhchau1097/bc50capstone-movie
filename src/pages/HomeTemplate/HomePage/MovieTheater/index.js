@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchMovieTheater } from './duck/actions'
 import { ConfigProvider, Tabs } from 'antd';
@@ -23,7 +23,7 @@ export default function MovieTheater() {
         >
 
           <Tabs tabPosition={'left'} style={{ height: 720 }} >
-            {item.lstCumRap.map((item1, index) => {
+            {item.lstCumRap?.map((item1, index) => {
               return (
                 <TabPane tab={
                   <div className='text-left movie-theater-title ' style={{ width: 280, height: 50 }}>
@@ -61,7 +61,7 @@ export default function MovieTheater() {
         <ConfigProvider theme={{
           components: {
             Tabs: {
-              
+
               inkBarColor: '#e4d804',
               itemSelectedColor: '#e4d804',
               itemHoverColor: '#e4d804',

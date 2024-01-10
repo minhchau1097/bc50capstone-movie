@@ -9,23 +9,25 @@ export const actAuth = (user, navigate) => {
         dispatch(actAuthRequest())
         api.post('QuanLyNguoiDung/DangNhap', user)
             .then((result) => {
-                if (result.data.statusCode === 200) {
+                if (result.data.statusCode === 201) {
+                    
                     const user = result.data.content
+                    console.log(user)
 
-                    if ((user.maLoaiNguoiDung === 'QuanTri')) {
+                    if ((user.loaiNguoiDung === 'ADMIN')) {
                         dispatch(actAuthSuccess(user));
                         // quan tri => luu trang thai login
                         localStorage.setItem('UserAdmin', JSON.stringify(user));
                         // quantri => redirect admin/dashboard
                         navigate('/admin/dashboard', { replace: true })
-                        history.goBack();
+                        // history.goBack();
                     } else {
                         dispatch(actAuthSuccess(user));
                         // quan tri => luu trang thai login
                         localStorage.setItem('Customer', JSON.stringify(user));
                         // quantri => redirect admin/dashboard
                         navigate('/', { replace: true })
-                        history.goBack();
+                        // history.goBack();
                     }
                     let date = new Date().getTime()
                     //setLocalStorage expire 

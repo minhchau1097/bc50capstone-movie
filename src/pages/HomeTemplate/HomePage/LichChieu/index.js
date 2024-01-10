@@ -3,13 +3,11 @@ import LichChieuItem from "./LichChieuItem";
 import Slider from "react-slick";
 import { actFetchLichChieu, actFetchInfoCumRap, actNgayGioChieu } from './duck/actions';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams, Link, Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
-import { Select, Form } from 'antd';
-import { filter } from 'lodash';
+import { Select, Form, } from 'antd';
 import Swal from 'sweetalert2';
 import Search from './../../../../assets/images/search.png';
-import Shadow from './../../../../assets/images/shadow.png';
 
 
 function LichChieu() {

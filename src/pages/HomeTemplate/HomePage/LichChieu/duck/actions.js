@@ -5,7 +5,7 @@ export const actFetchLichChieu = (tenPhim = '') => {
   return (dispatch) => {
     dispatch(actLichChieuRequest());
     if (tenPhim.trim() != '') {
-      api.get(`QuanLyPhim/LayDanhSachPhim?maNhom=GP03&tenPhim=${tenPhim}`)
+      api.get(`QuanLyPhim/LayDanhSachPhim?tenPhim=${tenPhim}`)
         .then((result) => {
           if (result.data.statusCode === 200) {
             dispatch(actLichChieuSuccess(result.data.content));
@@ -15,7 +15,7 @@ export const actFetchLichChieu = (tenPhim = '') => {
           dispatch(actLichChieuFail(error));
         })
     } else {
-      api.get("QuanLyPhim/LayDanhSachPhim?maNhom=GP03")
+      api.get("QuanLyPhim/LayDanhSachPhim")
         .then((result) => {
           if (result.data.statusCode === 200) {
             dispatch(actLichChieuSuccess(result.data.content));
@@ -50,7 +50,7 @@ export const actFetchInfoCumRap = () => {
 export const actNgayGioChieu = (id) => {
   return (dispatch) => {
     dispatch(actNgayGioChieuRequest());
-    api.get(`QuanLyRap/LayThongTinLichChieuPhim?MaPhim=${id}`)
+    api.get(`QuanLyRap/LayThongTinLichChieuPhim?maPhim=${id}`)
       .then((result) => {
         // console.log(result.data.content);
         dispatch(actNgayGioChieuSuccess(result.data.content));

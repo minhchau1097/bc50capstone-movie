@@ -18,10 +18,11 @@ export default function ShowTime() {
   const dataEdit = useSelector(state => state.editFilmsReducer.data)
   const [componentSize, setComponentSize] = useState('default');
   const dispatch = useDispatch();
-  const dateFormat = "DD/MM/YYYY hh:mm:ss";
+  const dateFormat = "DD/MM/YYYY HH:mm:ss";
   const movieTheater = useSelector(state => state.showTimeInforReducer.movieTheater)
   const cluster = useSelector(state => state.showTimeInforReducer.cluster)
   const navigate = useNavigate();
+  const [list ,setList] = useState()
   useEffect(() => {
     dispatch(actGetEditFilms(param.id))
     dispatch(actGetMovieTheater())
@@ -32,11 +33,14 @@ export default function ShowTime() {
       maPhim: param.id,
       ngayChieuGioChieu: '',
       maRap: '',
+      maCumRap: '',
       giaVe: '',
       heThongRap: '',
     },
     validationSchema: Yup.object({
       maRap: Yup.string()
+        .required('Vui lòng không để trống'),
+      maCumRap: Yup.string()
         .required('Vui lòng không để trống'),
       ngayChieuGioChieu: Yup.string().required('Vui lòng không để trống'),
       giaVe: Yup.number().integer('Vui lòng nhập số nguyên').required('Vui lòng không để trống'),
@@ -44,7 +48,8 @@ export default function ShowTime() {
         .required('Vui lòng không để trống'),
     }),
     onSubmit: (values) => {
-      dispatch(actCreateCalendar(values,navigate))
+      const {maCumRap,heThongRap, ...newValues} = values
+      dispatch(actCreateCalendar(newValues, navigate))
 
     }
   })
@@ -69,6 +74,15 @@ export default function ShowTime() {
   };
   const handleChangeMovieTheaterCluster = (values) => {
     formik.setFieldValue('maRap', values)
+  };
+  const handleChangeMovieTheaterComplex = (values) => {
+    formik.setFieldValue('maCumRap', values)
+    cluster?.forEach((item)=>{
+      if(item.maCumRap === values){
+        setList(item.danhSachRap)
+
+      }
+    })
   };
   const handleOnchangeInputNumber = (value) => {
     formik.setFieldValue('giaVe', value)
@@ -118,8 +132,8 @@ export default function ShowTime() {
                 options={movieTheater?.map((item, index) => { return { label: item.tenHeThongRap, value: item.maHeThongRap } })}
               />
             </Form.Item>
-            <Form.Item label="Cụm rạp" required hasFeedback validateStatus={formik.errors.maRap && formik.touched.maRap ? 'error' : ''}
-              help={formik.errors.maRap && formik.touched.maRap && (formik.errors.maRap)}>
+            <Form.Item label="Cụm rạp" required hasFeedback validateStatus={formik.errors.maCumRap && formik.touched.maCumRap ? 'error' : ''}
+              help={formik.errors.maCumRap && formik.touched.maCumRap && (formik.errors.maCumRap)}>
               <Select
 
                 style={{
@@ -127,8 +141,21 @@ export default function ShowTime() {
                 }}
 
                 placeholder="Chọn cụm rạp"
+                onChange={handleChangeMovieTheaterComplex}
+                options={cluster?.map((item) => { return { label: item.tenCumRap, value: item.maCumRap } })}
+              />
+            </Form.Item>
+            <Form.Item label="Mã rạp" required hasFeedback validateStatus={formik.errors.maRap && formik.touched.maRap ? 'error' : ''}
+              help={formik.errors.maRap && formik.touched.maRap && (formik.errors.maRap)}>
+              <Select
+
+                style={{
+                  width: '100%',
+                }}
+
+                placeholder="Chọn mã rạp"
                 onChange={handleChangeMovieTheaterCluster}
-                options={cluster?.map((item, index) => { return { label: item.tenCumRap, value: item.maCumRap } })}
+                options={list?.map((item) => { return { label: item.tenRap, value: item.maRap } })}
               />
             </Form.Item>
 

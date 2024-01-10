@@ -1,7 +1,7 @@
 import React, { useEffect, Fragment } from 'react';
 import { Button, Table } from 'antd';
-import { AudioOutlined, DeleteOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons';
-import { Input, Space } from 'antd';
+import {  DeleteOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons';
+import { Input } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { actDeleteUser, actManageUser, actUpdateSelectUser } from './duck/actions';
 import { NavLink, useNavigate } from 'react-router-dom';
@@ -111,7 +111,7 @@ export default function ManageUser() {
             if (window.confirm('Bạn có chắc muốn xóa tài khoản này ' + item.taiKhoan)) {
               //gọi action
               dispatch(actDeleteUser(item.taiKhoan));
-              dispatch(actManageUser())
+              
             }
           }}><DeleteOutlined style={{ color: 'red' }} /></Button>
         </Fragment>

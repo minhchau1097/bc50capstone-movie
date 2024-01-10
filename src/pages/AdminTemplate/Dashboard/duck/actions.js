@@ -1,4 +1,3 @@
-import { replace } from 'formik';
 import * as ActionType from './constants';
 import api from 'utils/api';
 
@@ -8,7 +7,7 @@ export const actManageUser = (taiKhoan = '') => {
   return (dispatch) => {
     dispatch(actUserRequest());
     if (taiKhoan !== '') {
-      return api.get(`QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP01&tuKhoa=${taiKhoan}`, taiKhoan)
+      return api.get(`QuanLyNguoiDung/LayDanhSachNguoiDung?tuKhoa=${taiKhoan}`, taiKhoan)
         .then((result) => {
           dispatch(actUserSuccess(result.data.content));
         })
@@ -16,7 +15,7 @@ export const actManageUser = (taiKhoan = '') => {
           dispatch(actUserFail(error));
         })
     }
-    return api.get("QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP01")
+    return api.get("QuanLyNguoiDung/LayDanhSachNguoiDung")
       .then((result) => {
         dispatch(actUserSuccess(result.data.content));
       })
@@ -32,7 +31,7 @@ export const actAddUser = (formData, navigate) => {
     dispatch(actAddUserRequest());
     api.post("QuanLyNguoiDung/ThemNguoiDung", formData)
       .then((result) => {
-        if (result.data.statusCode === 200) {
+        if (result.data.statusCode === 201) {
           dispatch(actAddUserSuccess(result.data.content));
           alert(result.data.message);
           navigate("/admin/dashboard", { replace: true });
@@ -50,7 +49,7 @@ export const actEditUser = (info, navigate) => {
     dispatch(actEditUserRequest());
     api.post("QuanLyNguoiDung/CapNhatThongTinNguoiDung", info)
       .then((result) => {
-        if (result.data.statusCode === 200) {
+        if (result.data.statusCode === 201) {
           dispatch(actEditUserSuccess(result.data.content));
           alert(result.data.message);
           navigate("/admin/dashboard", { replace: true });
@@ -66,10 +65,11 @@ export const actEditUser = (info, navigate) => {
 export const actDeleteUser = (account) => {
   return (dispatch) => {
     dispatch(actDeleteUserRequest());
-    api.delete(`QuanLyNguoiDung/XoaNguoiDung?TaiKhoan=${account}`)
+    api.delete(`QuanLyNguoiDung/XoaNguoiDung?taiKhoan=${account}`)
       .then((result) => {
         if (result.data.statusCode === 200) {
           dispatch(actDeleteUserSuccess(result.data.content));
+          dispatch(actManageUser())
         }
       })
       .catch((error) => {

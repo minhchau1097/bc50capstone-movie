@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchDetailMovie } from './duck/actions'
@@ -17,11 +17,10 @@ export default function DetailMoviePage() {
     window.scrollTo(0, 0)
   })
   const param = useParams()
-  const {data,loading} = useSelector((state) => state.detailMovieReducer)
+  const { data, loading } = useSelector((state) => state.detailMovieReducer)
   const dispatch = useDispatch();
   const [tabPosition, setTabPosition] = useState('left');
   const [status, setStatus] = useState(false);
-  const user = JSON.parse(localStorage.getItem('Customer'))
 
   useEffect(() => {
     if (localStorage.getItem('Customer')) {
@@ -36,7 +35,7 @@ export default function DetailMoviePage() {
     background-size: cover;
     min-height: 100vh;
 `;
-if(loading) return <Loader value={50}></Loader>
+  if (loading) return <Loader value={50}></Loader>
   const checkData = () => {
     if (data?.heThongRapChieu.length === 0) {
       return <div className='text-center '>
@@ -92,14 +91,19 @@ if(loading) return <Loader value={50}></Loader>
   }
 
   return (
-    <Wrapper >
-      <div className='card-blur' >
-        <div className="container " style={{ padding: '100px 0' }}>
+    <>
+      <div className='bg-detail-movie' >
+        <div className="container ">
           <div className='detail-movie'>
             <div className='row h-100 detail-movie-content'>
               <div className="col-12  col-md-6  ">
                 <div className="detail-movie-left mx-auto mx-md-0">
-                  <img className=' mr-auto' style={{ height: 400, width: '100%' }} src={data && data.hinhAnh} alt="" />
+                  <img className=' mr-auto' style={{ height: 400, width: '100%' }} src={data && data.hinhAnh} alt="" onError={({ currentTarget }) => {
+                    currentTarget.onerror = null; // prevents looping
+                    currentTarget.src = 'https://static.thenounproject.com/png/504708-200.png';
+                    currentTarget.style.background = '#fff';
+                    currentTarget.style.objectFit = 'contain'
+                  }} />
                   {/* Button trigger modal */}
                   <button className='play-trailer' type="button" onClick={() => {
                     dispatch({
@@ -113,45 +117,55 @@ if(loading) return <Loader value={50}></Loader>
                 </div>
               </div>
               <div className="col-12  col-md-6 mt-5  mt-md-0 detail-movie-right">
-                <p>Ngày khởi chiếu :{moment(data && data.ngayKhoiChieu).format('DD.MM.YYYY')}</p>
+                <p>Ngày khởi chiếu : {moment(data && data.ngayKhoiChieu).format('DD - MM - YYYY')}</p>
                 <h3 className='mt-3'>{data && data.tenPhim}</h3>
                 <p className='mt-3'>{data && data.moTa}</p>
                 <div className='d-flex justify-content-start  align-items-baseline mt-4'>
                   <Rate disabled allowHalf value={data && (data.danhGia / 2)} /> <span className='ml-2'>{data && data.danhGia}/10</span>
-                  <a href='#detail-movie-theater' className='btn btn-danger ml-3 ml-sm-5'>Mua vé</a>
+                  <a href='#detail-movie-theater' className='btn btn-danger ml-3 ml-sm-5'>MUA VÉ</a>
                 </div>
               </div>
-              <div className="row w-100 mx-auto ">
-                <div className='background-detail-movie-theater col-12'>
-                  <div id='detail-movie-theater' >
-                    {checkData()}
 
-                  </div>
-                </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="bg-detail-movie-theater">
+        <div className="container">
+          <div className="row w-100 mx-auto ">
+            <div className=' col-12'>
+              <div id='detail-movie-theater' >
+                {checkData()}
+
               </div>
-              <div className='row w-100 mx-auto' >
-                <div className='col-12'>
-                  <div className='detail-movie-comments'>
-                    <div className='p-4'>
-                      <p>Bình luận</p>
-                      {status ? (
-                        <form className='d-flex mt-2 items-start ' onSubmit={(e) => {
-                          e.preventDefault()
-                          console.log(e.target[0].value)
-                        }}>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="bg-detail-movie-comments">
+        <div className="container">
+          <div className='row w-100 mx-auto' >
+            <div className='col-12'>
+              <div className='detail-movie-comments'>
+                <div className='p-4'>
+                  <p>Bình luận</p>
+                  {status ? (
+                    <form className='d-flex mt-2 items-start ' onSubmit={(e) => {
+                      e.preventDefault()
+                      console.log(e.target[0].value)
+                    }}>
 
-                          <textarea style={{backgroundColor:'#100f0fb8'}} name="" id="" className='w-100   p-2 rounded' onChange={(e) => {
-                            // console.log(e.target.value)
-                          }} placeholder='Nhập bình luận tại đây'></textarea>
-                          <button type='submit' className='btn btn-danger ml-2'>Gửi</button>
-                        </form>
-                      ) : (
-                        <div className='text-center'>
-                          <Link to={'/auth'} className='btn btn-primary'>Đăng nhập để bình luận</Link>
-                        </div>
-                      )}
+                      <textarea style={{ backgroundColor: '#100f0fb8' }} name="" id="" className='w-100   p-2 rounded' onChange={(e) => {
+                        // console.log(e.target.value)
+                      }} placeholder='Nhập bình luận tại đây'></textarea>
+                      <button type='submit' className='btn btn-danger ml-2'>Gửi</button>
+                    </form>
+                  ) : (
+                    <div className='text-center'>
+                      <Link to={'/auth'} className='btn '>Đăng nhập để bình luận</Link>
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -159,6 +173,6 @@ if(loading) return <Loader value={50}></Loader>
         </div>
       </div>
 
-    </Wrapper>
+    </>
   )
 }
