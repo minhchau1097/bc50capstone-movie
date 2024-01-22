@@ -17,7 +17,6 @@ export default function LoginPage() {
       ...state,
       [name]: value
     })
-    console.log(name, value)
   }
   const handleSubmit = (e) => {
     e.preventDefault()

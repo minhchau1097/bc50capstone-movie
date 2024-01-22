@@ -7,8 +7,8 @@
 
 .bg-detail-movie-theater {
     background-image: url('../../assets/images/live_bg.jpg');
-    background-position: top center;
-    background-size: cover;
+    // background-position: top center;
+    // background-size: cover;
     padding: 120px 0 115px;
 }
 
@@ -67,7 +67,15 @@
         position: relative;
         overflow: hidden;
         border-radius: 8px;
-
+        .play-trailer{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            color: #fff;
+            background-color: transparent;
+            font-size: 40px;
+        }
         &::after {
             content: '';
             display: block;
@@ -120,22 +128,94 @@
         -webkit-backdrop-filter: blur(19px);
         border-radius: 10px;
         margin: 0 0 60px 0;
-        p:nth-child(1){
+
+        .comments-content {
+            margin-top: 24px;
+            display: flex;
+            gap: 8px;
+
+            div:nth-child(1) {
+                display: flex;
+                width: 40px;
+                height: 40px;
+                justify-content: center;
+                align-items: center;
+            }
+
+            div:nth-child(2) {
+                h5 {
+                    color: $titleColor;
+                    text-transform: capitalize;
+                    margin-bottom: 0;
+                }
+
+                p {
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: $textColor;
+                }
+
+                span {
+                    font-weight: 600;
+                    font-size: 12px;
+                }
+            }
+        }
+
+        p:nth-child(1) {
             font-weight: 600;
             color: $titleColor;
         }
-        .btn{
+
+        .btn {
             font-weight: 600;
             border: 1px solid #fff;
             background-color: $bgColor;
             color: $mainColor;
-            &:hover{
+
+            &:hover {
                 border-color: $titleColor;
                 color: $titleColor;
                 background-color: $mainColor;
             }
         }
     }
+}
+
+.bg-more-movies {
+    background-image: url('../../assets/images/ucm_bg02.jpg');
+    padding: 120px 0 90px;
+    background-position: top center;
+    background-size: cover;
+
+    .container>span {
+        font-size: 12px;
+        display: inline-block;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: $textColor;
+        margin-bottom: 12px;
+    }
+
+    h3 {
+        position: relative;
+        font-weight: 700;
+        color: #fff;
+        padding-bottom: 30px;
+        margin-bottom: 60px;
+
+        &::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            background-image: url(../../assets/images/title_shape.png);
+            width: 98px;
+            height: 7px;
+        }
+    }
+
+
 }
 
 
@@ -165,10 +245,7 @@
         opacity: 1;
     }
 
-    .ant-tabs-ink-bar {
-        background: #fb4226;
-        transition: all 0.5s;
-    }
+
 
     .ant-tabs-tabpane {
         padding-left: 0;
@@ -208,11 +285,14 @@
         padding: 20px 0 0 20px;
 
         p:nth-child(1) {
-            color: rgb(139, 195, 74);
+            color: $titleColor;
         }
 
         p:nth-child(2) {
-            color: #fff;
+            color: $textColor;
+            overflow: hidden;
+            font-weight: 400;
+            text-overflow: ellipsis;
         }
     }
 

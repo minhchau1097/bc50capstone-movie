@@ -4,7 +4,7 @@ import api from "utils/api";
 export const fetchMovieTheater = () => {
     return (dispatch) => {
         dispatch(actMovieTheaterRequest())
-        api.get('QuanLyRap/LayThongTinLichChieuHeThongRap?maNhom=GP06')
+        api.get('QuanLyRap/LayThongTinLichChieuHeThongRap')
             .then((result) => {
                 if (result.data.statusCode === 200) {
                     dispatch(actMovieTheaterSuccess(result.data.content));

@@ -1,8 +1,13 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import Logo from '../../../../assets/images/logo.png'
+import { fetchMovieTheater } from 'pages/HomeTemplate/HomePage/MovieTheater/duck/actions';
 export default function Footer() {
-  const data = useSelector(state => state.listMovieTheaterReducer.data)
+  const dispatch = useDispatch();
+  const data = useSelector(state => state.listMovieTheaterReducer.data);
+  useEffect(()=>{
+    dispatch(fetchMovieTheater())
+  },[])
   return (
     <>
       <footer className="bg-footer">

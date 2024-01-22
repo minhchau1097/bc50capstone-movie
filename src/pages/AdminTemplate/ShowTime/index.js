@@ -12,6 +12,7 @@ import dayjs from 'dayjs';
 import { actGetEditFilms } from '../EditFilms/duck/actions';
 import { actCreateCalendar, actGetMovieTheater, actGetMovieTheaterCluster } from './duck/actions';
 import * as Yup from "yup";
+import { DOMAIN_IMG } from 'utils/api';
 
 export default function ShowTime() {
   const param = useParams();
@@ -58,13 +59,13 @@ export default function ShowTime() {
   };
   const onChange = (value) => {
     if (value) {
-      formik.setFieldValue('ngayChieuGioChieu', dayjs(value).format(dateFormat))
+      formik.setFieldValue('ngayChieuGioChieu', dayjs(value).format())
     }
   };
   const onOk = (value) => {
     if (value) {
 
-      formik.setFieldValue('ngayChieuGioChieu', dayjs(value).format(dateFormat))
+      formik.setFieldValue('ngayChieuGioChieu', dayjs(value).format())
     }
   };
   const handleChangeMovieTheater = (values) => {
@@ -93,7 +94,7 @@ export default function ShowTime() {
       <h4>Phim {dataEdit?.tenPhim}</h4>
       <div className='row mt-5'>
         <div className='col-12 col-lg-6'>
-          <img width={200} height={200} src={dataEdit?.hinhAnh} alt="" />
+          <img width={200} height={200} src={DOMAIN_IMG+dataEdit?.hinhAnh} alt="" />
         </div>
         <div className='col-12 col-lg-6 mt-md-5 mt-lg-0'>
           <Form

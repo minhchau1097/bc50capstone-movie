@@ -10,7 +10,6 @@ import {  Layout, Menu, theme } from 'antd';
 import { NavLink, Navigate, Outlet } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-
 const { Header, Content, Footer, Sider } = Layout;
 
 export default function AdminTemplate() {
@@ -37,7 +36,6 @@ export default function AdminTemplate() {
     };
   }
   const items = [
-    getItem(<div className='p-2 w-100 h-100'><img src="https://cybersoft.edu.vn/wp-content/uploads/2022/10/cyberlogo-white.png" alt="" /></div>),
     getItem(<NavLink to={'/admin/dashboard'} className="text-gray-400">Người dùng</NavLink>, '1', <UserOutlined />, [
       getItem(<NavLink to={'/admin/dashboard'} >Người dùng</NavLink>, '10', <UserOutlined />),
       getItem(<NavLink to={'/admin/add-user'} >Thêm người dùng</NavLink>, '11', <UserAddOutlined />),

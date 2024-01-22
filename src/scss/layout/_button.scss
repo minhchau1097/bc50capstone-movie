@@ -1,14 +1,14 @@
 .play-trailer {
-    position: absolute;
-    font-size: 52px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    height: 70px;
-    width: 70px;
-    color: #fff;
+   
+    color: $titleColor;
     transition: all 0.5s;
     opacity: 0;
+    padding: 12px 18px;
+    font-weight: 700;
+    min-width: 110px;
+    background-color: $mainColor;
+    border-radius: 8px;
+    font-size: 12px;
 }
 .btn-booking{
     color: #fff;
@@ -39,8 +39,4 @@
         border: solid 1px $mainColor;
         transform: scale(1.1);
     }
-}
-.btn-redirectHome{
-    margin-left: 35%;
-    text-decoration: none !important;
 }

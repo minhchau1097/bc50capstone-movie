@@ -7,9 +7,14 @@ module.exports = {
     './src/pages/HomeTemplate/HomePage/MovieTheater/index.js',
     './src/pages/HomeTemplate/HomePage/About/index.js',
     './src/pages/HomeTemplate/HomePage/LichChieu/index.js',
+    './src/pages/HomeTemplate/HomePage/LichChieu/MoviesItem/index.js',
     './src/pages/AdminTemplate/Dashboard/index.js',
     './src/pages/AdminTemplate/index.js',
     './src/pages/HomeTemplate/Personal/index.js',
+    './src/pages/HomeTemplate/Personal/CardItem/index.js',
+    './src/pages/HomeTemplate/Personal/EditInfor/index.js',
+    './src/pages/HomeTemplate/Personal/SwiperItem/index.js',
+    './src/pages/HomeTemplate/Personal/TitleItem/index.js',
     './src/Loader/index.js'
   ],
   presets: [],
@@ -174,6 +179,7 @@ module.exports = {
       mainColor: '#e4d804',
       titleColor: '#1e1b29',
       textColor: '#6a6a6a',
+      bgForm: '#1f1e24'
     }),
     columns: {
       auto: 'auto',

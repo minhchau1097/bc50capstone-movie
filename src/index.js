@@ -9,6 +9,10 @@ import "bootstrap/dist/js/bootstrap.bundle.js";
 import 'animate.css'
 import 'wowjs'
 import './scss/index.scss'
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/grid';
 import store from "./store";
 import { Provider } from "react-redux";
 

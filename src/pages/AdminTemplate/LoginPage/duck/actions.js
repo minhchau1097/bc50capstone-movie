@@ -10,10 +10,7 @@ export const actAuth = (user, navigate) => {
         api.post('QuanLyNguoiDung/DangNhap', user)
             .then((result) => {
                 if (result.data.statusCode === 201) {
-                    
                     const user = result.data.content
-                    console.log(user)
-
                     if ((user.loaiNguoiDung === 'ADMIN')) {
                         dispatch(actAuthSuccess(user));
                         // quan tri => luu trang thai login
@@ -26,8 +23,8 @@ export const actAuth = (user, navigate) => {
                         // quan tri => luu trang thai login
                         localStorage.setItem('Customer', JSON.stringify(user));
                         // quantri => redirect admin/dashboard
-                        navigate('/', { replace: true })
-                        // history.goBack();
+                        // navigate('/', { replace: true })
+                        history.goBack();
                     }
                     let date = new Date().getTime()
                     //setLocalStorage expire 
@@ -37,7 +34,7 @@ export const actAuth = (user, navigate) => {
                 }
             })
             .catch((error) => {
-                dispatch(actAuthFail(error.response.data.content))
+                dispatch(actAuthFail(error.response.data.message))
             })
     }
 }

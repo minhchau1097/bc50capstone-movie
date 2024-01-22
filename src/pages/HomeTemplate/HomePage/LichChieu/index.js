@@ -5,63 +5,36 @@ import { actFetchLichChieu, actFetchInfoCumRap, actNgayGioChieu } from './duck/a
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
-import { Select, Form, } from 'antd';
+import { Select, Form, Tabs, } from 'antd';
 import Swal from 'sweetalert2';
 import Search from './../../../../assets/images/search.png';
+import MoviesItem from './MoviesItem';
 
 
 function LichChieu() {
   const [maPhim, setMaPhim] = useState('');
   const [state, setState] = useState([]);
+  const [status, setStatus] = useState({
+    hot: true,
+    sapChieu: false,
+    dangChieu: false,
+    bgColor: '#e4d804',
+    text: 'chiếu rạp'
+  });
   const [maLichChieu, setMaLichChieu] = useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.lichChieuReducer.data);
+  const movies = useSelector((state) => state.lichChieuReducer);
   const { cumRap, ngayGioChieu } = useSelector((state) => state.lichChieuReducer);
 
-  //React-Slick
-  const settings = {
-    
-    dots: true,
-    infinite: true,
-    slidesToShow: 1,
-    speed: 500,
-    rows: 2,
-    slidesPerRow: 4,
-    arrows: false,
-    responsive: [
-      {
-        breakpoint: 1199,
-        settings: {
-          slidesPerRow: 4,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: true
-        }
-      },
-      {
-        breakpoint: 960,
-        settings: {
-          slidesPerRow: 3,
-          slidesToScroll: 1,
-        }
-      },
-      {
-        breakpoint: 599,
-        settings: {
-          slidesPerRow: 1,
-          slidesToScroll: 1,
-        }
-      }
-    ]
-  };
+
+
   //Call api list movie
   useEffect(() => {
     dispatch(actFetchLichChieu());
   }, []);
-
   const renderListLichChieu = () => {
-    return data?.map((films) => <div key={films.maPhim} ><LichChieuItem films={films} /></div>)
+    return <MoviesItem movies={movies} param={''} status={status} />
   };
 
   //Select antd
@@ -121,8 +94,8 @@ function LichChieu() {
                   remember: true,
                 }}
               >
-                <Form.Item style={{color:'#fff',backgroundColor:'#000'}}>
-                  <Select  options={data?.map((movie) => { return { label: movie.tenPhim, value: movie.maPhim } })} onChange={handleChangeInfoFilms} placeholder="Chọn Phim" />
+                <Form.Item style={{ color: '#fff', backgroundColor: '#000' }}>
+                  <Select options={movies.data?.map((movie) => { return { label: movie.tenPhim, value: movie.maPhim } })} onChange={handleChangeInfoFilms} placeholder="Chọn Phim" />
                 </Form.Item>
               </Form>
             </div>
@@ -169,11 +142,31 @@ function LichChieu() {
             </div>
           </form>
         </nav>
-        <Slider {...settings}>
-          {renderListLichChieu()}
-        </Slider>
+        <div className='max-lg:flex max-lg:flex-col max-lg:items-center'>
+          <span className='text-textColor uppercase text-[12px] font-bold'>Phim {status.text}</span>
+          <div className='flex justify-between max-lg:flex-col max-lg:items-center'>
+            <div>
+
+              <h3 className='max-lg:before:left-0 max-lg:before:right-0 max-lg:before:mx-auto max-lg:mb-[40px]'>Phim mới</h3>
+            </div>
+            <ul className='flex gap-4 mb-0 '>
+              <li className={` max-sm:px-[20px] py-[12px] px-[28px] rounded-[8px] bg-bgColor text-gray-400 inline-block mb-20 text-[12px] font-bold border-[1px] border-[#2d303d] cursor-pointer ${status.hot ? 'text-white !border-mainColor' : ''}`} onClick={() => {
+                setStatus({ hot: true, text: 'hot' })
+              }}>Hot</li>
+              <li className={` max-sm:px-[20px] py-[12px] px-[28px] rounded-[8px] bg-bgColor text-gray-400 inline-block mb-20 text-[12px] font-bold border-[1px] border-[#2d303d] cursor-pointer ${status.dangChieu ? 'text-white !border-mainColor' : ''}`} onClick={() => {
+                setStatus({ dangChieu: true, text: 'đang chiếu' })
+                // renderListLichChieu()
+              }}>Đang chiếu</li>
+              <li className={` max-sm:px-[20px] py-[12px] px-[28px] rounded-[8px] bg-bgColor text-gray-400 inline-block mb-20 text-[12px] font-bold border-[1px] border-[#2d303d] cursor-pointer ${status.sapChieu ? 'text-white !border-mainColor' : ''}`} onClick={() => {
+                setStatus({ sapChieu: true, text: 'sắp chiếu' })
+              }}>Sắp chiếu</li>
+            </ul>
+          </div>
+        </div>
+        {renderListLichChieu()}
       </div>
     </div>
+
   )
 }
 

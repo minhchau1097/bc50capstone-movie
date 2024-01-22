@@ -24,8 +24,10 @@ export const actBuyTicket = (ticket) => {
         dispatch(fetchBookingTicket(ticket.maLichChieu));
         //đặt vé xong clear thông tin
         dispatch(actBuyTicketClearData());
-        if (result.data.statusCode === 200) {
+        if (result.data.statusCode === 201) {
+          alert(result.data.content)
           dispatch(actBuyTicketRedirect());
+          dispatch(actHistoryTicket());
         }
       })
       .catch((error) => {
