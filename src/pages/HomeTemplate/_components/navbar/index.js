@@ -71,8 +71,8 @@ export default function Navbar() {
   }
 
   const handlePersonal = () => {
-    dispatch(actUpdateInput(dataInfoUser));
-    navigate("/personal-info", { replace: true });
+
+    navigate("/personal-info", { replace: false });
   }
 
   return (

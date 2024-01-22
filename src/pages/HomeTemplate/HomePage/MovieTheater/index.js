@@ -4,6 +4,7 @@ import { fetchMovieTheater } from './duck/actions'
 import { ConfigProvider, Tabs } from 'antd';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import { DOMAIN_IMG } from 'utils/api';
 export default function MovieTheater() {
   const { TabPane } = Tabs;
 
@@ -35,9 +36,9 @@ export default function MovieTheater() {
                     return (
 
                       <div className={`flex flex-row movie-theater-box  ${index >= 1 ? 'mt-4' : ''}`} key={index} >
-                        <img src={item2.hinhAnh} alt={item2.tenPhim} style={{ width: 100, height: 130, borderRadius: 12 }} />
+                        <img src={DOMAIN_IMG+item2.hinhAnh} alt={item2.tenPhim} style={{ width: 100, height: 130, borderRadius: 12 ,objectFit:'cover'}} />
                         <div className='pl-4 w-[320px]'>
-                          <p className='movie-theater-movie-name mb-3'><span>C18</span>{item2.tenPhim}</p>
+                          <p className='movie-theater-movie-name mb-3'><span>T18</span>{item2.tenPhim}</p>
                           <div className='movie-theater-movie-date'>{item2.lstLichChieuTheoPhim.slice(0, 4).map((item3, index) => {
                             return <Link to={`/booking-ticket/${item3.maLichChieu}`} className='movie-date' key={index}>{moment(item3.ngayChieuGioChieu).format('h:mmA')}</Link>
                           })}</div>

@@ -13,7 +13,8 @@ import { useDispatch } from 'react-redux';
 import { actGetAddNewFilms } from './duck/actions';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from "yup";
-
+import 'dayjs/locale/vi'
+import locale from 'antd/es/date-picker/locale/vi_VN';
 
 export default function AddFilms() {
   const [componentSize, setComponentSize] = useState('default');
@@ -145,7 +146,7 @@ export default function AddFilms() {
       <Form.Item label="Ngày khởi chiếu" required hasFeedback
         validateStatus={formik.errors.ngayKhoiChieu && formik.touched.ngayKhoiChieu ? 'error' : ''}
         help={formik.errors.ngayKhoiChieu && formik.touched.ngayKhoiChieu && (formik.errors.ngayKhoiChieu)}>
-        <DatePicker format={'DD-MM-YYYY'} onChange={onChangeDate} />
+        <DatePicker locale={locale} format={'MM-DD-YYYY'} onChange={onChangeDate} />
       </Form.Item>
       <Form.Item label="Đang chiếu" >
         <Switch

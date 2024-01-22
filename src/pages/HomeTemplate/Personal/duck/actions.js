@@ -15,15 +15,13 @@ export const actFetchPersonalInfo = () => {
   }
 }
 // QuanLyNguoiDung/CapNhatThongTinNguoiDung
-export const actEditPersonalInfo = (info, navigate) => {
+export const actEditPersonalInfo = (data) => {
   return (dispatch) => {
     dispatch(actEditPersonalRequest());
-    api.post('QuanLyNguoiDung/ThongTinTaiKhoan', info)
+    api.post('QuanLyNguoiDung/CapNhatThongTinNguoiDung', data)
       .then((result) => {
-        if (result.data.statusCode === 200) {
+        if (result.data.statusCode === 201) {
           dispatch(actEditPersonalSuccess(result.data.content));
-          alert(result.data.message);
-          navigate("/", { replace: true });
         }
       }).catch((error) => {
         dispatch(actEditPersonalFail(error))

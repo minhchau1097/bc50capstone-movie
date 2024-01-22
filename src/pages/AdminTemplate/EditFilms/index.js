@@ -13,11 +13,12 @@ import {
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { actGetEditFilms, actUpdateEditFilms } from './duck/actions';
 import dayjs from 'dayjs';
+import 'dayjs/locale/vi'
 import * as Yup from "yup";
-
-
+import locale from 'antd/es/date-picker/locale/vi_VN';
+dayjs.locale('vi')
 export default function EditFilms() {
-    const dateFormat = "DD/MM/YYYY";
+    const dateFormat = "MM-DD-YYYY";
     const param = useParams();
     const dataEdit = useSelector(state => state.editFilmsReducer.data)
     const [componentSize, setComponentSize] = useState('default');
@@ -49,7 +50,7 @@ export default function EditFilms() {
         validationSchema: Yup.object({
             tenPhim: Yup.string()
                 .min(5, 'Tối thiểu 5 ký tự')
-                .max(40, 'Tối đa 40 ký tự')
+                .max(100, 'Tối đa 100 ký tự')
                 .required('Vui lòng không để trống'),
             trailer: Yup.string()
                 .required('Vui lòng không để trống').url('Vui lòng nhập đường dẫn hợp lệ').nullable(),
@@ -61,14 +62,14 @@ export default function EditFilms() {
             danhGia: Yup.number().required('Vui lòng không để trống').integer('Vui lòng nhập số nguyên'),
         }),
         onSubmit: (values) => {
-            values.maNhom = 'GP03'
+            // values.maNhom = 'GP03'
             let formData = new FormData();
             for (let key in values) {
                 if (key !== 'hinhAnh') {
                     formData.append(key, values[key])
                 } else {
                     if (values.hinhAnh !== null) {
-                        formData.append('File', values.hinhAnh, values.hinhAnh.name)
+                        formData.append('file', values.hinhAnh, values.hinhAnh.name)
                     }
                 }
             }
@@ -90,9 +91,9 @@ export default function EditFilms() {
             formik.setFieldValue(name, value)
         }
     }
-    const onChangeDate = (value) => {
-        let ngayKhoiChieu = dayjs(value).format(dateFormat);
-        formik.setFieldValue('ngayKhoiChieu', ngayKhoiChieu)
+    const onChangeDate = (value,string) => {
+        // phai lay value thi string moi co gia tri de quy doi
+        formik.setFieldValue('ngayKhoiChieu', string)
     };
     const handleChangeFile = (e) => {
         let file = e.target.files[0];
@@ -109,7 +110,7 @@ export default function EditFilms() {
     }
     const renderDatePicker = () => {
         if (formik.values.ngayKhoiChieu) {
-            return <DatePicker defaultValue={dayjs(formik.values.ngayKhoiChieu)} onChange={onChangeDate} format={dateFormat} />
+            return <DatePicker locale={locale} defaultValue={dayjs(formik.values.ngayKhoiChieu)} onChange={onChangeDate} format={dateFormat} />
         }
     }
     return (
@@ -128,7 +129,7 @@ export default function EditFilms() {
             onValuesChange={onFormLayoutChange}
             size={componentSize}
 
-           
+
         >
             <h3 className='text-center'>Cập nhật phim</h3>
             <Form.Item label="Form Size" name="size">

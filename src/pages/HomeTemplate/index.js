@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { memo, useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import Navbar from './_components/navbar'
 import { actTryLogin } from 'pages/AdminTemplate/LoginPage/duck/actions'
@@ -7,7 +7,7 @@ import BackToTop from './_components/BackToTop'
 import Footer from './_components/footer'
 
 export default function HomeTemplate() {
-  const MemoFooter = React.memo(() => {
+  const MemoFooter = memo(() => {
     return <Footer />
   })
   const dispatch = useDispatch()

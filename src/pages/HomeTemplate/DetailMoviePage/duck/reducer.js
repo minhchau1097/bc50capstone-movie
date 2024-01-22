@@ -3,9 +3,14 @@ const myStateDetail = {
     loading: false,
     data: null,
     error: null,
+    comment: {
+        loading: false,
+        data: null,
+        error: null,
+    }
 }
 
- const detailMovieReducer = (state = myStateDetail, action) => {
+const detailMovieReducer = (state = myStateDetail, action) => {
     switch (action.type) {
         case ActionTypes.DETAIL_MOVIE_REQUEST: {
             state.loading = true;
@@ -25,6 +30,26 @@ const myStateDetail = {
             state.loading = false;
             state.data = null;
             state.error = action.payload;
+            return { ...state }
+        }
+        case ActionTypes.COMMENT_REQUEST: {
+            state.comment.loading = true;
+            state.comment.data = null;
+            state.comment.error = null;
+            return { ...state }
+        }
+
+        case ActionTypes.COMMENT_SUCCESS: {
+            state.comment.loading = false;
+            state.comment.data = action.payload;
+            state.comment.error = null;
+            return { ...state }
+        }
+
+        case ActionTypes.COMMENT_FAIL: {
+            state.comment.loading = false;
+            state.comment.data = null;
+            state.comment.error = action.payload;
             return { ...state }
         }
 

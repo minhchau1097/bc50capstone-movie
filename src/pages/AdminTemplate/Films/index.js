@@ -7,6 +7,7 @@ import { NavLink } from 'react-router-dom';
 import { actClearDeleteFilms, actDeleteFilms } from './duck/action';
 import Search from 'antd/es/input/Search';
 import { actEditFilmsClear } from '../EditFilms/duck/actions';
+import { DOMAIN_IMG } from 'utils/api';
 export default function ListMovie() {
   const dispatch = useDispatch()
   const films = useSelector((state) => state.lichChieuReducer.data)
@@ -61,7 +62,8 @@ export default function ListMovie() {
       dataIndex: 'hinhAnh',
       width: 100,
       render: (text, films, index) => {
-        return <img style={{ height: 80, width: 80 }} src={films.hinhAnh} alt={films.tenPhim} onError={(e) => { e.target.onError = null; e.target.src = `https://picsum.photo/id/${index}/50/50` }} />
+        return <img style={{ height: 80, width: 80 }} src={DOMAIN_IMG+films.hinhAnh} alt={films.tenPhim} onError={({currentTarget}) => { currentTarget.onerror = null; // prevents looping
+        currentTarget.src = 'https://static.thenounproject.com/png/504708-200.png';}} />
       }
 
     },

@@ -1,47 +1,27 @@
-#carouselId {
-    ol {
-        margin-bottom: 2.5rem;
+.banner-item {
+    height: 700px;
 
-        li {
-            border-radius: 50%;
-            width: 0.75rem;
-            height: 0.75rem;
-        }
-
-        .active {
-            background-color: $mainColor;
-        }
+    img {
+        object-fit: fill;
+        width: 100%;
+        height: 100%;
     }
-
-    .carousel-inner {
-        .carousel-item {
-            img {
-                object-fit: fill;
-                height: 700px;
-                width: 100%
-            }
-        }
-    }
-
-
 }
 
-@include Reponsive($xs) {
-    .carousel-item {
-        img {
 
-            height: 300px !important;
-        }
+
+
+@include Reponsive($xs) {
+    .banner-item {
+        height: 300px;
+
 
     }
 }
 
 @include Reponsive($md) {
-    .carousel-item {
-        img {
-            height: 400px !important;
-        }
+    .banner-item {
+        height: 400px;
 
     }
 }
-
