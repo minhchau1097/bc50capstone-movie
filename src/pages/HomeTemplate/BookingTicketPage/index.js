@@ -9,7 +9,7 @@ import { WebsocketContext } from 'contexts/WebsocketContext';
 import bg from '../../../assets/images/live_bg.jpg'
 import styled from 'styled-components';
 import { DOMAIN_IMG } from 'utils/api';
-import Payment from '../_components/Payment';
+import Payment from '../../../components/Payment';
 const Wrapper = styled.div`
   background-image: url(${bg});
   // background-position: center ;

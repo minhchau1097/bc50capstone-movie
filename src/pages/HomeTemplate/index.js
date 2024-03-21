@@ -1,14 +1,20 @@
 import React, { memo, useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
-import Navbar from './_components/navbar'
+import Navbar from '../../components/navbar'
 import { actTryLogin } from 'pages/AdminTemplate/LoginPage/duck/actions'
 import { useDispatch } from 'react-redux'
-import BackToTop from './_components/BackToTop'
-import Footer from './_components/footer'
+import BackToTop from '../../components/BackToTop'
+import Footer from '../../components/footer'
 
 export default function HomeTemplate() {
   const MemoFooter = memo(() => {
     return <Footer />
+  })
+  const MemoNavbar = memo(() => {
+    return <Navbar />
+  })
+  const MemoBackToTop = memo(() => {
+    return <BackToTop />
   })
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -20,8 +26,8 @@ export default function HomeTemplate() {
   }, [])
   return (
     <>
-      <Navbar />
-      <BackToTop />
+      <MemoNavbar />
+      <MemoBackToTop />
       <Outlet />
       <MemoFooter />
 

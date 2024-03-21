@@ -1,21 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './src/pages/HomeTemplate/_components/footer/index.js',
-    './src/pages/HomeTemplate/_components/BackToTop/index.js',
-    './src/pages/HomeTemplate/BookingTicketPage/index.js',
-    './src/pages/HomeTemplate/HomePage/MovieTheater/index.js',
-    './src/pages/HomeTemplate/HomePage/About/index.js',
-    './src/pages/HomeTemplate/HomePage/LichChieu/index.js',
-    './src/pages/HomeTemplate/HomePage/LichChieu/MoviesItem/index.js',
-    './src/pages/AdminTemplate/Dashboard/index.js',
-    './src/pages/AdminTemplate/index.js',
-    './src/pages/HomeTemplate/Personal/index.js',
-    './src/pages/HomeTemplate/Personal/CardItem/index.js',
-    './src/pages/HomeTemplate/Personal/EditInfor/index.js',
-    './src/pages/HomeTemplate/Personal/SwiperItem/index.js',
-    './src/pages/HomeTemplate/Personal/TitleItem/index.js',
-    './src/Loader/index.js'
+    './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   presets: [],
   darkMode: 'class',// or  'media' 

@@ -3,7 +3,7 @@ const myStateDetail = {
     loading: false,
     data: null,
     error: null,
-    comment: {
+    comments: {
         loading: false,
         data: null,
         error: null,
@@ -33,23 +33,23 @@ const detailMovieReducer = (state = myStateDetail, action) => {
             return { ...state }
         }
         case ActionTypes.COMMENT_REQUEST: {
-            state.comment.loading = true;
-            state.comment.data = null;
-            state.comment.error = null;
+            state.comments.loading = true;
+            state.comments.data = null;
+            state.comments.error = null;
             return { ...state }
         }
 
         case ActionTypes.COMMENT_SUCCESS: {
-            state.comment.loading = false;
-            state.comment.data = action.payload;
-            state.comment.error = null;
+            state.comments.loading = false;
+            state.comments.data = action.payload;
+            state.comments.error = null;
             return { ...state }
         }
 
         case ActionTypes.COMMENT_FAIL: {
-            state.comment.loading = false;
-            state.comment.data = null;
-            state.comment.error = action.payload;
+            state.comments.loading = false;
+            state.comments.data = null;
+            state.comments.error = action.payload;
             return { ...state }
         }
 

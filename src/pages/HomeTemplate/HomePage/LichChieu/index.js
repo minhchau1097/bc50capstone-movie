@@ -8,7 +8,7 @@ import moment from 'moment';
 import { Select, Form, Tabs, } from 'antd';
 import Swal from 'sweetalert2';
 import Search from './../../../../assets/images/search.png';
-import MoviesItem from './MoviesItem';
+import MoviesItem from 'components/MoviesItem';
 
 
 function LichChieu() {

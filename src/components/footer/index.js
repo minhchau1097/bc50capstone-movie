@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import Logo from '../../../../assets/images/logo.png'
+import Logo from '../../assets/images/logo.png'
 import { fetchMovieTheater } from 'pages/HomeTemplate/HomePage/MovieTheater/duck/actions';
 export default function Footer() {
   const dispatch = useDispatch();
