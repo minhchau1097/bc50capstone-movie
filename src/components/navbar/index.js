@@ -2,10 +2,10 @@ import { UserOutlined, UserAddOutlined, LogoutOutlined } from '@ant-design/icons
 import { actLogout } from 'pages/AdminTemplate/LoginPage/duck/actions'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { actFetchPersonalInfo, actUpdateInput } from './../../Personal/duck/actions';
+import { actFetchPersonalInfo, actUpdateInput } from '../../pages/HomeTemplate/Personal/duck/actions';
 import { NavLink, useNavigate } from 'react-router-dom'
 import moment from 'moment';
-import Logo from '../../../../assets/images/logo.png'
+import Logo from '../../assets/images/logo.png'
 export default function Navbar() {
   let dispatch = useDispatch();
   let navigate = useNavigate();
