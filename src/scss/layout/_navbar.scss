@@ -1,10 +1,15 @@
 .fixed-nav{
     position: fixed;
     background-color: $bgColor;
+   
+}
+.collapse{
+    visibility: visible;
 }
 .top-nav{
     position: absolute;
     background-color: $bgColor;
+    
 }
 .navbar {
     z-index: 50;

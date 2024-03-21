@@ -82,7 +82,7 @@ export default function Navbar() {
         <div className='navbar-custom'>
           <NavLink to={'/'}>
 
-            <img src={Logo} alt="asdasd" />
+            <img src={Logo} alt="logo movie" />
           </NavLink>
 
           {/* Toggler/collapsibe Button */}
