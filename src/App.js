@@ -14,25 +14,6 @@ export const history = createBrowserHistory();
 
 function App() {
   return (
-    <HelmetProvider>
-      <Helmet>
-        <title>Movie</title>
-        <meta
-          name="description"
-          content="Không chỉ đặt vé, bạn còn có thể bình luận phim."
-        />
-        <meta property="og:type" content="website" />
-        <meta
-          property="og:url"
-          content="https://my-movie-booking-app.vercel.app/"
-        />
-        <meta property="og:title" content="Movie" />
-        <meta
-          property="og:description"
-          content="Không chỉ đặt vé, bạn còn có thể bình luận phim."
-        />
-        <meta property="og:image" content="../assets/images/logo.png" />
-      </Helmet>
       <Suspense fallback={<Loader value={50} />}>
         <BrowserRouter history={history}>
           <ModalTrailer />
@@ -41,7 +22,6 @@ function App() {
           </WebsocketProvider>
         </BrowserRouter>
       </Suspense>
-    </HelmetProvider>
   );
 }
 
